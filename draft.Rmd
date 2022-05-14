@@ -81,3 +81,36 @@ p <- emploi %>%
 
 animate(p, start_pause = 20, end_pause = 20, nframes = 140)
 ```
+
+
+```{r diplome.25.gif.race, fig.asp=9/19}
+p <- emploi %>%
+  filter(AgeQ==25) %>%
+  mutate(Diplome = fct_recode(Diplome,
+    "Aucun ou DNB" = "DNB",
+    "Aucun ou DNB" = "Aucun",
+    "Bac+2 ou 3" = "Bac+2",
+    "Bac+2 ou 3" = "Bac+3",
+  )) %>%
+  group_by(Année,Diplome) %>%
+  summarise(Population = sum(Population)) %>%
+  group_by(Année) %>%
+  mutate(Population = Population/sum(Population)) %>%
+  mutate(Diplome=fct_rev(Diplome)) %>%
+  mutate(rank = as.character(rank(Population))) %>%
+  ggplot(aes(y=rank,x=Population,fill=Diplome, group=Diplome)) +
+  geom_col(color="black") +
+  geom_label(aes(label=Diplome), fill="white", position = position_stack(vjust = .5)) +
+  scale_x_continuous(labels=scales::percent) +
+  scale_fill_brewer(palette = "Purples", guide="none") +
+  #scale_color_brewer(palette = "Purples", direction = -1, guide="none") +
+  theme_cpesr_cap() +
+  ggtitle("Répartition par diplôme en {closest_state}", subtitle="Population française entre 25 à 29 ans") +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
+          panel.grid.major.x = element_line(color="grey", size=0.2),
+          panel.grid.major.y = element_blank()) +
+    transition_states(Année, wrap = FALSE, transition_length = 4, state_length = 1) 
+
+animate(p, start_pause = 20, nframes = 200, end_pause = 20)
+```
