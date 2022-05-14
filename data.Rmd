@@ -1,0 +1,82 @@
+---
+title: "Chargement des données"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+options(dplyr.summarise.inform = FALSE)
+
+spoilerTable <- function(df) {
+  cat("\n<details>\n")
+  cat("  <summary>Voir les données</summary>\n\n")
+  
+  print(kableExtra::kable(df, format="pipe"))
+  
+  cat("\n\n</details>\n")
+}
+```
+
+```{r indiv, results='asis', cache=TRUE}
+
+# Les données doivent être dans un dossier "data/Csv/"
+read_and_sum <- function(file) {
+  indiv <- read.csv2(file, dec=".")
+  if("extri" %in% colnames(indiv)) {
+    indiv <- indiv %>%
+      mutate(EXTRI = extri)
+  }
+  indiv %>%
+    group_by(ANNEE = as.numeric(ANNEE),
+             AGE, AGEQ, SEXE,
+             ACTEU6,
+             DIP = as.numeric(DIP)) %>%
+    summarise(Population = sum(EXTRI,na.rm=TRUE))
+}
+
+# Lecture de tous les fichiers indiv
+emploi.raw <- tibble()
+for(f in list.files("data/Csv",pattern = "indiv", ignore.case = TRUE)) {
+  print(f)
+  emploi.raw <- bind_rows(emploi.raw, read_and_sum(paste0("data/Csv/",f)))
+}
+```
+
+
+```{r reformat}
+# Reformatage des variables
+emploi <- emploi.raw %>%
+  mutate(
+    Année = ANNEE,
+    Age = AGE,
+    AgeQ = AGEQ,
+    Sexe = factor(SEXE,levels=c(1,2), labels=c("H","F")),
+    Diplome = factor(floor(DIP/10),
+                     levels=c(1,2,3,4,5,6,7),
+                     labels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun")
+                     ),
+
+
+    Activité = factor(ACTEU6,
+                      levels=c(1,2,3,4,5,6),
+                      labels=c(
+                        "Actif occupé",
+                        "Actif occupé",
+                        "Chômeur ou inactif",
+                        "Chômeur ou inactif",
+                        "Etudiant",
+                        "Chômeur ou inactif")
+                      ) 
+  ) %>%
+  group_by(Année,Age,AgeQ,Diplome,Activité,) %>%
+  summarise(Population = as.integer(sum(Population,na.rm=TRUE))) %>%
+  na.omit()
+```
+
+
+```{r save}
+save(emploi.raw,emploi,file="emploi.RData")
+```
+

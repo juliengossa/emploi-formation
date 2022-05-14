@@ -1,0 +1,83 @@
+---
+title: "Draft"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(gganimate)
+library(ggcpesrthemes)
+theme_cpesr_setup(source="INSEE, enquête emploi en continu 2003-2020")
+
+options(dplyr.summarise.inform = FALSE)
+
+spoilerTable <- function(df) {
+  cat("\n<details>\n")
+  cat("  <summary>Voir les données</summary>\n\n")
+  
+  print(kableExtra::kable(df, format="pipe"))
+  
+  cat("\n\n</details>\n")
+}
+
+load("emploi.RData")
+```
+
+
+```{r activite}
+emploi %>%
+  group_by(Année,Age,Activité) %>%
+  summarise(Population = sum(Population)) %>%
+  ggplot(aes(x=Age,y=Population,fill=Activité,group=Activité)) +
+  geom_area() +
+  facet_wrap(Année~.) 
+```
+
+
+```{r activite.25}
+emploi %>%
+  filter(AgeQ<30) %>%
+  group_by(Année,Activité) %>%
+  summarise(Population = sum(Population)) %>%
+  mutate(Activité = factor(Activité,levels=c("Actif occupé","Etudiant","Chômeur ou inactif"))) %>%
+  ggplot(aes(x=Année,y=Population,fill=Activité,group=Activité)) +
+  geom_area(color="white") 
+```
+
+
+```{r diplome.25}
+emploi %>%
+  filter(AgeQ==25) %>%
+  group_by(Année,Diplome) %>%
+  summarise(Population = sum(Population)) %>%
+  mutate(Diplome=fct_rev(Diplome)) %>%
+  ggplot(aes(y=Diplome,x=Population,fill=Diplome)) +
+  geom_col(color="black") +
+  facet_wrap(Année~.) +
+  scale_fill_brewer(palette = "Purples", guide="none")
+```
+
+
+```{r diplome.25.gif, fig.asp=9/19}
+p <- emploi %>%
+  filter(AgeQ==25) %>%
+  group_by(Année,Diplome) %>%
+  summarise(Population = sum(Population)) %>%
+  group_by(Année) %>%
+  mutate(Population = Population/sum(Population)) %>%
+  mutate(Diplome=fct_rev(Diplome)) %>%
+  ggplot(aes(y=Diplome,x=Population,fill=Diplome)) +
+  geom_col(color="black") +
+  scale_x_continuous(labels=scales::percent) +
+  scale_fill_brewer(palette = "Purples", guide="none") +
+  theme_cpesr_cap() +
+  ggtitle("Répartition par diplôme en {closest_state}", subtitle="Population française entre 25 à 29 ans") +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
+          panel.grid.major.x = element_line(color="grey", size=0.2),
+          panel.grid.major.y = element_blank()) +
+    transition_states(Année, wrap = FALSE) 
+
+animate(p, start_pause = 20, end_pause = 20, nframes = 140)
+```
