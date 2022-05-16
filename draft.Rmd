@@ -52,6 +52,7 @@ emploi %>%
   group_by(Année,Diplome) %>%
   summarise(Population = sum(Population)) %>%
   mutate(Diplome=fct_rev(Diplome)) %>%
+  na.omit() %>%
   ggplot(aes(y=Diplome,x=Population,fill=Diplome)) +
   geom_col(color="black") +
   facet_wrap(Année~.) +
@@ -67,6 +68,7 @@ p <- emploi %>%
   group_by(Année) %>%
   mutate(Population = Population/sum(Population)) %>%
   mutate(Diplome=fct_rev(Diplome)) %>%
+  na.omit() %>% 
   ggplot(aes(y=Diplome,x=Population,fill=Diplome)) +
   geom_col(color="black") +
   scale_x_continuous(labels=scales::percent) +
@@ -79,13 +81,13 @@ p <- emploi %>%
           panel.grid.major.y = element_blank()) +
     transition_states(Année, wrap = FALSE) 
 
-animate(p, start_pause = 20, end_pause = 20, nframes = 140)
+animate(p, start_pause = 20, end_pause = 20, nframes = 240)
 ```
 
 
 ```{r diplome.25.gif.race, fig.asp=9/19}
 p <- emploi %>%
-  filter(AgeQ==25) %>%
+  filter(AgeQ==25, !is.na(Diplome)) %>%
   mutate(Diplome = fct_recode(Diplome,
     "Aucun ou DNB" = "DNB",
     "Aucun ou DNB" = "Aucun",
@@ -113,4 +115,98 @@ p <- emploi %>%
     transition_states(Année, wrap = FALSE, transition_length = 4, state_length = 1) 
 
 animate(p, start_pause = 20, nframes = 200, end_pause = 20)
+```
+
+
+
+```{r emploi.bac5}
+emploi %>%
+  filter(AgeQ==25, str_detect(Diplome,"Bac"), Activité != "Etudiant") %>%
+  group_by(Année,Diplome,Activité) %>%
+  summarise(Population = sum(Population)) %>%
+  group_by(Diplome, Activité) %>%
+  arrange(Année) %>%
+  mutate(Evolution = Population / first(Population) * 100) %>%
+  ggplot(aes(x=Année,y=Evolution,color=Activité, fill=Activité, group=Activité)) +
+  geom_line() + 
+  facet_wrap(Diplome~.) +
+  theme_cpesr_cap()
+```
+
+
+## Diplome vs Salaire
+
+Salaire moyen = moyenne des salaires moyens pondérée par population ?
+
+```{r dipl.vs.salaire, fig.height=20, fig.width=6}
+emploi %>%
+  filter(AgeQ==25) %>%
+  group_by(Année,Diplome) %>%
+  summarise(
+    SalaireMoyen = weighted.mean(SalaireMoyen,Population,na.rm=TRUE),
+    Population = mean(Population)
+    ) %>% 
+  mutate(Diplome=fct_rev(Diplome)) %>%
+  na.omit() %>%
+  pivot_longer(c(Population,SalaireMoyen), names_to = "Indicateur", values_to = "Valeur") %>%
+  ggplot(aes(y=Diplome,x=Valeur,fill=Diplome)) +
+  geom_col(color="black") +
+  facet_grid(Année~Indicateur, scales = "free_x") +
+  scale_fill_brewer(palette = "Purples", guide="none")
+```
+
+```{r dipl.vs.salaire.gif}
+p <- emploi %>%
+  filter(AgeQ==25) %>%
+  group_by(Année,Diplome) %>%
+  summarise(
+    SalaireMoyen = weighted.mean(SalaireMoyen,Population,na.rm=TRUE),
+    Population = mean(Population)
+    ) %>% 
+  mutate(Diplome=fct_rev(Diplome)) %>%
+  na.omit() %>%
+  pivot_longer(c(Population,SalaireMoyen), names_to = "Indicateur", values_to = "Valeur") %>%
+  ggplot(aes(y=Diplome,x=Valeur,fill=Diplome)) +
+  geom_col(color="black") +
+  facet_grid(.~Indicateur, scales = "free_x") +
+  scale_fill_brewer(palette = "Purples", guide="none") +
+  theme_cpesr_cap() +
+  ggtitle("Répartition par diplôme en {closest_state}", subtitle="Population française entre 25 à 29 ans et salaire moyen") +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
+          panel.grid.major.x = element_line(color="grey", size=0.2),
+          panel.grid.major.y = element_blank()) +
+    transition_states(Année, wrap = FALSE, transition_length = 4, state_length = 1) 
+
+animate(p, start_pause = 20, nframes = 200, end_pause = 20)
+  
+```
+
+
+
+```{r dipl.vs.salaire.hf.gif}
+p <- emploi %>%
+  filter(AgeQ==25) %>%
+  group_by(Année,Sexe,Diplome) %>%
+  summarise(
+    SalaireMoyen = weighted.mean(SalaireMoyen,Population,na.rm=TRUE),
+    Population = mean(Population)
+    ) %>% 
+  mutate(Diplome=fct_rev(Diplome)) %>%
+  na.omit() %>%
+  pivot_longer(c(Population,SalaireMoyen), names_to = "Indicateur", values_to = "Valeur") %>%
+  ggplot(aes(y=Diplome,x=Valeur,fill=Sexe)) +
+  geom_col(color="black", position = "dodge") +
+  facet_grid(.~Indicateur, scales = "free_x") +
+  #scale_fill_brewer(palette = "Purples", guide="none") +
+  theme_cpesr_cap() +
+  ggtitle("Répartition par diplôme en {closest_state}", subtitle="Population française entre 25 à 29 ans et salaire moyen") +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
+          panel.grid.major.x = element_line(color="grey", size=0.2),
+          panel.grid.major.y = element_blank()) +
+    transition_states(Année, wrap = FALSE, transition_length = 4, state_length = 1) 
+
+animate(p, start_pause = 20, nframes = 200, end_pause = 20)
+  
 ```

@@ -19,21 +19,31 @@ spoilerTable <- function(df) {
 }
 ```
 
+
+
 ```{r indiv, results='asis', cache=TRUE}
 
 # Les données doivent être dans un dossier "data/Csv/"
 read_and_sum <- function(file) {
   indiv <- read.csv2(file, dec=".")
   if("extri" %in% colnames(indiv)) {
-    indiv <- indiv %>%
-      mutate(EXTRI = extri)
+    indiv <- indiv %>% rename(EXTRI = extri)
+  }
+  if("EXTRI16" %in% colnames(indiv)) {
+    indiv <- indiv %>% rename(EXTRIDF = EXTRI16)
   }
   indiv %>%
     group_by(ANNEE = as.numeric(ANNEE),
+             TRIM = as.numeric(TRIM),
              AGE, AGEQ, SEXE,
              ACTEU6,
-             DIP = as.numeric(DIP)) %>%
-    summarise(Population = sum(EXTRI,na.rm=TRUE))
+             DIP = as.numeric(DIP),
+             SALRED, SALREDTR 
+             ) %>%
+    summarise(
+      EXTRI = sum(EXTRI,na.rm=TRUE),
+      EXTRIDF = sum(EXTRIDF,na.rm=TRUE),
+      )
 }
 
 # Lecture de tous les fichiers indiv
@@ -41,8 +51,32 @@ emploi.raw <- tibble()
 for(f in list.files("data/Csv",pattern = "indiv", ignore.case = TRUE)) {
   print(f)
   emploi.raw <- bind_rows(emploi.raw, read_and_sum(paste0("data/Csv/",f)))
-}
+} 
 ```
+
+```{r check}
+emploi.raw %>%
+  group_by(ANNEE,TRIM) %>%
+  summarise(
+    EXTRI = as.integer(sum(EXTRI,na.rm=TRUE)),
+    EXTRIDF = as.integer(sum(EXTRIDF,na.rm=TRUE))
+    )
+```
+
+
+```{r check.dip.na.}
+emploi.raw %>%
+  filter(EXTRI !=0, is.na(DIP)) %>%
+  group_by(ANNEE,TRIM,Enfant=(AGEQ==0),DIP) %>%
+  summarise(EXTRI = sum(EXTRI))
+```
+
+
+
+## Reformatage 
+
+- Moyennage sur 1 an
+- Calcul d'un salaire moyen
 
 
 ```{r reformat}
@@ -50,14 +84,15 @@ for(f in list.files("data/Csv",pattern = "indiv", ignore.case = TRUE)) {
 emploi <- emploi.raw %>%
   mutate(
     Année = ANNEE,
+    Trimestre = TRIM,
+    Date = ANNEE+(TRIM-1)/4,
     Age = AGE,
     AgeQ = AGEQ,
-    Sexe = factor(SEXE,levels=c(1,2), labels=c("H","F")),
+    Sexe = factor(SEXE,levels=c(1,2), labels=c("Homme","Femme")),
     Diplome = factor(floor(DIP/10),
                      levels=c(1,2,3,4,5,6,7),
                      labels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun")
                      ),
-
 
     Activité = factor(ACTEU6,
                       levels=c(1,2,3,4,5,6),
@@ -68,13 +103,43 @@ emploi <- emploi.raw %>%
                         "Chômeur ou inactif",
                         "Etudiant",
                         "Chômeur ou inactif")
-                      ) 
+                      ),
+    Salaire = SALRED,
+    Salaire.tranche = factor(SALREDTR,
+                             levels=LETTERS[1:10],
+                             labels = c(
+                               "[0,500)",
+                               "[500,1000)",
+                               "[1000,1250)",
+                               "[1250,1500)",
+                               "[1500,2000)",
+                               "[2000,2500)",
+                               "[2500,3000)",
+                               "[3000,5000)",
+                               "[5000,8000)",
+                               "[8000,∞]"
+                             ))
   ) %>%
-  group_by(Année,Age,AgeQ,Diplome,Activité,) %>%
-  summarise(Population = as.integer(sum(Population,na.rm=TRUE))) %>%
-  na.omit()
+  group_by(Année,Trimestre,Sexe,Age,AgeQ,Diplome,Activité) %>%
+  summarise(
+    Population = sum(EXTRI,na.rm=TRUE),
+    SalaireMoyen = weighted.mean(Salaire,EXTRIDF,na.rm=TRUE)
+    ) %>%
+  group_by(Année,Sexe,Age,AgeQ,Diplome,Activité) %>%
+  summarise(
+    Population = as.integer(mean(Population,na.rm=TRUE)),
+    SalaireMoyen = as.integer(mean(SalaireMoyen,na.rm=TRUE))
+    ) %>%
+  filter(Population !=0)
 ```
 
+
+```{r check.emploi}
+emploi %>%
+  filter(is.na(Diplome)) %>%
+  group_by(Année,Enfant=(AgeQ==0),Diplome) %>%
+  summarise(Population = sum(Population))
+```
 
 ```{r save}
 save(emploi.raw,emploi,file="emploi.RData")
