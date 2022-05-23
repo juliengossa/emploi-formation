@@ -1,0 +1,41 @@
+---
+title: "Presentation"
+author: "Julien Gossa"
+date: "23/05/2022"
+output: 
+  beamer_presentation:
+    theme: "Madrid"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(dev = "cairo_pdf")
+
+load("emploi.RData")
+source("emploi-formation.R")
+```
+
+
+## Introduction
+
+Premier slide
+
+
+## Vue long terme 25-30
+
+L'évolution de l'activité des français.
+
+```{r activite.25, out.width="100%",fig.align='center', fig.asp=9/30}
+plot_activite(25,30)
+```
+
+
+## Vue long terme 15-25
+
+L'évolution de l'activité des français.
+
+```{r activite.15, out.width="100%",fig.align='center', fig.asp=9/30}
+plot_activite(15,25)
+```
+
+
