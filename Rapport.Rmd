@@ -45,6 +45,8 @@ prolongeraient leurs études.
   plot_activite()
 ```
 
+### Agemax different
+
 ```{r activite.26, out.width="70%",fig.align='right', fig.asp=9/30}
   plot_activite(agemax = 50)
 ```

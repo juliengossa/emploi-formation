@@ -33,4 +33,6 @@ prolongeraient leurs études.
 
 <img src="Rapport_files/figure-gfm/activite.25-1.png" width="100%" style="display: block; margin: auto;" />
 
+### Agemax different
+
 <img src="Rapport_files/figure-gfm/activite.26-1.png" width="70%" style="display: block; margin: auto 0 auto auto;" />
