@@ -1,6 +1,5 @@
 
 library(tidyverse)
-library(gganimate)
 library(ggcpesrthemes)
 theme_cpesr_setup(source="INSEE, enquête emploi en continu 2003-2020")
 
@@ -13,6 +12,5 @@ plot_activite <- function(agemin = 15, agemax = 30) {
     summarise(Population = sum(Population)) %>%
     mutate(Activite = factor(Activite,levels=c("Actif occupé","Etudiant","Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
-    geom_area(color="white") +
-    theme_cpesr()
+    geom_area(color="white") 
 }
