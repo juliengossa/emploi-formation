@@ -83,7 +83,7 @@ emploi.raw %>%
 # Reformatage des variables
 emploi <- emploi.raw %>%
   mutate(
-    Année = ANNEE,
+    Annee = ANNEE,
     Trimestre = TRIM,
     Date = ANNEE+(TRIM-1)/4,
     Age = AGE,
@@ -94,7 +94,7 @@ emploi <- emploi.raw %>%
                      labels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun")
                      ),
 
-    Activité = factor(ACTEU6,
+    Activite = factor(ACTEU6,
                       levels=c(1,2,3,4,5,6),
                       labels=c(
                         "Actif occupé",
@@ -120,12 +120,12 @@ emploi <- emploi.raw %>%
                                "[8000,∞]"
                              ))
   ) %>%
-  group_by(Année,Trimestre,Sexe,Age,AgeQ,Diplome,Activité) %>%
+  group_by(Annee,Trimestre,Sexe,Age,AgeQ,Diplome,Activite) %>%
   summarise(
     Population = sum(EXTRI,na.rm=TRUE),
     SalaireMoyen = weighted.mean(Salaire,EXTRIDF,na.rm=TRUE)
     ) %>%
-  group_by(Année,Sexe,Age,AgeQ,Diplome,Activité) %>%
+  group_by(Annee,Sexe,Age,AgeQ,Diplome,Activite) %>%
   summarise(
     Population = as.integer(mean(Population,na.rm=TRUE)),
     SalaireMoyen = as.integer(mean(SalaireMoyen,na.rm=TRUE))
@@ -137,7 +137,7 @@ emploi <- emploi.raw %>%
 ```{r check.emploi}
 emploi %>%
   filter(is.na(Diplome)) %>%
-  group_by(Année,Enfant=(AgeQ==0),Diplome) %>%
+  group_by(Annee,Enfant=(AgeQ==0),Diplome) %>%
   summarise(Population = sum(Population))
 ```
 

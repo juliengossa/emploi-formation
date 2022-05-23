@@ -32,9 +32,3 @@ prolongeraient leurs études.
 ## Vue long terme
 
 <img src="Rapport_files/figure-gfm/activite.25-1.png" width="100%" style="display: block; margin: auto;" />
-
-## Vue long terme
-
-<img src="Rapport_files/figure-gfm/activite.monplot-1.png" width="100%" style="display: block; margin: auto;" />
-
-Faire des observation sur le graphique.
