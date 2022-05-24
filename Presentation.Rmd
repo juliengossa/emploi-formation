@@ -10,6 +10,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(dev = "cairo_pdf")
+options(tinytex.verbose = TRUE)
 
 load("emploi.RData")
 source("emploi-formation.R")
