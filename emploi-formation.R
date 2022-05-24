@@ -10,7 +10,13 @@ plot_activite <- function(agemin = 15, agemax = 30) {
     filter(Age > agemin, Age < agemax) %>%
     group_by(Annee,Activite) %>%
     summarise(Population = sum(Population)) %>%
-    mutate(Activite = factor(Activite,levels=c("Actif occupé","Etudiant","Chômeur ou inactif"))) %>%
+    mutate(Activite = factor(Activite,levels=c("Actif occupe","Etudiant","Chomeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
     geom_area(color="white") 
 }
+
+
+update.packages(ask = FALSE, checkBuilt = TRUE)
+tinytex::tlmgr_update()
+
+
