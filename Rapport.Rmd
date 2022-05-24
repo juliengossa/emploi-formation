@@ -3,8 +3,8 @@ title: "Rapport"
 author: "Julien Gossa"
 date: "23/05/2022"
 output:
-  word_document: default
   pdf_document: default
+  word_document: default
   github_document: default
   html_document:
     df_print: paged
@@ -13,7 +13,6 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 load("emploi.RData")
-
 options(tinytex.verbose = TRUE)
 source("emploi-formation.R")
 ```
@@ -39,7 +38,7 @@ Cette exploitation révèle une remarquable constance des jeunes chômeurs et in
 Cela permet de soulever l'hypothèse d'un rôle d'« amortisseur » de la formation 
 entre la jeunesse et l'emploi : lorsque des emplois sont disponibles, les jeunes
 sortiraient plus tôt du système éducation ; lorsque les emplois sont rares, les jeunes
-prolongeraient leurs études.
+prolongeraient leurs études.P
 
 
 ## Vue long terme
