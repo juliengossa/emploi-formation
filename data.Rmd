@@ -8,6 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 
 options(dplyr.summarise.inform = FALSE)
+options(tinytex.verbose = TRUE)
 
 spoilerTable <- function(df) {
   cat("\n<details>\n")
@@ -78,7 +79,10 @@ emploi.raw %>%
 - Moyennage sur 1 an
 - Calcul d'un salaire moyen
 
-
+Les données issues de la variable SALRED se rapporte au salaire du dernier mois (au moment de l'enquête) y compris les primes versées sur ce mois. (Source : Dictionnaire des variables du fichier de données individuelles de l'enquête Emploi Edition 2018). 
+Dans le cas où l'enquêté a cumulé plusieurs missions d'intérim au cours du mois, la rémunération totale mensuelle à prendre est celle de la profession principale. Il faut donc totaliser uniquement les rémunérations des missions effectuées dans sa profession principale.
+Ainsi, il est techniquement possible de faire une moyenne annuelle des salaires à partir de la variable SALRED mais il faut avoir conscience qu'un biais peut exister (la rémunération qui se rapporte au mois référé peut être très différente de celle perçue les autres mois).
+La moyenne annuelle est donc réalisée à partir de 4 mois de l'année seulement, ce qui peut compremettre à la fiabilité des résultats si ces 4 mois ne sont pas assez représentatifs de l'ensmeble de l'année. 
 ```{r reformat}
 # Reformatage des variables
 emploi <- emploi.raw %>%
