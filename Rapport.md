@@ -27,7 +27,7 @@ et inactifs (Figure 1). Cela permet de soulever l’hypothèse d’un rôle
 d’« amortisseur » de la formation entre la jeunesse et l’emploi :
 lorsque des emplois sont disponibles, les jeunes sortiraient plus tôt du
 système éducation ; lorsque les emplois sont rares, les jeunes
-prolongeraient leurs études.
+prolongeraient leurs études.P
 
 ## Vue long terme
 
