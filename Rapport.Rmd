@@ -61,3 +61,5 @@ Les 2 premiers graphiques s'affichent correctement mais pas le dernier : NA à l
 ```{r activite.27, out.width="100%",fig.align='center', fig.asp=9/30}
   plot_activite2(agemax = 70)
 ```
+
+La création du fichier 
