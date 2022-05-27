@@ -22,7 +22,7 @@ shinyUI(fluidPage(
                         "Ages:",
                         min = 1,
                         max = 100,
-                        value = c(15,30))
+                        value = c(20,30))
         ),
 
         # Show a plot of the generated distribution
