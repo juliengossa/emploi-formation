@@ -16,3 +16,15 @@ plot_activite <- function(agemin = 15, agemax = 30) {
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
     geom_area(color="white") 
 }
+
+
+plot_activite2 <- function(agemin = 15, agemax = 30) {
+  emploitotal %>%
+    filter(Age > agemin, Age < agemax) %>%
+    group_by(Annee,Activite) %>%
+    summarise(Population = sum(Population)) %>%
+    mutate(Activite = factor(Activite,
+                             levels=c("Actif occupé","Etudiant","Chômeur ou inactif"))) %>%
+    ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
+    geom_area(color="white") 
+}

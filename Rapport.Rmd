@@ -3,9 +3,9 @@ title: "Rapport"
 author: "Julien Gossa"
 date: "23/05/2022"
 output:
-  github_document: default
-  word_document: default
   pdf_document: default
+  word_document: default
+  github_document: default
   html_document:
     df_print: paged
 ---
@@ -14,6 +14,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 
 load("emploi.RData")
+load("emploitotal.RData")
 options(tinytex.verbose = TRUE)
 source("emploi-formation.R", encoding = "UTF-8")
 ```
@@ -52,4 +53,11 @@ prolongeraient leurs études.
 
 ```{r activite.26, out.width="70%",fig.align='right', fig.asp=9/30}
   plot_activite(agemax = 35)
+```
+
+### De 1971 à 2020
+Les 2 premiers graphiques s'affichent correctement mais pas le dernier : NA à la place des chômeurs et des actifs
+
+```{r activite.27, out.width="100%",fig.align='center', fig.asp=9/30}
+  plot_activite2(agemax = 70)
 ```
