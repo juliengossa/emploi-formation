@@ -56,10 +56,36 @@ prolongeraient leurs études.
 ```
 
 ### De 1971 à 2020
-Les 2 premiers graphiques s'affichent correctement mais pas le dernier : NA à la place des chômeurs et des actifs
+Problème en 1973 (presque aucun individu est représenté) car la variable DIP qui renseigne sur le niveau de diplôme des individus est très mal renseignée : on compte notamment 51 152 non réponses et 112 417 non déclarés, seuls 6 individus ont répondu à la question !
+Je vais probablement créer des tables emploi qui ne comportent pas la variable sur le diplôme afin de pallier le problème et pouvoir avoir une représentation bien plus fiable. 
 
+De 0 à 70 ans
 ```{r activite.27, out.width="100%",fig.align='center', fig.asp=9/30}
   plot_activite2(agemax = 70)
 ```
 
-La création du fichier 
+De 0 à 29 ans
+```{r activite.29, out.width="100%",fig.align='center', fig.asp=9/30}
+  plot_activite2(agemax = 29)
+```
+
+### Représentation du niveau de diplôme des individus selon l'année civile
+
+
+De 0 à 70 ans
+```{r activite.28, out.width="100%",fig.align='center', fig.asp=9/30}
+  plot_activite3(agemax = 70)
+```
+
+
+De 0 à 29 ans (jeunes)
+
+Le nombre de jeunes sans aucun diplôme diminue d'année en année tandis celui des jeunes ayant un niveau bac ou supérieur au bac augmente de manière importante. Cela confirme que les jeunes sont de plus en plus diplômés au fil des années. 
+
+
+```{r activite.30, out.width="100%",fig.align='center', fig.asp=9/30}
+  plot_activite3(agemax = 29)
+```
+
+
+

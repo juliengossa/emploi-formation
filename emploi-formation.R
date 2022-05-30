@@ -1,6 +1,8 @@
 
 library(tidyverse)
 library(ggcpesrthemes)
+library(dplyr)
+library(ggplot2)
 
 theme_cpesr_setup(source="INSEE, enquête emploi en continu 2003-2020")
 
@@ -28,3 +30,27 @@ plot_activite2 <- function(agemin = 15, agemax = 30) {
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
     geom_area(color="white") 
 }
+
+plot_activite3 <- function(agemin = 15, agemax = 30) {
+  emploitotal %>%
+    filter(Age > agemin, Age < agemax) %>%
+    group_by(Annee,Diplome) %>%
+    summarise(Population = sum(Population)) %>%
+    mutate(Diplome = factor(Diplome,
+                             levels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun"))) %>%
+    ggplot(aes(x=Annee,y=Population,fill=Diplome,group=Diplome)) +
+    geom_area(color="white") 
+}
+
+plot_activite7 <- function(agemin = 15, agemax = 30) {
+  emploitotal %>%
+    filter(Age > agemin, Age < agemax) %>%
+    group_by(Annee,Activite) %>%
+    summarise(Population = sum(Population)) %>%
+    mutate(percentage = Population / sum(Population), Activite = factor(Activite,
+                             levels=c("Actif occupe","Etudiant","Chomeur ou inactif"))) %>%
+    ggplot(aes(x=Annee,y=percentage,fill=Activite,group=Activite)) +
+    geom_area(color="white") 
+}
+
+

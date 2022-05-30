@@ -16,7 +16,9 @@ library(questionr)
 library(readr)
 library(haven)
 
-
+empl73 <- read.csv(file = "data/Csv/Empl173qi.csv")
+freq(empl73$CSE)
+freq(empl73$DIP)
 #Traitement des données de 1971 à 1974
 
 read_and_sum <- function(file) {
