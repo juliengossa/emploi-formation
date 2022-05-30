@@ -24,7 +24,7 @@ plot_activite2 <- function(agemin = 15, agemax = 30) {
     group_by(Annee,Activite) %>%
     summarise(Population = sum(Population)) %>%
     mutate(Activite = factor(Activite,
-                             levels=c("Actif occupe","Etudiant","Chpmeur ou inactif"))) %>%
+                             levels=c("Actif occupe","Etudiant","Chomeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
     geom_area(color="white") 
 }

@@ -58,7 +58,7 @@ emploi.raw7174$S <- emploi.raw7174$S %>%
 
 
 ## Recodage de emploi.raw7174$CSE
-irec(emploi.raw7174)
+
 emploi.raw7174$CSE <- emploi.raw7174$CSE %>%
   as.character() %>%
   fct_recode(
