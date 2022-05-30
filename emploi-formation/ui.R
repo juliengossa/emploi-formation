@@ -22,7 +22,16 @@ shinyUI(fluidPage(
                         "Ages:",
                         min = 1,
                         max = 100,
+<<<<<<< HEAD
                         value = c(20,30))
+=======
+                        value = c(15,30)),
+            sliderInput("annees",
+                        "Anées:",
+                        min = 1969,
+                        max = 2020,
+                        value = c(1969,2020))
+>>>>>>> 25ee6e0f85785dc16b3634b1db84f50ee3d77ccf
         ),
 
         # Show a plot of the generated distribution

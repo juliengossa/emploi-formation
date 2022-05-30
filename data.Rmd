@@ -82,7 +82,10 @@ emploi.raw %>%
 Les données issues de la variable SALRED se rapporte au salaire du dernier mois (au moment de l'enquête) y compris les primes versées sur ce mois. (Source : Dictionnaire des variables du fichier de données individuelles de l'enquête Emploi Edition 2018). 
 Dans le cas où l'enquêté a cumulé plusieurs missions d'intérim au cours du mois, la rémunération totale mensuelle à prendre est celle de la profession principale. Il faut donc totaliser uniquement les rémunérations des missions effectuées dans sa profession principale.
 Ainsi, il est techniquement possible de faire une moyenne annuelle des salaires à partir de la variable SALRED mais il faut avoir conscience qu'un biais peut exister (la rémunération qui se rapporte au mois référé peut être très différente de celle perçue les autres mois).
-La moyenne annuelle est donc réalisée à partir de 4 mois de l'année seulement, ce qui peut compremettre à la fiabilité des résultats si ces 4 mois ne sont pas assez représentatifs de l'ensmeble de l'année. 
+La moyenne annuelle est donc réalisée à partir de 4 mois de l'année seulement, ce qui peut compremettre à la fiabilité des résultats si ces 4 mois ne sont pas assez représentatifs de l'ensemble de l'année. 
+
+Autre raison : La variable qui donne de l'information sur le montant du salaire est assez mal renseignée (ce n'est pas propre à cette enquête) en raison du caractère assez tabou de cette question en France. Par exemple, la variable SALRED du fichier indiv032 (enquête de 2003, 2ème trimestre) contient 60 741 Non réponses pour 70 622 individus interrogés. Ainsi les résultats produits à partir de la variable SALRED seraient très peu fiables car non représentatifs de la population totale. Il peut également y avoir un effet de sélection : les individus qui renseignent le montant de leur rémunération peuvent avoir des caractéristiques spécifiques/particulières  (ex : âge, classe sociale, niveau d'étude, etc...), ce qui empêcherait d'avoir une vision correcte et globale de la population totale concernant le montant du salaire. 
+
 ```{r reformat}
 # Reformatage des variables
 emploi <- emploi.raw %>%
