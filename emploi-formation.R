@@ -31,6 +31,7 @@ plot_activite2 <- function(agemin = 15, agemax = 30) {
     geom_area(color="white") 
 }
 
+#Graphique pour connaître le 
 plot_activite3 <- function(agemin = 15, agemax = 30) {
   emploitotal %>%
     filter(Age > agemin, Age < agemax) %>%
@@ -41,6 +42,7 @@ plot_activite3 <- function(agemin = 15, agemax = 30) {
     ggplot(aes(x=Annee,y=Population,fill=Diplome,group=Diplome)) +
     geom_area(color="white") 
 }
+#A compléter plus tard pour faire un graphique avec pourcentages
 
 plot_activite7 <- function(agemin = 15, agemax = 30) {
   emploitotal %>%
@@ -53,4 +55,20 @@ plot_activite7 <- function(agemin = 15, agemax = 30) {
     geom_area(color="white") 
 }
 
+plot_activite4 <- function(agemin = 15, agemax = 30) {
+  emploiAct %>%
+    filter(Age > agemin, Age < agemax) %>%
+    group_by(Annee,Activite) %>%
+    summarise(Population = sum(Population)) %>%
+    mutate(Activite = factor(Activite,
+                             levels=c("Actif occupe","Etudiant","Chomeur ou inactif"))) %>%
+    ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
+    geom_area(color="white") 
+}
+
+#Indication : la table SansEmploi contient le nombre de jeunes chômeurs et inactifs par an, le
+#code pour la construire est disponible à la fin du fichier Traitement_sans_DIPL.R
+plot_SE2 <- SansEmploi %>%
+  ggplot(aes(x=Annee,y=Population)) +
+  geom_line(color="navy")
 
