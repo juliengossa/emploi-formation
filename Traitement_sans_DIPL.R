@@ -8,6 +8,27 @@ library(dplyr)
 library(questionr)
 library(readr)
 
+#Démonstration de l'utilité de créer un nouveau fichier sans DIPL
+
+indiv73 <- read.csv(file = "data/Csv/Empl173qi.csv")
+indiv73 <- group_by(indiv73, DIP)
+freq(indiv73$DIP)
+#31,3% des individus interrogés en 1974 n'ont pas indiqué leur niveau de diplôme
+
+indiv74 <- read.csv(file = "data/Csv/Empl174qi.csv")
+indiv74 <- group_by(indiv74, DIP)
+freq(indiv74$DIP)
+
+#C'est 31,1% de non-réponses pour 1974
+
+indiv88 <- read.csv(file = "data/Csv/Empl388qi.csv")
+indiv88 <- group_by(indiv88, DIPL)
+freq(indiv88$DIPL)
+
+#En 1988, on atteint "seulement 14,1% de non réponses mais encore trop fragile pour 
+#comparer efficacement les effectifs d'individus selon l'année et le niveau de diplôme
+
+
 #Traitement des données de 1971 à 1974
 
 read_and_sum <- function(file) {

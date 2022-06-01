@@ -31,7 +31,7 @@ plot_activite2 <- function(agemin = 15, agemax = 30) {
     geom_area(color="white") 
 }
 
-#Graphique pour connaître le 
+#Graphique pour connaître le niveau de diplome des jeunes selon l'année civile 
 plot_activite3 <- function(agemin = 15, agemax = 30) {
   emploitotal %>%
     filter(Age > agemin, Age < agemax) %>%
@@ -42,10 +42,10 @@ plot_activite3 <- function(agemin = 15, agemax = 30) {
     ggplot(aes(x=Annee,y=Population,fill=Diplome,group=Diplome)) +
     geom_area(color="white") 
 }
-#A compléter plus tard pour faire un graphique avec pourcentages
+# Graphique avec pourcentages de la répartition de l'activité selon l'année civile
 
 plot_activite7 <- function(agemin = 15, agemax = 30) {
-  emploitotal %>%
+  emploiAct %>%
     filter(Age > agemin, Age < agemax) %>%
     group_by(Annee,Activite) %>%
     summarise(Population = sum(Population)) %>%
@@ -55,6 +55,8 @@ plot_activite7 <- function(agemin = 15, agemax = 30) {
     geom_area(color="white") 
 }
 
+#Réalisation du graphique des effectifs d'individus selon l'activité avec la table emploiActt
+#(plus fiable que la table emploitotal)
 plot_activite4 <- function(agemin = 15, agemax = 30) {
   emploiAct %>%
     filter(Age > agemin, Age < agemax) %>%
@@ -71,4 +73,15 @@ plot_activite4 <- function(agemin = 15, agemax = 30) {
 plot_SE2 <- SansEmploi %>%
   ggplot(aes(x=Annee,y=Population)) +
   geom_line(color="navy")
+
+plot_activite8 <- function(agemin = 15, agemax = 30) {
+  emploitotal %>%
+    filter(Age > agemin, Age < agemax) %>%
+    group_by(Annee,Diplome) %>%
+    summarise(Population = sum(Population)) %>%
+    mutate(percentage = Population / sum(Population), Diplome = factor(Diplome,
+                                                                        levels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun"))) %>%
+    ggplot(aes(x=Annee,y=percentage,fill=Diplome,group=Diplome)) +
+    geom_area(color="white") 
+}
 
