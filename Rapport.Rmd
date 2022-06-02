@@ -73,7 +73,7 @@ De 0 à 29 ans
 
 ### Nouvelle représentation de l'activité par année
 
-Ce graphique est issu de la table emploiActi qui ne comporte pas la variable DIPL : ainsi tous les individus qui ont été auparavant supprimés de la table emploi car il n'avait pas répondu à la question sur le niveau de diplôme sont dorénavant également représentés. 
+Ce graphique est issu de la table emploiActi qui ne comporte pas la variable DIPL : ainsi tous les individus qui ont été auparavant supprimés de la table emploi car il n'avait pas répondu à la question sur le niveau de diplôme sont dorénavant également représentés. Il reste un problème avec l'année 1975, sans doute car la variable sur l'activité a un taux de non-réponse de près de 28% d'où les individus manquants. 
 
 ```{r activite.31, out.width="100%",fig.align='center', fig.asp=9/30}
   plot_activite4()
@@ -81,7 +81,7 @@ Ce graphique est issu de la table emploiActi qui ne comporte pas la variable DIP
 
 On remarque qu'ici aussi, de 1971 à 2020, il y a une grande stabilité du nombre de chômeurs et inactifs chez les jeunes : la table SansEmploi montre notamment qu'on passe 
 
-### Représentation de l'activité en pourcentages
+### Représentation de l'activité des jeunes en pourcentages
 
 ```{r activite.34, out.width="100%",fig.align='center', fig.asp=9/30}
   plot_activite7()
@@ -90,9 +90,9 @@ On remarque qu'ici aussi, de 1971 à 2020, il y a une grande stabilité du nombr
 
 ### Représentation du niveau de diplôme des individus selon l'année civile
 
-Les données avant 1990 laissent à désirer concernant le niveau de diplôme car la variable DIP ou DIPL est très mal renseignée par les répondants dans les enquêtes qui se sont déroulées avant les années 1990.
+Les données avant 1990 laissent à désirer concernant le niveau de diplôme car la variable DIP (ou DIPL) est très mal renseignée par les répondants dans les enquêtes qui se sont déroulées avant les années 1990.
 L'enquête Emploi n'est donc pas très fiable/utile pour connaître les niveaux de diplome des individus avant les années 1990. 
-31,3% des individus interrogés en 1974 n'ont pas indiqué leur niveau de diplôme, C'est 31,1% de non-réponses pour 1974 et En 1988, on atteint "seulement" 14,1% de non- réponses mais encore trop fragile pour comparer efficacement les effectifs d'individus selon l'année et le niveau de diplôme. 
+31,3% des individus interrogés en 1974 n'ont pas indiqué leur niveau de diplôme, C'est 31,1% de non-réponses pour 1974 et En 1988, on atteint "seulement" 14,1% de non- réponses mais encore trop fragile pour comparer efficacement les effectifs d'individus selon l'année et le niveau de diplôme. Par comparaison, le taux de non-réponse à la variable DIPL en 1995 est de 1,3%
 
 On peut néanmoins voir que Le nombre de jeunes sans aucun diplôme diminue d'année en année tandis celui des jeunes ayant un niveau bac ou supérieur au bac augmente de manière importante. Cela confirme que les jeunes sont de plus en plus diplômés au fil des années.
 Cela va dans le sens de la massification scolaire : de plus en plus d'individus ont l'opportunit" d'atteindre le niveau bac ou supérieur au bac. 
@@ -107,11 +107,11 @@ Niveau de diplôme des individus de 15 à 29 ans selon l'année civile (pourcent
 ```{r activite.35, out.width="100%",fig.align='center', fig.asp=9/30}
   plot_activite8(agemax = 29)
 ```
-### Nombre de jeunes (15-24 ans) au chômage ou inactifs en fonction de l'année
+### Nombre de jeunes (15-29 ans) au chômage ou inactifs en fonction de l'année
 
 On peut penser que les données ne sont pas très fiables de 1971 à 1975 étant donné leur évolutions aussi importantes que soudaines. Durant la période 1976 - 2020, on constate une succession d'augmentations et de diminutions, le nombre de jeunes chômeurs et inactifs oscillant entre 2,2 millions (1985 et 2015) et 1,4 millions (en 2001). 
 ```{r activite.33, out.width="100%",fig.align='center', fig.asp=9/30}
-  plot(plot_SE2)
+  plot_SE2()
 ```
 
 

@@ -4,9 +4,13 @@ library(ggcpesrthemes)
 library(dplyr)
 library(ggplot2)
 
-theme_cpesr_setup(source="INSEE, enquête emploi en continu 2003-2020")
+theme_cpesr_setup(source="INSEE, enquête emploi en continu 2003-2020, enquête emploi annuelle 1971 - 2002")
 
 options(dplyr.summarise.inform = FALSE, Encoding="UTF-8")
+
+emploitotal <-  filter(emploitotal, Annee < 1975 | Annee > 1975)
+emploiAct <-  filter(emploiAct, Annee < 1975 | Annee > 1975)
+SansEmploi <- filter(SansEmploi, Annee < 1975 | Annee > 1975)
 
 plot_activite <- function(agemin = 15, agemax = 30) {
   emploi %>%
@@ -70,9 +74,11 @@ plot_activite4 <- function(agemin = 15, agemax = 30) {
 
 #Indication : la table SansEmploi contient le nombre de jeunes chômeurs et inactifs par an, le
 #code pour la construire est disponible à la fin du fichier Traitement_sans_DIPL.R
-plot_SE2 <- SansEmploi %>%
+plot_SE2 <- function(agemin = 15, agemax = 30) {
+  SansEmploi %>%
   ggplot(aes(x=Annee,y=Population)) +
   geom_line(color="navy")
+}
 
 plot_activite8 <- function(agemin = 15, agemax = 30) {
   emploitotal %>%
