@@ -17,6 +17,7 @@ load("emploi.RData")
 load("emploitotal.RData")
 load("emploiact.RData")
 load("sansemploi.RData")
+load("NEET.RData")
 options(tinytex.verbose = TRUE)
 source("emploi-formation.R", encoding = "UTF-8")
 ```
@@ -107,11 +108,16 @@ Niveau de diplôme des individus de 15 à 29 ans selon l'année civile (pourcent
 ```{r activite.35, out.width="100%",fig.align='center', fig.asp=9/30}
   plot_activite8(agemax = 29)
 ```
-### Nombre de jeunes (15-29 ans) au chômage ou inactifs en fonction de l'année
+### Nombre de jeunes (15-29 ans) au chômage ou inactifs en fonction de l'année (de 1971 à 2020), source = Enquête Emploi
 
 On peut penser que les données ne sont pas très fiables de 1971 à 1975 étant donné leur évolutions aussi importantes que soudaines. Durant la période 1976 - 2020, on constate une succession d'augmentations et de diminutions, le nombre de jeunes chômeurs et inactifs oscillant entre 2,2 millions (1985 et 2015) et 1,4 millions (en 2001). 
 ```{r activite.33, out.width="100%",fig.align='center', fig.asp=9/30}
   plot_SE2()
 ```
 
+### Nombre de NEET (Not in Education, Employment or Training) de 15 à 29 ans (de 2000 à 2020), source = Eurostat
+On a ici des données qui proviennent de l'Eurostat, et qui ne sont disponibles qu'à partir de l'année 2000. Eurostat a ici utilisé et traité les données du Labour Force Survey (Enquête Emploi).  Le graphique représente le nombre de NEET de 15 à 29 ans en fonction de l'année civile, on remarque une importante augmentation en 2008 en raison de la crise économique mais globalement, l'effectif des NEET en France est compris entre 1,4 et 1,7 millions d'individus. 
 
+```{r activite.36, out.width="100%",fig.align='center', fig.asp=9/30}
+  plot(plot_NEET)
+```

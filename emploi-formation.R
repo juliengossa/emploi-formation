@@ -91,3 +91,7 @@ plot_activite8 <- function(agemin = 15, agemax = 30) {
     geom_area(color="white") 
 }
 
+NEET <- rename(NEET, "EffNEET" = "NEET")
+
+
+plot_NEET <- NEET %>% ggplot(aes(x=as.numeric(ANNEE),y=EffNEET)) + geom_line(color="navy") + labs (x = "Année", y = "Effectif des NEET", title = "NEET (Not in employment, education or training) de 15 à 29 ans", caption = "Source : Eurostat, 2022 (Labor Force Survey)")
