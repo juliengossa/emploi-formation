@@ -10,7 +10,7 @@ options(dplyr.summarise.inform = FALSE, Encoding="UTF-8")
 
 emploitotal <-  filter(emploitotal, Annee < 1975 | Annee > 1975)
 emploiAct <-  filter(emploiAct, Annee < 1975 | Annee > 1975)
-SansEmploi <- filter(SansEmploi, Annee < 1975 | Annee > 1975)
+SansEmploi <- filter(SansEmploi, Annee > 1975)
 
 plot_activite <- function(agemin = 15, agemax = 30) {
   emploi %>%
@@ -77,8 +77,17 @@ plot_activite4 <- function(agemin = 15, agemax = 30) {
 plot_SE2 <- function(agemin = 15, agemax = 30) {
   SansEmploi %>%
   ggplot(aes(x=Annee,y=Population)) +
-  geom_line(color="navy")
+  geom_line(color="navy") + labs (x = "Année", y = "Effectif des NEET", title = "NEET (Not in employment, education or training) de 15 à 29 ans", caption = "Source : Enquête Emploi(1976-2020)")
 }
+
+NEET <- rename(NEET, "EffNEET" = "NEET")
+
+plot_SE3 <- ggplot()+geom_line(data = NEET, aes(x=as.numeric(ANNEE),y=EffNEET), color = "navy") + labs (x = "Année", y = "Effectif des NEET", title = "NEET (Not in employment, education or training) de 15 à 29 ans", caption = "Source : Eurostat, 2022 (Labor Force Survey), Enquête Emploi")+ geom_line(data = SansEmploi, aes(x=Annee,y=Population, color = "red"))
+
+SansEmploi1 <- filter(SansEmploi, Annee > 1999)
+
+plot_SE4 <- ggplot()+geom_line(data = NEET, aes(x=as.numeric(ANNEE),y=EffNEET), color = "navy") + labs (x = "Année", y = "Effectif des NEET", title = "NEET (Not in employment, education or training) de 15 à 29 ans", caption = "Source : Eurostat, 2022 (Labor Force Survey), Enquête Emploi")+ geom_line(data = SansEmploi1, aes(x=Annee,y=Population, color = "red"))
+
 
 plot_activite8 <- function(agemin = 15, agemax = 30) {
   emploitotal %>%
@@ -91,7 +100,12 @@ plot_activite8 <- function(agemin = 15, agemax = 30) {
     geom_area(color="white") 
 }
 
-NEET <- rename(NEET, "EffNEET" = "NEET")
+
 
 
 plot_NEET <- NEET %>% ggplot(aes(x=as.numeric(ANNEE),y=EffNEET)) + geom_line(color="navy") + labs (x = "Année", y = "Effectif des NEET", title = "NEET (Not in employment, education or training) de 15 à 29 ans", caption = "Source : Eurostat, 2022 (Labor Force Survey)")
+
+
+plot_NEET2 <- NEET %>% ggplot(aes(x=as.numeric(ANNEE),y=PrctNEET)) + geom_line(color="navy") + labs (x = "Année", y = "Pourcentage de NEET", title = "NEET (Not in employment, education or training) de 15 à 29 ans", caption = "Source : Eurostat, 2022 (Labor Force Survey)")
+
+

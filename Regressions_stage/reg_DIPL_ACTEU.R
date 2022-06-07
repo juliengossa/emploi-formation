@@ -7,6 +7,8 @@ library(tidyverse)
 library(questionr)
 library(dplyr)
 library(readr)
+library(survey)
+
 
 #1974
 indiv74 <- read.csv(file = "data/Csv/Empl174qi.csv")
@@ -101,6 +103,8 @@ indiv74 <- filter(indiv74, Age < 30 & Age > 14)
 
 #1985
 
+indiv85 <- read.csv(file = "data/Csv/Empl385qi.csv")
+
 indiv85$FI <- indiv85$FI %>%
   as.character() %>%
   fct_recode(
@@ -113,6 +117,27 @@ indiv85$FI <- indiv85$FI %>%
     "Chomeur ou inactif" = "7",
     "Chomeur ou inactif" = "8"
   )
+
+indiv85$DIPL <- indiv85$DIPL %>%
+  as.character() %>%
+  fct_recode(
+    "Bac+5" = "10",
+    "Bac+5" = "11",
+    "Bac+3" = "30",
+    "Bac+2" = "31",
+    "Bac+2" = "32",
+    "Bac+2" = "33",
+    "Bac" = "40",
+    "Bac" = "41",
+    "Bac" = "42",
+    "CAP-BEP" = "43",
+    "CAP-BEP" = "50",
+    "CAP-BEP" = "51",
+    "DNB" = "60",
+    "Aucun" = "70",
+    "Aucun" = "71"
+  )
+
 
 indiv85 <- indiv85 %>%
   mutate(
@@ -203,11 +228,26 @@ freq(indiv15$Diplome)
 
 indiv15 <- filter(indiv15, Age < 30 & Age > 14)
 
+###Prise en compte de la pondération###
+
+poids74 <- svydesign(ids = ~ 1, data = indiv74, weight = ~EXTRI)
+poids85 <- svydesign(ids = ~ 1, data = indiv85, weight = ~EXTRI)
+poids95 <- svydesign(ids = ~ 1, data = indiv95, weight = ~EXTRI)
+indiv15$extri <-  as.numeric(indiv15$extri)
+poids15 <- svydesign(ids = ~ 1, data = indiv15, weight = ~extri)
+
+poids74r <- as.svrepdesign(poids74, type = "bootstrap", replicates = 100)
+poids85r <- as.svrepdesign(poids85, type = "bootstrap", replicates = 100)
+poids95r <- as.svrepdesign(poids95, type = "bootstrap", replicates = 100)
+poids15r <- as.svrepdesign(poids15, type = "bootstrap", replicates = 100)
+
 ###  Réalisation des régressions ###
 
 Model1 <- glm(relevel(Activite, ref ="Actif occupe") ~ relevel(Diplome, ref= "Aucun"),
               data=indiv74,
               family=binomial(logit))
+
+
 
 Model3 <- glm(relevel(Activite, ref ="Actif occupe") ~ relevel(Diplome, ref= "Aucun"),
               data=indiv85,
