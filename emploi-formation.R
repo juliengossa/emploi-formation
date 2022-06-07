@@ -3,6 +3,7 @@ library(tidyverse)
 library(ggcpesrthemes)
 library(dplyr)
 library(ggplot2)
+library(gtsummary)
 
 theme_cpesr_setup(source="INSEE, enquête emploi en continu 2003-2020, enquête emploi annuelle 1971 - 2002")
 
@@ -108,4 +109,6 @@ plot_NEET <- NEET %>% ggplot(aes(x=as.numeric(ANNEE),y=EffNEET)) + geom_line(col
 
 plot_NEET2 <- NEET %>% ggplot(aes(x=as.numeric(ANNEE),y=PrctNEET)) + geom_line(color="navy") + labs (x = "Année", y = "Pourcentage de NEET", title = "NEET (Not in employment, education or training) de 15 à 29 ans", caption = "Source : Eurostat, 2022 (Labor Force Survey)")
 
+tablemploitotal <- tbl_summary(emploitotal, by = Activite) %>% add_p()
 
+tablemploiact <- tbl_summary(emploiAct, by = Activite) %>% add_p()

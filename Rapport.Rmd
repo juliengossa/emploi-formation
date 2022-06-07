@@ -130,3 +130,10 @@ On a ici des données qui proviennent de l'Eurostat, et qui ne sont disponibles 
   plot(plot_SE3)
 ```
 
+```{r activite.39, out.width="100%",fig.align='center', fig.asp=9/30}
+  as_gt(tablemploitotal)
+```
+
+```{r activite.40, out.width="100%",fig.align='center', fig.asp=9/30}
+  as_gt(tablemploiact)
+```
