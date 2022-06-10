@@ -10,9 +10,9 @@ library(readr)
 
 #Démonstration de l'utilité de créer un nouveau fichier sans DIPL
 
-indiv73 <- read.csv(file = "data/Csv/Empl173qi.csv")
-indiv73 <- group_by(indiv73, DIP)
-freq(indiv73$DIP)
+indiv75 <- read.csv(file = "data/Csv/Empl275qi.csv")
+indiv75 <- group_by(indiv75, CSE)
+freq(indiv75$CSE)
 #31,3% des individus interrogés en 1974 n'ont pas indiqué leur niveau de diplôme
 
 indiv74 <- read.csv(file = "data/Csv/Empl174qi.csv")
@@ -24,6 +24,18 @@ freq(indiv74$DIP)
 indiv88 <- read.csv(file = "data/Csv/Empl388qi.csv")
 indiv88 <- group_by(indiv88, DIPL)
 freq(indiv88$DIPL)
+
+indiv86 <- read.csv(file = "data/Csv/Empl386qi.csv")
+indiv86 <- group_by(indiv86, DIPL)
+freq(indiv86$DIPL)
+
+indiv75 <- read.csv(file = "data/Csv/Empl275qi.csv")
+indiv75 <- group_by(indiv75, DIP)
+freq(indiv75$DIP)
+
+indiv95 <- read.csv(file = "data/Csv/Empl495qi.csv")
+indiv95 <- group_by(indiv95, DIPL)
+freq(indiv95$DIPL)
 
 #En 1988, on atteint "seulement 14,1% de non réponses mais encore trop fragile pour 
 #comparer efficacement les effectifs d'individus selon l'année et le niveau de diplôme
@@ -397,3 +409,9 @@ SansEmploi <-  filter(SansEmploi, Activite == "Chomeur ou inactif")
 
 save(SansEmploi, file = "sansemploi.RData")
 
+
+emploiAct3 <-  filter(emploiAct, Age > 14 & Age< 30)
+emploiAct3 <- group_by(emploiAct3, Annee)
+Popjeunes <- summarise(emploiAct3, Population = sum(Population))
+
+save(Popjeunes, file = "popjeunes.RData")

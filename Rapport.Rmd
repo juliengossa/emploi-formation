@@ -18,6 +18,8 @@ load("emploitotal.RData")
 load("emploiact.RData")
 load("sansemploi.RData")
 load("NEET.RData")
+load("popjeunes.RData")
+
 options(tinytex.verbose = TRUE)
 source("emploi-formation.R", encoding = "UTF-8")
 ```
@@ -137,3 +139,12 @@ On a ici des données qui proviennent de l'Eurostat, et qui ne sont disponibles 
 ```{r activite.40, out.width="100%",fig.align='center', fig.asp=9/30}
   as_gt(tablemploiact)
 ```
+
+```{r activite.42, out.width="100%",fig.align='center', fig.asp=9/30}
+  plot(plot_jeunes)
+```
+
+```{r activite.43, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot(plot_jeunes)
+```
+
