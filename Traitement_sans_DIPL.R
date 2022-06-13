@@ -37,6 +37,8 @@ indiv95 <- read.csv(file = "data/Csv/Empl495qi.csv")
 indiv95 <- group_by(indiv95, DIPL)
 freq(indiv95$DIPL)
 
+
+
 #En 1988, on atteint "seulement 14,1% de non réponses mais encore trop fragile pour 
 #comparer efficacement les effectifs d'individus selon l'année et le niveau de diplôme
 
@@ -270,7 +272,7 @@ emploi3 <- emploi.raw3 %>%
 save(emploi.raw3,emploi3,file="emploi3.RData")
 
 
-#Traitement des données de 1982 à 1989
+#Traitement des données de 1990 à 2002
 
 read_and_sum <- function(file) {
   Empl <- read.csv(file, dec=".")
@@ -407,6 +409,7 @@ SansEmploi <- summarise(emploiAct2, Population = sum(Population))
 
 SansEmploi <-  filter(SansEmploi, Activite == "Chomeur ou inactif")
 
+#SansEmploi donne un nombre trop haut de NEET (chomeur ou inactif)
 save(SansEmploi, file = "sansemploi.RData")
 
 
@@ -415,3 +418,5 @@ emploiAct3 <- group_by(emploiAct3, Annee)
 Popjeunes <- summarise(emploiAct3, Population = sum(Population))
 
 save(Popjeunes, file = "popjeunes.RData")
+
+

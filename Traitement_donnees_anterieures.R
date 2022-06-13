@@ -16,9 +16,6 @@ library(questionr)
 library(readr)
 library(haven)
 
-empl73 <- read.csv(file = "data/Csv/Empl173qi.csv")
-freq(empl73$CSE)
-freq(empl73$DIP)
 #Traitement des données de 1971 à 1974
 
 read_and_sum <- function(file) {
@@ -241,7 +238,6 @@ emploi7581 <- emploi.raw7581 %>%
     AgeQ = AQ,
     Sexe = S,
     Diplome = DIP,
-    
     Activite = FI) %>%
   group_by(Annee,Age,AgeQ,Diplome,Activite,) %>%
   summarise(Population = as.integer(sum(Population,na.rm=TRUE))) %>%
@@ -491,4 +487,3 @@ load("emploi0320.RData")
 emploitotal <- rbind(emploi7174, emploi7581, emploi8289, emploi9002, emploi0320)
 
 
-save(emploitotal, file = "emploitotal.RData")

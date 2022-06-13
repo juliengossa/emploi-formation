@@ -19,6 +19,8 @@ load("emploiact.RData")
 load("sansemploi.RData")
 load("NEET.RData")
 load("popjeunes.RData")
+load("Jeunes_census.RData")
+load("emploiappr.RData")
 
 options(tinytex.verbose = TRUE)
 source("emploi-formation.R", encoding = "UTF-8")
@@ -147,4 +149,28 @@ On a ici des données qui proviennent de l'Eurostat, et qui ne sont disponibles 
 ```{r activite.43, out.width="100%",fig.align='center', fig.asp=9/16}
   plot(plot_jeunes)
 ```
+
+```{r activite.44, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot(plot_jeunes2)
+```
+
+### Nombre d'apprentis de 1976 à aujourd'hui : source = Enquête Emploi
+
+```{r activite.45, out.width="100%",fig.align='center', fig.asp=9/16}
+  Apprentis_total()
+```
+
+```{r activite.46, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot_Apprentis()
+```
+
+
+```{r activite.47, out.width="100%",fig.align='center', fig.asp=9/16}
+  Apprentis_total(agemin = 18, agemax = 21)
+```
+
+```{r activite.48, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot_Apprentis(agemin = 18, agemax = 21)
+```
+
 
