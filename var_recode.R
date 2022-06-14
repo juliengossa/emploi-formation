@@ -84,6 +84,7 @@ var_recode_ACT7 = c(
   "Chômeur ou inactif" = "7"
 )
 
+
 var_recode_ACTUE6 = c(
   NULL = "",
   "Actif occupé" = "1",

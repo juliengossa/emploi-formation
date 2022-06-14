@@ -77,7 +77,7 @@ read_and_sum_82_89 <- function(file, annee) {
     summarise(Population = sum(extri,na.rm=TRUE))
 }
 
-df <- read_and_sum_82_89("data/Csv/empl82qi.dta", 1982)
+#df82 <- read_and_sum_82_89("data/Csv/empl82qi.dta", 1982)
 ```
 
 
@@ -172,8 +172,7 @@ for(a in seq(90,102)) {
 
 for(f in list.files(dir, pattern = "^indiv...\\.csv", ignore.case = TRUE)) {
   print(f)
-  if (f >= "indiv162.csv") 
-    emploi.raw <- bind_rows(emploi.raw, read_and_sum_2003_(paste0(dir,f)))
+  emploi.raw <- bind_rows(emploi.raw, read_and_sum_2003_(paste0(dir,f)))
   if(test) break
 } 
 ```
@@ -220,20 +219,25 @@ Autre raison : La variable qui donne de l'information sur le montant du salaire 
 emploi <- emploi.raw %>%
   mutate(
     Activite = factor(ifelse(!is.na(Apprentissage) & Apprentissage == "Apprentis", "Apprentis", as.character(Activite)),
-                      levels = c("Actif occupé", "Apprentis", "Etudiant", "Chômeur ou inactif")
-    )
+                      levels = c("Actif occupé", "Apprentis", "Etudiant", "Chômeur ou inactif") ),
+    Diplome = factor(Diplome, levels = c("Aucun", "DNB", "CAP-BEP", "Bac", "Bac+2", "Bac+3", "Bac+5") )
   ) %>%
-  mutate(
-    AgeQ = cut(Age,seq(0,120,5),labels=seq(0,115,5),right=FALSE)
-  ) %>%
+  
+  mutate( AgeQ = as.numeric(as.character(cut(Age,seq(0,120,5),labels=seq(0,115,5),right=FALSE)) )) %>%
+  group_by(Annee,Trimestre,Sexe,Age,AgeQ,Diplome,Activite) %>%
+  summarise(Population = sum(Population)) %>%
   group_by(Annee,Sexe,Age,AgeQ,Diplome,Activite) %>%
-  summarise(
-    Population = mean(Population,na.rm=TRUE)
-    ) %>%
-  ungroup() %>%
-  filter(Population !=0)
+  summarise(Population = mean(Population)) %>%
+  ungroup() 
 ```
 
+
+```{r check.emploi}
+emploi %>% 
+  #filter(AgeQ == 20) %>%
+  group_by(Annee) %>%
+  summarise(pop = sum(Population))
+```
 
 
 ```{r save}
