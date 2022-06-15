@@ -173,4 +173,18 @@ On a ici des données qui proviennent de l'Eurostat, et qui ne sont disponibles 
   plot_Apprentis(agemin = 18, agemax = 21)
 ```
 
+```{r activite.49, out.width="100%",fig.align='center', fig.asp=9/16}
+  Apprentis_total2(agemin = 18, agemax = 21)
+```
 
+```{r activite.50, out.width="100%",fig.align='center', fig.asp=9/16}
+  Apprentis_total3(agemin = 18, agemax = 21)
+```
+
+```{r activite.51, out.width="100%",fig.align='center', fig.asp=9/16}
+  Apprentis_total4()
+```
+
+```{r activite.52, out.width="100%",fig.align='center', fig.asp=9/16}
+  Apprentis_total4.5()
+```

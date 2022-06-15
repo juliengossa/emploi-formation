@@ -138,6 +138,17 @@ Apprentis_total <- function(agemin = 15, agemax = 30) {
     geom_area(color="white") + labs (x = "Année", y = "Effectif selon le statut", title = "Les jeunes de 18 à 21 ans de 1975 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
 }
 
+Apprentis_total2 <- function(agemin = 15, agemax = 30) {
+  emploiAppr %>%
+    filter(Age > agemin, Age < agemax) %>%
+    group_by(Annee,Activite) %>%
+    summarise(Population = sum(Population)) %>%
+    mutate(Activite = factor(Activite,
+                             levels=c("Actif occupe","Apprentis", "Etudiant","Chomeur ou inactif"))) %>%
+    ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
+    geom_area(color="white") + labs (x = "Année", y = "Effectif selon le statut", title = "Les jeunes de 18 à 21 ans de 1975 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
+}
+
 emploiAppr2 <- filter(emploiAppr, Activite == "Apprentis")
 
 plot_Apprentis <- function(agemin = 15, agemax = 30) {
@@ -149,6 +160,45 @@ plot_Apprentis <- function(agemin = 15, agemax = 30) {
                              levels=c("Actif occupé","Etudiant","Apprentis", "Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
     geom_area(color="white") + labs (x = "Année", y = "Effectif des apprentis", title = "Les apprentis de 18 à 21 ans de 1975 à 2020 en France", caption = "Source :Enquête Emploi")
+}
+
+emploiAppr3 <- emploiAppr %>% filter(Annee != 2003)
+
+Apprentis_total3 <- function(agemin = 15, agemax = 30) {
+  emploiAppr3 %>%
+    filter(Age > agemin, Age < agemax) %>%
+    group_by(Annee,Activite) %>%
+    summarise(Population = sum(Population)) %>%
+    mutate(Activite = factor(Activite,
+                             levels=c("Actif occupe","Apprentis", "Etudiant","Chomeur ou inactif"))) %>%
+    ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
+    geom_area(color="white") + labs (x = "Année", y = "Effectif selon le statut", title = "Les jeunes de 18 à 21 ans de 1975 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
+}
+
+#30 ans et +
+Apprentis_total4 <- function(agemin = 30, agemax = 60) {
+  emploiAppr %>%
+    filter(Age > agemin, Age < agemax) %>%
+    group_by(Annee,Activite) %>%
+    summarise(Population = sum(Population)) %>%
+    mutate(Activite = factor(Activite,
+                             levels=c("Actif occupe","Apprentis", "Etudiant","Chomeur ou inactif"))) %>%
+    ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
+    geom_area(color="white") + labs (x = "Année", y = "Effectif selon le statut", title = "Les individus de 30 ans à 60 ans de 1975 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
+}
+
+#données Emploi.R
+Apprentis_total4.5 <- function(agemin = 30, agemax = 60) {
+  emploi %>%
+    filter(Age > agemin, Age < agemax) %>%
+    filter(Annee != 2003) %>%
+    group_by(Annee,Activite) %>%
+    summarise(Population = sum(Population)) %>%
+    na.omit() %>%
+    mutate(Activite = factor(Activite,
+                             levels=c("Actif occupé","Apprentis", "Etudiant","Chômeur ou inactif"))) %>%
+    ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
+    geom_area(color="white") + labs (x = "Année", y = "Effectif selon le statut", title = "Les individus de 30 ans à 60 ans de 1970 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
 }
 
 
