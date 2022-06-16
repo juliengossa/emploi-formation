@@ -21,6 +21,7 @@ load("NEET.RData")
 load("popjeunes.RData")
 load("Jeunes_census.RData")
 load("emploiappr.RData")
+load("Jeunes_Actifs_Etudiants.RData")
 
 options(tinytex.verbose = TRUE)
 source("emploi-formation.R", encoding = "UTF-8")
@@ -188,3 +189,27 @@ On a ici des données qui proviennent de l'Eurostat, et qui ne sont disponibles 
 ```{r activite.52, out.width="100%",fig.align='center', fig.asp=9/16}
   Apprentis_total4.5()
 ```
+
+###Comparaison données de l'Eurostat sur les jeunes avec nos données (emploi.R
+)
+```{r activite.53, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot(plot_Jeunes_Etudiants)
+```
+
+```{r activite.54, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot(plot_Jeunes_Actifs)
+```
+
+
+```{r activite.55, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot(plot_jeunescomp)
+```
+
+
+```{r activite.56, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot(plot_NEET4)
+```
+
+
+
+
