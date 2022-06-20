@@ -227,7 +227,12 @@ EmploiNEET <- filter(emploi, Age < 30 & Age > 14 & Activite == "Chômeur ou inac
 EmploiNEET <- group_by(EmploiNEET, Annee)
 EmploiNEET <- summarise(EmploiNEET, Population = sum(Population))
 
-plot_NEET4 <- ggplot()+geom_line(data = Jeunes_Actifs_Etudiants, aes(x=as.numeric(Annee),y=EffNEET), color = "steelblue3") + labs (x = "Année", y = "Effectif des jeunes", title = "Les NEET de 15 à 29 ans de 1975 à 2021 en France", caption = "Source : Eurostat, 2022 (Labour Force Survey & Recensement de la population), Enquête Emploi")+ geom_line(data = EmploiNEET, aes(x=Annee,y=Population, legend = "Enquête Emploi"), color = "grey45")
+plot_NEET4 <- ggplot()+geom_line(data = Jeunes_Actifs_Etudiants, aes(x=as.numeric(Annee),y=EffNEET), color = "steelblue3") + labs (x = "Année", y = "Effectif des NEET", title = "Les NEET de 15 à 29 ans de 1975 à 2021 en France", caption = "Source : Eurostat, 2022 (Labour Force Survey & Recensement de la population), Enquête Emploi")+ geom_line(data = EmploiNEET, aes(x=Annee,y=Population, legend = "Enquête Emploi"), color = "grey45")
 
+Emploichom <- filter(emploi5, Age < 30 & Age > 14 & Activite == "Chomeur", Annee > 1974)
+Emploichom <- group_by(Emploichom, Annee)
+Emploichom <- summarise(Emploichom, Population = sum(Population))
+
+plot_Chomeurs <- ggplot()+geom_line(data = Jeunes_Actifs_Etudiants, aes(x=as.numeric(Annee),y=Chomeurs), color = "steelblue3") + labs (x = "Année", y = "Effectif des jeunes chômeurs", title = "Les chômeurs de 15 à 29 ans de 1975 à 2021 en France", caption = "Source : Eurostat, 2022 (Labour Force Survey & Recensement de la population), Enquête Emploi")+ geom_line(data = Emploichom, aes(x=Annee,y=Population, legend = "Enquête Emploi"), color = "grey45")
 
 
