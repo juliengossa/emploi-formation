@@ -129,6 +129,7 @@ tablemploiact <- tbl_summary(emploiAct, by = Activite) %>% add_p()
 #Comparaison des effectifs totaux des jeunes de 15 à 29 ans (eurostat et enquête Emploi)
 
 NEET <- mutate(NEET, Jeunes = EJ*1000)
+
 plot_jeunes <- 
   bind_rows(
     Popjeunes %>%
