@@ -22,40 +22,43 @@ spoilerTable <- function(df) {
 }
 
 load("emploi.RData")
+load("ndv.RData")
 ```
 
 
 ```{r activite}
 emploi %>%
-  group_by(Année,Age,Activité) %>%
+  group_by(Annee,Age,Activite) %>%
   summarise(Population = sum(Population)) %>%
-  ggplot(aes(x=Age,y=Population,fill=Activité,group=Activité)) +
+  ggplot(aes(x=Age,y=Population,fill=Activite,group=Activite)) +
   geom_area() +
-  facet_wrap(Année~.) 
+  facet_wrap(Annee~.) 
 ```
 
 
 ```{r activite.25}
 emploi %>%
-  filter(AgeQ<30) %>%
-  group_by(Année,Activité) %>%
+  filter(Age > 15, Age < 30) %>%
+  #filter(Annee != 2003) %>%
+  group_by(Annee,Activite) %>%
   summarise(Population = sum(Population)) %>%
-  mutate(Activité = factor(Activité,levels=c("Actif occupé","Etudiant","Chômeur ou inactif"))) %>%
-  ggplot(aes(x=Année,y=Population,fill=Activité,group=Activité)) +
-  geom_area(color="white") 
+  na.omit() %>%
+  ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
+  geom_area(color="white") +
+  geom_vline(xintercept=2002.5, color="white", size=3, alpha=0.1)
 ```
 
 
 ```{r diplome.25}
 emploi %>%
   filter(AgeQ==25) %>%
-  group_by(Année,Diplome) %>%
+  group_by(Annee,Diplome) %>%
   summarise(Population = sum(Population)) %>%
   mutate(Diplome=fct_rev(Diplome)) %>%
   na.omit() %>%
   ggplot(aes(y=Diplome,x=Population,fill=Diplome)) +
   geom_col(color="black") +
-  facet_wrap(Année~.) +
+  facet_wrap(Annee~.) +
   scale_fill_brewer(palette = "Purples", guide="none")
 ```
 
@@ -63,9 +66,9 @@ emploi %>%
 ```{r diplome.25.gif, fig.asp=9/19}
 p <- emploi %>%
   filter(AgeQ==25) %>%
-  group_by(Année,Diplome) %>%
+  group_by(Annee,Diplome) %>%
   summarise(Population = sum(Population)) %>%
-  group_by(Année) %>%
+  group_by(Annee) %>%
   mutate(Population = Population/sum(Population)) %>%
   mutate(Diplome=fct_rev(Diplome)) %>%
   na.omit() %>% 
@@ -79,7 +82,7 @@ p <- emploi %>%
           axis.title.y = element_blank(),
           panel.grid.major.x = element_line(color="grey", size=0.2),
           panel.grid.major.y = element_blank()) +
-    transition_states(Année, wrap = FALSE) 
+    transition_states(Annee, wrap = FALSE) 
 
 animate(p, start_pause = 20, end_pause = 20, nframes = 240)
 ```
@@ -94,9 +97,9 @@ p <- emploi %>%
     "Bac+2 ou 3" = "Bac+2",
     "Bac+2 ou 3" = "Bac+3",
   )) %>%
-  group_by(Année,Diplome) %>%
+  group_by(Annee,Diplome) %>%
   summarise(Population = sum(Population)) %>%
-  group_by(Année) %>%
+  group_by(Annee) %>%
   mutate(Population = Population/sum(Population)) %>%
   mutate(Diplome=fct_rev(Diplome)) %>%
   mutate(rank = as.character(rank(Population))) %>%
@@ -112,7 +115,7 @@ p <- emploi %>%
           axis.title.y = element_blank(),
           panel.grid.major.x = element_line(color="grey", size=0.2),
           panel.grid.major.y = element_blank()) +
-    transition_states(Année, wrap = FALSE, transition_length = 4, state_length = 1) 
+    transition_states(Annee, wrap = FALSE, transition_length = 4, state_length = 1) 
 
 animate(p, start_pause = 20, nframes = 200, end_pause = 20)
 ```
@@ -121,27 +124,65 @@ animate(p, start_pause = 20, nframes = 200, end_pause = 20)
 
 ```{r emploi.bac5}
 emploi %>%
-  filter(AgeQ==25, str_detect(Diplome,"Bac"), Activité != "Etudiant") %>%
-  group_by(Année,Diplome,Activité) %>%
+  filter(AgeQ==25, str_detect(Diplome,"Bac"), Activite != "Etudiant") %>%
+  group_by(Annee,Diplome,Activite) %>%
   summarise(Population = sum(Population)) %>%
-  group_by(Diplome, Activité) %>%
-  arrange(Année) %>%
+  group_by(Diplome, Activite) %>%
+  arrange(Annee) %>%
   mutate(Evolution = Population / first(Population) * 100) %>%
-  ggplot(aes(x=Année,y=Evolution,color=Activité, fill=Activité, group=Activité)) +
+  ggplot(aes(x=Annee,y=Evolution,color=Activite, fill=Activite, group=Activite)) +
   geom_line() + 
   facet_wrap(Diplome~.) +
   theme_cpesr_cap()
 ```
 
+## Diplome vs Niveau de vie
+
+```{r dipl.vs.ndv, eval=TRUE, fig.asp=4/3}
+emploi.ndv <- emploi %>%
+  filter(AgeQ==25) %>%
+  group_by(Annee,Type="Diplome",
+           Niveau=fct_recode(Diplome, 
+                             "Aucun"="DNB",
+                             "Supérieur" = "Bac+5",
+                             "Supérieur" = "Bac+3",
+                             "Supérieur" = "Bac+2")) %>%
+  summarise(Population = mean(Population)) %>%
+  na.omit() %>%
+  mutate(Annee = recode(as.character(Annee),"1971"="1970")) %>%
+  bind_rows(
+    ndv %>% transmute(
+      Annee=as.character(Annee), 
+      Type="NiveauDeVie",
+      Niveau=fct_rev(NiveauDeVieRT),
+      Population)
+    )
+  
+emploi.ndv %>%
+  filter(Annee %in% c(1970,1971,1979,1990,2000, 2010, 2019)) %>%
+  ggplot(aes(y=Niveau,x=Population,fill=Type)) +
+  geom_col(color="black") +
+  facet_wrap(Annee~Type, scales = "free", ncol=2) 
+```
+
+```{r dipl.vs.ndv.max}
+emploi.ndv %>%
+  group_by(Annee=as.numeric(Annee),Type) %>%
+  mutate(Part = Population/sum(Population)) %>%
+  filter(Niveau %in% c("Supérieur","(2, Inf]")) %>%
+  ggplot(aes(x=Annee,y=Part,color=Type, group=Type)) +
+  geom_line() +
+  scale_y_continuous(limits=c(0,0.3), labels=scales::percent)
+```
 
 ## Diplome vs Salaire
 
 Salaire moyen = moyenne des salaires moyens pondérée par population ?
 
-```{r dipl.vs.salaire, fig.height=20, fig.width=6}
+```{r dipl.vs.salaire, fig.height=20, fig.width=6, eval=FALSE}
 emploi %>%
   filter(AgeQ==25) %>%
-  group_by(Année,Diplome) %>%
+  group_by(Annee,Diplome) %>%
   summarise(
     SalaireMoyen = weighted.mean(SalaireMoyen,Population,na.rm=TRUE),
     Population = mean(Population)
@@ -151,14 +192,14 @@ emploi %>%
   pivot_longer(c(Population,SalaireMoyen), names_to = "Indicateur", values_to = "Valeur") %>%
   ggplot(aes(y=Diplome,x=Valeur,fill=Diplome)) +
   geom_col(color="black") +
-  facet_grid(Année~Indicateur, scales = "free_x") +
+  facet_grid(Annee~Indicateur, scales = "free_x") +
   scale_fill_brewer(palette = "Purples", guide="none")
 ```
 
-```{r dipl.vs.salaire.gif}
+```{r dipl.vs.salaire.gif, eval=FALSE}
 p <- emploi %>%
   filter(AgeQ==25) %>%
-  group_by(Année,Diplome) %>%
+  group_by(Annee,Diplome) %>%
   summarise(
     SalaireMoyen = weighted.mean(SalaireMoyen,Population,na.rm=TRUE),
     Population = mean(Population)
@@ -176,7 +217,7 @@ p <- emploi %>%
           axis.title.y = element_blank(),
           panel.grid.major.x = element_line(color="grey", size=0.2),
           panel.grid.major.y = element_blank()) +
-    transition_states(Année, wrap = FALSE, transition_length = 4, state_length = 1) 
+    transition_states(Annee, wrap = FALSE, transition_length = 4, state_length = 1) 
 
 animate(p, start_pause = 20, nframes = 200, end_pause = 20)
   
@@ -184,10 +225,10 @@ animate(p, start_pause = 20, nframes = 200, end_pause = 20)
 
 
 
-```{r dipl.vs.salaire.hf.gif}
+```{r dipl.vs.salaire.hf.gif, eval=FALSE}
 p <- emploi %>%
   filter(AgeQ==25) %>%
-  group_by(Année,Sexe,Diplome) %>%
+  group_by(Annee,Sexe,Diplome) %>%
   summarise(
     SalaireMoyen = weighted.mean(SalaireMoyen,Population,na.rm=TRUE),
     Population = mean(Population)
@@ -205,7 +246,7 @@ p <- emploi %>%
           axis.title.y = element_blank(),
           panel.grid.major.x = element_line(color="grey", size=0.2),
           panel.grid.major.y = element_blank()) +
-    transition_states(Année, wrap = FALSE, transition_length = 4, state_length = 1) 
+    transition_states(Annee, wrap = FALSE, transition_length = 4, state_length = 1) 
 
 animate(p, start_pause = 20, nframes = 200, end_pause = 20)
   

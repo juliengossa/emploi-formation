@@ -15,11 +15,12 @@ Popjeunes <-  filter(Popjeunes, Annee < 1975 | Annee > 1975)
 
 plot_activite <- function(agemin = 15, agemax = 30) {
   emploi %>%
-    filter(Age > agemin, Age < agemax) %>%
+    filter(Age >= agemin, Age <= agemax) %>%
+    filter(!is.na(Activite)) %>%
     group_by(Annee,Activite) %>%
-    summarise(Population = sum(Population)) %>%
-    mutate(Activite = factor(Activite,
-                             levels=c("Actif occupé","Etudiant","Chômeur ou inactif"))) %>%
+    summarise(Population = sum(Population, na.rm=TRUE)) %>%
+    # mutate(Activite = factor(Activite,
+    #                          levels=c("Actif occupé","Etudiant","Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
     geom_area(color="white") + labs (x = "Année", y = "Effectif des jeunes", caption = "Source :Enquête Emploi (1971 - 2020)")
 }
@@ -128,7 +129,24 @@ tablemploiact <- tbl_summary(emploiAct, by = Activite) %>% add_p()
 #Comparaison des effectifs totaux des jeunes de 15 à 29 ans (eurostat et enquête Emploi)
 
 NEET <- mutate(NEET, Jeunes = EJ*1000)
-plot_jeunes <- ggplot()+ geom_line(data = NEET, aes(x=as.numeric(ANNEE),y=Jeunes, color = "Enquête Emploi"), color = "steelblue3") + labs (x = "Année", y = "Effectif des jeunes", title = "Les jeunes de 15 à 29 ans de 1971 à 2021 en France", caption = "Source : Eurostat, 2022 (Labour Force Survey), Enquête Emploi")+ geom_line(data = Popjeunes, aes(x=Annee,y=Population, color = "Eurostat"), color = "grey45")
+plot_jeunes <- 
+  bind_rows(
+    Popjeunes %>%
+      transmute(
+        Annee = as.numeric(Annee),
+        Population,
+        Source = "Enquête Emploi"),
+    NEET %>%
+      transmute(
+        Annee = as.numeric(ANNEE),
+        Population = EJ * 1000,
+        Source = "Eurostat")
+    ) %>%
+  ggplot(aes(x=Annee, y=Population, group = Source, color = Source)) + 
+  geom_line() +
+  scale_color_manual(values = c("grey45","steelblue3")) +
+  labs (x = "Année", y = "Effectif des jeunes", title = "Les jeunes de 15 à 29 ans de 1971 à 2021 en France", 
+        caption = "Source : Eurostat, 2022 (Labour Force Survey), Enquête Emploi")
 
 #Comparaison des effectifs totaux des jeunes de 15 à 29 ans (Eurostat (Labour Force Survey) = table NEET, enquête Emploi = Popjeunes, recensement = Jeunes_census)
 

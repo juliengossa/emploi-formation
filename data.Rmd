@@ -18,6 +18,8 @@ spoilerTable <- function(df) {
   
   cat("\n\n</details>\n")
 }
+
+source("var_recode.R")
 ```
 
 ## Fonctions de lecture
@@ -37,7 +39,7 @@ read_and_sum_71_74 <- function(file, annee) {
     summarise(Population = sum(extri,na.rm=TRUE))
 }
 
-df <- read_and_sum_71_74("data/Csv/empl71qi.dta", 1971)
+# df <- read_and_sum_71_74("data/Csv/empl71qi.dta", 1971)
 ```
 
 
@@ -105,23 +107,17 @@ read_and_sum_90_02 <- function(file, annee) {
 ```{r indiv, results='asis', cache=TRUE}
 # Les données doivent être dans un dossier "data/Csv/"
 read_and_sum_2003_ <- function(file, annee=NA) {
-  indiv <- read.csv2(file, dec=".")
-  if("extri" %in% colnames(indiv)) {
-    indiv <- indiv %>% rename(EXTRI = extri)
-  }
-  if("EXTRI16" %in% colnames(indiv)) {
-    indiv <- indiv %>% rename(EXTRIDF = EXTRI16)
-  }
-  if(!"FC5A" %in% colnames(indiv)) {
-    indiv$FC5A <- -1
-  }
+  indiv <- read.csv2(file, dec=".") %>%
+    rename_with(toupper)
+  if("EXTRI16" %in% colnames(indiv)) indiv <- indiv %>% rename(EXTRIDF = EXTRI16)
+  if(!"FC5A" %in% colnames(indiv)) indiv$FC5A <- ifelse(indiv$STATUTR == 3,1,-1)
   indiv %>%
     group_by(Annee = as.numeric(ANNEE),
              Trimestre = as.numeric(TRIM),
              Age = as.numeric(AGE), 
              Sexe = fct_recode(as.character(SEXE), !!!var_recode_sexe),
              Activite = fct_recode(as.character(ACTEU6), !!!var_recode_ACTUE6),
-             Apprentissage = fct_recode(as.character(STATUTR), !!!var_recode_STATUTR),
+             Apprentissage = ifelse(FC5A==1, "Apprentis", "Non apprentis"), #fct_recode(as.character(STATUTR), !!!var_recode_STATUTR),
              #Diplome = fct_recode(as.character(DIP), !!!var_recode_DIP)
              Diplome = factor(floor(as.numeric(DIP)/10),
                               levels=c(1,2,3,4,5,6,7),
@@ -226,6 +222,7 @@ emploi <- emploi.raw %>%
   mutate( AgeQ = as.numeric(as.character(cut(Age,seq(0,120,5),labels=seq(0,115,5),right=FALSE)) )) %>%
   group_by(Annee,Trimestre,Sexe,Age,AgeQ,Diplome,Activite) %>%
   summarise(Population = sum(Population)) %>%
+  #mutate(Date = ifelse(is.na(Trimestre),Annee,Annee+(Trimestre-1)/4)) %>%
   group_by(Annee,Sexe,Age,AgeQ,Diplome,Activite) %>%
   summarise(Population = mean(Population)) %>%
   ungroup() 
