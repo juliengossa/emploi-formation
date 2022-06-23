@@ -29,6 +29,18 @@ lorsque des emplois sont disponibles, les jeunes sortiraient plus tôt du
 système éducation ; lorsque les emplois sont rares, les jeunes
 prolongeraient leurs études.
 
+<img src="Rapport_files/figure-gfm/saphire-1.png" title="Activité des jeunes entre 16 en 24 ans, depuis 1968" alt="Activité des jeunes entre 16 en 24 ans, depuis 1968" width="100%" style="display: block; margin: auto;" />
+
+### Questions principales :
+
+-   Est-ce que la formation agit en “amortisseur” entre le chômage et
+    l’emploi ?
+-   Est-ce que le nombre de jeunes chômeurs ou inactifs est réellement
+    constant ?
+    -   Hypothèse d’une raison technique dans les données ? (erreur de
+        traitement ou biais échantillonnage ?)
+    -   Sinon comment l’expliquer ?
+
 ## Vue long terme 1971 - 2020
 
 ### Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d’activité
