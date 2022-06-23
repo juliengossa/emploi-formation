@@ -199,7 +199,7 @@ Ce graphique compare les effectifs de NEET d'Eurostat (courbe bleue) avec les ef
 
 
 
-###Comparaison données de l'Eurostat sur les jeunes avec nos données (emploi.RData)
+### Comparaison données de l'Eurostat sur les jeunes avec nos données (emploi.RData)
 
 Cette section regroupe des graphiques comparant les données d'Eurostat avec les nôtres afin de décomposer nos données et ainsi essayer de comprendre d’où provient la différence de résultats concernant les effectif des NEET. Comme pour les graphiques précédents, la courbe grise représente les données que nous avons traitées sur l’enquête Emploi tandis que la bleue représente les données d’Eurostat qui a également traité les données de l'enquête Emploi (Labour Force Survey).
 
