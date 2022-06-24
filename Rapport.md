@@ -35,11 +35,38 @@ prolongeraient leurs études.
 
 -   Est-ce que la formation agit en “amortisseur” entre le chômage et
     l’emploi ?
--   Est-ce que le nombre de jeunes chômeurs ou inactifs est réellement
-    constant ?
-    -   Hypothèse d’une raison technique dans les données ? (erreur de
-        traitement ou biais échantillonnage ?)
-    -   Sinon comment l’expliquer ?
+    -   Est-ce que le nombre de jeunes chômeurs ou inactifs est
+        réellement constant/stable ?
+
+        -   Hypothèse d’une raison technique dans les données ? (erreur
+            de traitement ou biais échantillonnage ?)
+            -   Utilisation enquête emploi pour invalider l’hypothèse
+                d’erreur de traitement.
+            -   Comparaison avec Eurostat
+                -   Différence sur le nombre d’étudiants : expliquées
+                    par les étudiants salariés
+                -   **Différence sur les NEET : pas d’explication**
+                    -   Représentation des Jeunes étudiants / actifs
+                        occupés / chômeurs
+                    -   Pas d’information dans la description des
+                        enquêtes
+                    -   Probable définition différente de NEET
+            -   “drop” 2003
+                -   Définition d’actif au sens du BIT : baisse du nombre
+                    d’étudiants
+                -   **Hypothèse d’un biais de début d’enquête ?**
+                -   **Supprimer ?**
+            -   **Hypothèse d’un biais d’échantillonnage ?**
+        -   Variable Diplôme
+            -   **Non fiable avant 1990 : explication ?**
+
+    -   Discussion du terme “constant” ou “stable”.
+
+        -   **Pertinence de confondre inactifs et chômeurs**
+
+    -   Ajout des apprentis.
+
+    -   **Sinon comment l’expliquer ?**
 
 ## Vue long terme 1971 - 2020
 
@@ -192,8 +219,7 @@ peut s’expliquer cette différence.
 
 <img src="Rapport_files/figure-gfm/activite.56-1.png" width="100%" style="display: block; margin: auto;" />
 
-\###Comparaison données de l’Eurostat sur les jeunes avec nos données
-(emploi.RData)
+### Comparaison données de l’Eurostat sur les jeunes avec nos données (emploi.RData)
 
 Cette section regroupe des graphiques comparant les données d’Eurostat
 avec les nôtres afin de décomposer nos données et ainsi essayer de
