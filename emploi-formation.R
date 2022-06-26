@@ -21,8 +21,8 @@ plot_activite <- function(agemin = 15, agemax = 30) {
     summarise(Population = sum(Population, na.rm=TRUE)) %>%
     # mutate(Activite = factor(Activite,
     #                          levels=c("Actif occupé","Etudiant","Chômeur ou inactif"))) %>%
-    ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif des jeunes", caption = "Source :Enquête Emploi (1971 - 2020)")
+    ggplot(aes(x=Annee,y=Population,fill=Activite,color=Activite, group=Activite)) +
+    geom_area(alpha=0.7) + labs (x = "Année", y = "Effectif des jeunes", caption = "Source :Enquête Emploi (1971 - 2020)")
 }
 
 
