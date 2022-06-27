@@ -75,7 +75,6 @@ plot_SE2 <- function(agemin = 15, agemax = 30) {
     geom_line(color="grey45") + labs (x = "Année", y = "Effectif des NEET", title = "NEET (Not in employment, education or training) de 15 à 29 ans", caption = "Source : Enquête Emploi(1976-2020)")
 }
 
-NEET <- rename(NEET, "EffNEET" = "NEET")
 
 #Comparaison des effectifs Eurostat et enquête emploi
 

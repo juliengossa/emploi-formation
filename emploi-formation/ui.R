@@ -8,11 +8,7 @@
 #
 
 library(shiny)
-library(tidyverse)
-library(ggcpesrthemes)
-library(dplyr)
-library(ggplot2)
-library(gtsummary)
+
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -27,7 +23,7 @@ shinyUI(fluidPage(
                         "Ages:",
                         min = 1,
                         max = 100,
-                        value = c(15,29))
+                        value = c(15,30))
         ),
 
         # Show a plot of the generated distribution
