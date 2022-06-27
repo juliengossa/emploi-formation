@@ -3,15 +3,9 @@ title: "Rapport"
 author: "Camille Schumacher"
 date: "23/05/2022"
 output:
-<<<<<<< HEAD
   pdf_document: default
   word_document: default
   github_document: default
-=======
-  github_document: default
-  pdf_document: default
-  word_document: default
->>>>>>> f9e54da5e260fe355ada8d6179edd15786d46188
   html_document:
     df_print: paged
 ---
@@ -20,7 +14,6 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 
 load("emploi.RData")
-load("emploitotal.RData")
 load("emploiact.RData")
 load("sansemploi.RData")
 load("NEET.RData")
@@ -177,13 +170,8 @@ Cette observation est cohérente avec le phénomène de la massification scolair
 
 
 ## Observations sur les évolutions des effectifs totaux de jeunes (15-29 ans) au fil des années.
-Le graphique suivant représente le nombre de jeunes de 15 à 29 ans en France selon l'année. Les données de la courbe grise  sont issues de notre traitement de données de l'enquête Emploi tandis que celles représentées par la courbe bleue proviennent d'Eurostat qui a également effectué un traitement de données à partir de l'enquête Emploi (appelé Labour Force Survey au niveau européen) à partir de l'édition 2003. Comparer ces deux courbes va  (entre autres) nous permettre de vérifier la qualité du traitement de données que nous avons effectué. Pour ce traitement de données, nous avons uniquement pris en compte les données du premier trimestre. 
-On remarque que les deux courbes ont des niveaux et des évolutions très similaires de 2003 à 2020 et affichent des effectifs compris entre 11 millions et 11,5 millions de jeunes de 15 à 29 ans durant cette période. La chute continue à partir des années 1990 est sans doute liée aux générations de baby boomers (nés entre 1945 et 1965) qui vieillissent et quittent progressivement la classe des 15-29 ans. 
-```{r activite.43, out.width="100%",fig.align='center', fig.asp=9/16}
-  plot(plot_jeunes)
-```
-
-Ce graphique ajoute une courbe verte qui représente ici les données du recensement de la population et de l'état civil traitées également par Eurostat. Les évolutions et tendances semblent identiques mais l'effectif des jeunes calculé à partir des données du recensement est néanmoins toujours plus élevé que ceux provenant de l'enquête Emploi. 
+Le graphique suivant représente le nombre de jeunes de 15 à 29 ans en France selon l'année. Les données de la courbe grise  sont issues de notre traitement de données de l'enquête Emploi tandis que celles représentées par la courbe bleue proviennent d'Eurostat qui a également effectué un traitement de données à partir de l'enquête Emploi (appelé Labour Force Survey au niveau européen) à partir de l'édition 2003. Enfin, la courbe verte représente ici les données du recensement de la population et de l'état civil traitées elles aussi par Eurostat. Comparer ces courbes va  (entre autres) nous permettre de vérifier la qualité du traitement de données que nous avons effectué. Pour ce traitement de données, nous avons uniquement pris en compte les données du premier trimestre. 
+On remarque que les courbes grise et bleue ont des niveaux et des évolutions très similaires de 2003 à 2020 et affichent des effectifs compris entre 11 millions et 11,5 millions de jeunes de 15 à 29 ans durant cette période. La chute continue à partir des années 1990 est sans doute liée aux générations de baby boomers (nés entre 1945 et 1965) qui vieillissent et quittent progressivement la classe des 15-29 ans. La courbe verte semble avoir des évolutions et tendances identiques aux deux autres mais l'effectif des jeunes calculé à partir des données du recensement est néanmoins toujours plus élevé que ceux provenant de l'enquête Emploi. 
 
 ```{r activite.44, out.width="100%",fig.align='center', fig.asp=9/16}
   plot(plot_jeunes2)
