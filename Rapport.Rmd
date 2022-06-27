@@ -3,9 +3,9 @@ title: "Rapport"
 author: "Camille Schumacher"
 date: "23/05/2022"
 output:
-  github_document: default
-  word_document: default
   pdf_document: default
+  word_document: default
+  github_document: default
   html_document:
     df_print: paged
 ---
@@ -88,28 +88,28 @@ saphire %>%
 
 ### Questions principales :
 
-- Est-ce que la formation agit en "amortisseur" entre le chômage et l'emploi ?
-  - Est-ce que le nombre de jeunes chômeurs ou inactifs est réellement constant/stable ?
-    - Hypothèse d'une raison technique dans les données ? (erreur de traitement ou biais échantillonnage ?)
-      - Utilisation enquête emploi pour invalider l'hypothèse d'erreur de traitement.
-      - Comparaison avec Eurostat
-        - Différence sur le nombre d'étudiants : expliquées par les étudiants salariés
-        - __Différence sur les NEET : pas d'explication__
-          - Représentation des Jeunes étudiants / actifs occupés / chômeurs
-          - Pas d'information dans la description des enquêtes
-          - Probable définition différente de NEET
-      - "drop" 2003
-        - Définition d'actif au sens du BIT : baisse du nombre d'étudiants
-        - __Hypothèse d'un biais de début d'enquête ?__
-        - __Supprimer ?__
-      - __Hypothèse d'un biais d'échantillonnage ?__
-    - Variable Diplôme 
-      - __Non fiable avant 1990 : explication ?__
-  - Discussion du terme "constant" ou "stable".
-    - __Pertinence de confondre inactifs et chômeurs__
-  - Ajout des apprentis.
+ Est-ce que la formation agit en "amortisseur" entre le chômage et l'emploi ?
+- Est-ce que le nombre de jeunes chômeurs ou inactifs est réellement constant/stable ?
+- Hypothèse d'une raison technique dans les données ? (erreur de traitement ou biais échantillonnage ?)
+- Utilisation enquête emploi pour invalider l'hypothèse d'erreur de traitement.
+- Comparaison avec Eurostat
+- Différence sur le nombre d'étudiants : expliquées par les étudiants salariés
+- Différence sur les NEET : pas d'explication__
+- Représentation des Jeunes étudiants / actifs occupés / chômeurs
+- Pas d'information dans la description des enquêtes
+- Probable définition différente de NEET
+- "drop" 2003
+- Définition d'actif au sens du BIT : baisse du nombre d'étudiants
+- Hypothèse d'un biais de début d'enquête ?
+- Supprimer ?
+- Hypothèse d'un biais d'échantillonnage ?
+- Variable Diplôme 
+- Non fiable avant 1990 : explication ?
+- Discussion du terme "constant" ou "stable".
+- Pertinence de confondre inactifs et chômeurs
+- Ajout des apprentis.
   
-  - __Sinon comment l'expliquer ?__
+- Sinon comment l'expliquer ?
     
     
 

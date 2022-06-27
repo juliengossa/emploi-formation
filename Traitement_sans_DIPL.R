@@ -7,8 +7,16 @@ library(tidyverse)
 library(dplyr)
 library(questionr)
 library(readr)
+library(openxlsx)
 
 #Démonstration de l'utilité de créer un nouveau fichier sans DIPL
+
+Chomeurs <- read.xlsx("data/Eurostat/15_29chomeurs.xlsx")
+Chomeurs <- mutate(Chomeurs, Annee = as.numeric(Annee))
+
+Jeunes_Actifs_Etudiants <- full_join(Jeunes_Actifs_Etudiants, Chomeurs, by = c("Annee" = "Annee"))
+
+save(Jeunes_Actifs_Etudiants, file = "Emploiformation/Jeunes_Actifs_Etudiants.RData")
 
 indiv75 <- read.csv(file = "data/Csv/Empl275qi.csv")
 indiv75 <- group_by(indiv75, CSE)
@@ -30,14 +38,17 @@ indiv86 <- group_by(indiv86, DIPL)
 freq(indiv86$DIPL)
 
 indiv75 <- read.csv(file = "data/Csv/Empl275qi.csv")
-indiv75 <- group_by(indiv75, DIP)
+indiv75 <- group_by(indiv75, ACT7)
 freq(indiv75$DIP)
 
 indiv95 <- read.csv(file = "data/Csv/Empl495qi.csv")
 indiv95 <- group_by(indiv95, DIPL)
 freq(indiv95$DIPL)
 
-
+indiv04 <- read.csv2(file = "data/Csv/indiv9041.csv")
+indiv04 <- group_by(indiv04, DIP)
+freq(indiv04$DIP)
+#0,1% de non-réponses
 
 #En 1988, on atteint "seulement 14,1% de non réponses mais encore trop fragile pour 
 #comparer efficacement les effectifs d'individus selon l'année et le niveau de diplôme
@@ -383,7 +394,7 @@ emploi5 <- emploi.raw5 %>%
   summarise(Population = as.integer(sum(Population,na.rm=TRUE))) %>%
   na.omit()
 
-save(emploi.raw5,emploi5,file="emploi5.RData")
+save(emploi.raw5,emploi5,file="emploi5chom.RData")
 
 #Chargement de toutes les tables
 
