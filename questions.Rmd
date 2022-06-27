@@ -1,0 +1,105 @@
+---
+title: "Questions concernant la relative stabilité du nombre de jeune inactifs ou chômeurs"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(dplyr.summarise.inform = FALSE)
+library(tidyverse)
+library(ggcpesrthemes)
+
+theme_cpesr_setup(authors = "Camille Schumacher et Julien Gossa", source="INSEE, enquête emploi en continu 2003-2020, enquête emploi annuelle 1971 - 2002")
+
+theme_set(theme_cpesr())
+
+load("emploi.RData")
+plot_activite <- function(agemin = 15, agemax = 30) {
+  emploi %>%
+    filter(Annee >= 1975) %>%
+    filter(Age >= agemin, Age <= agemax) %>%
+    filter(!is.na(Activite)) %>%
+    group_by(Annee,Activite) %>%
+    summarise(Population = sum(Population, na.rm=TRUE)) %>%
+    # mutate(Activite = factor(Activite,
+    #                          levels=c("Actif occupé","Etudiant","Chômeur ou inactif"))) %>%
+    ggplot(aes(x=Annee,y=Population,fill=Activite,color=Activite, group=Activite)) +
+    geom_area(alpha=0.7) + 
+    geom_vline(xintercept = 2003, size=8, color="white", alpha=0.8) +
+    scale_y_continuous(labels = ~ .x/1e6) +
+    ggtitle(paste("Activité des jeunes en France de",agemin,"à",agemax,"ans")) +
+    labs (x = "Année", y = "Population (millions)", 
+          caption = "Source :Enquête Emploi (1971 - 2020)") +
+    cpesr_cap()
+}
+
+plot_activite_norm <- function(agemin = 15, agemax = 30) {
+  emploi %>%
+    filter(Annee >= 1975) %>%
+    filter(Age >= agemin, Age <= agemax) %>%
+    filter(!is.na(Activite)) %>%
+    group_by(Annee,Activite) %>%
+    summarise(Population = sum(Population, na.rm=TRUE)) %>%
+    group_by(Activite) %>%
+    mutate(val100 = Population/first(Population)*100) %>%
+    ggplot(aes(x=Annee,y=val100,fill=Activite,color=Activite, group=Activite)) +
+    geom_line(size=1) +
+    geom_vline(xintercept = 2003, size=8, color="white", alpha=0.8) +
+    ggtitle(paste("Activité des jeunes en France de",agemin,"à",agemax,"ans")) +
+    labs (x = "Année", y = "Population (valeur 100 en 1975)", 
+          caption = "Source :Enquête Emploi (1971 - 2020)") +
+    cpesr_cap()
+}
+
+```
+
+```{r data}
+act <-  emploi %>%
+    filter(Annee >= 1975) %>%
+    filter(Age >= 15, Age <= 29) %>%
+    filter(!is.na(Activite)) %>%
+    group_by(Annee,Activite) %>%
+    summarise(Population = sum(Population, na.rm=TRUE)) 
+
+coi <- act %>% filter(Activite == "Chômeur ou inactif") %>% pull (Population) / 1e6 
+```
+
+En utilisant l'enquête emploi en continu de l'INSEE, nous avons pu mettre en évidence 
+une relative invariance du nombre absolu de jeunes inactifs ou chômeurs sur 50 ans.
+Ainsi, on observe un minimum de `r round(min(coi),2)` pour un maximum de `r round(max(coi),2)` millions,
+alors que les autres séries varient de plusieurs millions.
+
+En se concentrant sur les 18-23 ans, la différence est plus marquée, mais reste
+très inférieure aux variations des autres séries, et semble toujours contenu sous 
+une barre invisible. 
+
+Les représentations en valeur 100 montrent des inversions de tendance plus 
+fréquentes que pour les autres séries.
+
+Nous avons travaillé à confirmer ces représentations et traitements, en vérifiant 
+l'encodage des variables et en confrontant les données à celles d'Eurostats et 
+du recenssement. 
+
+__Nous cherchons maintenant à trouver des explications ou des hypothèses qui pourraient
+expliquer ce qu'on observe sur ces représensations.__ Toute aide sera appréciée.
+
+
+```{r activite.1529, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot_activite(agemin = 15, agemax = 29)
+```
+
+```{r activite.1529.norm, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot_activite_norm(agemin = 15, agemax = 29)
+```
+
+
+```{r activite.1823, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot_activite(agemin = 18, agemax = 23)
+```
+
+```{r activite.1823.norm, out.width="100%",fig.align='center', fig.asp=9/16}
+  plot_activite_norm(agemin = 18, agemax = 23)
+```
+
+NB : il existe une rupture de série en 2003 due à une réforme méthodologique de
+l'enquête.
