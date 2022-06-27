@@ -8,7 +8,6 @@ theme_cpesr_setup(source="INSEE, enquête emploi en continu 2003-2020, enquête 
 
 options(dplyr.summarise.inform = FALSE, Encoding="UTF-8")
 
-
 emploiAct <-  filter(emploiAct, Annee < 1975 | Annee > 1975)
 SansEmploi <- filter(SansEmploi, Annee > 1975)
 Popjeunes <-  filter(Popjeunes, Annee < 1975 | Annee > 1975)

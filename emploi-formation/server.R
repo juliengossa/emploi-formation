@@ -14,6 +14,14 @@ shinyServer(function(input, output) {
 
     
     load("../emploi.RData")
+    load("../emploiact.RData")
+    load("../sansemploi.RData")
+    load("../NEET.RData")
+    load("../popjeunes.RData")
+    load("../Jeunes_census.RData")
+    load("../emploichom.RData")
+    load("../emploiappr.RData")
+    load("../Jeunes_Actifs_Etudiants.RData")
     
     source("../emploi-formation.R")
     
