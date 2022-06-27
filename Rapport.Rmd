@@ -3,9 +3,15 @@ title: "Rapport"
 author: "Camille Schumacher"
 date: "23/05/2022"
 output:
+<<<<<<< HEAD
   pdf_document: default
   word_document: default
   github_document: default
+=======
+  github_document: default
+  pdf_document: default
+  word_document: default
+>>>>>>> f9e54da5e260fe355ada8d6179edd15786d46188
   html_document:
     df_print: paged
 ---
@@ -119,7 +125,7 @@ saphire %>%
 
 
 ###      Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activité
-```{r activite.25, out.width="100%",fig.align='center', fig.asp=9/30}
+```{r activite.25, out.width="100%",fig.align='center', fig.asp=9/16}
   plot_activite(agemin = 15, agemax = 29)
 ```
 
