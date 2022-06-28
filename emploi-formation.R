@@ -11,6 +11,7 @@ options(dplyr.summarise.inform = FALSE, Encoding="UTF-8")
 emploiAct <-  filter(emploiAct, Annee < 1975 | Annee > 1975)
 SansEmploi <- filter(SansEmploi, Annee > 1975)
 Popjeunes <-  filter(Popjeunes, Annee < 1975 | Annee > 1975)
+NEET <- NEET %>% rename(EffNEET = NEET)
 
 plot_activite <- function(agemin = 15, agemax = 30) {
   emploi %>%
