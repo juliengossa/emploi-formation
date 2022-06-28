@@ -8,25 +8,34 @@
 #
 
 library(shiny)
+library(shinythemes)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-
-  load("../emploi.RData")
-  load("../emploiact.RData")
-  load("../sansemploi.RData")
-  load("../NEET.RData")
-  load("../popjeunes.RData")
-  load("../Jeunes_census.RData")
-  load("../emploichom.RData")
-  load("../emploiappr.RData")
-  load("../Jeunes_Actifs_Etudiants.RData")
-
+  
+   load("../emploi.RData")
+   load("../emploiact.RData")
+   load("../sansemploi.RData")
+   load("../NEET.RData")
+   load("../popjeunes.RData")
+   load("../Jeunes_census.RData")
+   load("../emploichom.RData")
+   load("../emploiappr.RData")
+   load("../Jeunes_Actifs_Etudiants.RData")
+  
     source("../emploi-formation.R", encoding = "UTF-8")
     
     output$activitePlot <- renderPlot({
-        plot_activite(input$ages[1], input$ages[2])
+        plot_activite(input$ages[1], input$ages[2], input$annees[1], input$annees[2])
 
     })
+    output$diplomePlot <- renderPlot({
+      plot_activite3(input$ages[1], input$ages[2], input$annees[1], input$annees[2])
+      
+    })
+    
 
 })
+
+
+

@@ -13,9 +13,9 @@ SansEmploi <- filter(SansEmploi, Annee > 1975)
 Popjeunes <-  filter(Popjeunes, Annee < 1975 | Annee > 1975)
 NEET <- NEET %>% rename(EffNEET = NEET)
 
-plot_activite <- function(agemin = 15, agemax = 30) {
+plot_activite <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax = 2020) {
   emploi %>%
-    filter(Age >= agemin, Age <= agemax) %>%
+    filter(Age >= agemin, Age <= agemax, Annee >= anneemin, Annee <= anneemax) %>%
     filter(!is.na(Activite)) %>%
     group_by(Annee,Activite) %>%
     summarise(Population = sum(Population, na.rm=TRUE)) %>%
@@ -27,9 +27,9 @@ plot_activite <- function(agemin = 15, agemax = 30) {
 
 
 #Graphique pour connaître le niveau de diplome des jeunes selon l'année civile 
-plot_activite3 <- function(agemin = 15, agemax = 30) {
+plot_activite3 <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax = 2020) {
   emploi %>%
-    filter(Age > agemin, Age < agemax) %>%
+    filter(Age > agemin, Age < agemax, Annee >= anneemin, Annee <= anneemax) %>%
     group_by(Annee,Diplome) %>%
     summarise(Population = sum(Population)) %>%
     mutate(Diplome = factor(Diplome,

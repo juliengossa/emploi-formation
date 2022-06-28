@@ -10,30 +10,37 @@
 library(shiny)
 
 
-# Define UI for application that draws a histogram
+
+
 shinyUI(fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geys Data"),
-
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("ages",
-                        "Ages:",
-                        min = 1,
-                        max = 100,
-                        value = c(15,30))
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-            plotOutput("activitePlot")
-        )
-    )
-))
-
-
+  
+  # Application title
+  titlePanel("Répartition des individus selon l'activité et le diplôme"),
+  
+  # Sidebar with a slider input for number of bins
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("ages",
+                  "Ages:",
+                  min = 1,
+                  max = 100,
+                  value = c(15,30)),
+      
+      value = c(1971,2020)),
+    sliderInput("annees",
+                "Années:",
+                min = 1969,
+                max = 2020,
+                value = c(1969,2020))
+    
+  ),
+  
+  # Show a plot of the generated distribution
+  mainPanel(
+    plotOutput("activitePlot"), plotOutput("diplomePlot")
+  )
+)
+)
 
 
 
