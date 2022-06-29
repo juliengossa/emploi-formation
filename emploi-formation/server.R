@@ -20,7 +20,6 @@ shinyServer(function(input, output) {
    load("../popjeunes.RData")
    load("../Jeunes_census.RData")
    load("../emploichom.RData")
-   load("../emploiappr.RData")
    load("../Jeunes_Actifs_Etudiants.RData")
   
     source("../emploi-formation.R", encoding = "UTF-8")
@@ -33,8 +32,19 @@ shinyServer(function(input, output) {
       plot_activite3(input$ages[1], input$ages[2], input$annees[1], input$annees[2])
       
     })
+    output$apprentisPlot <- renderPlot({
+      plot_Apprentis(input$ages[1], input$ages[2], input$annees[1], input$annees[2])
+      
+    })
+    output$activitePlot2 <- renderPlot({
+      plot_activite7(input$ages[1], input$ages[2], input$annees[1], input$annees[2])
+      
+    })
     
-
+    output$diplomePlot2 <- renderPlot({
+      plot_activite8(input$ages[1], input$ages[2], input$annees[1], input$annees[2])
+      
+    })
 })
 
 

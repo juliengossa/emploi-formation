@@ -24,20 +24,22 @@ shinyUI(fluidPage(
                   "Ages:",
                   min = 1,
                   max = 100,
-                  value = c(15,30)),
+                  value = c(15,30))),
       
-      value = c(1971,2020)),
+        sidebarPanel(
     sliderInput("annees",
                 "Années:",
-                min = 1969,
+                min = 1971,
                 max = 2020,
-                value = c(1969,2020))
+                value = c(1971,2020)))
     
   ),
   
   # Show a plot of the generated distribution
+  
+  
   mainPanel(
-    plotOutput("activitePlot"), plotOutput("diplomePlot")
+    plotOutput("activitePlot"), plotOutput("activitePlot2"), plotOutput("diplomePlot"), plotOutput("diplomePlot2"), plotOutput("apprentisPlot")
   )
 )
 )
