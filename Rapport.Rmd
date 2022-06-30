@@ -14,13 +14,9 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 
 load("emploi.RData")
-load("emploiact.RData")
-load("sansemploi.RData")
 load("NEET.RData")
-load("popjeunes.RData")
 load("Jeunes_census.RData")
 load("emploichom.RData")
-load("emploiappr.RData")
 load("Jeunes_Actifs_Etudiants.RData")
 
 options(tinytex.verbose = TRUE)
@@ -120,15 +116,6 @@ saphire %>%
 ###      Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activité
 ```{r activite.25, out.width="100%",fig.align='center', fig.asp=9/16}
   plot_activite(agemin = 15, agemax = 29)
-```
-
-
-## Représentation de l'activité par année (sans les non-réponses)
-
-
-###      Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activité
-```{r activite.31, out.width="100%",fig.align='center', fig.asp=9/30}
-  plot_activite4()
 ```
 
 
@@ -295,4 +282,6 @@ Ce dernier graphique représente la répartition des individus de 30 à 60 ans s
 ```{r activite.52, out.width="100%",fig.align='center', fig.asp=9/16}
   Apprentis_total4.5()
 ```
+
+
 

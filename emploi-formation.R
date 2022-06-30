@@ -9,13 +9,23 @@ theme_cpesr_setup(source="INSEE, enquête emploi en continu 2003-2020, enquête 
 options(dplyr.summarise.inform = FALSE, Encoding="UTF-8")
 
 
+#Creation d'une table des jeunes sans emploi
+SansEmploi <-  filter(emploi, Age > 14 & Age < 30)
+SansEmploi <-  group_by(SansEmploi, Annee, Activite)
+SansEmploi <-  filter(SansEmploi, Activite == "Chômeur ou inactif")
+SansEmploi <- summarise(SansEmploi, Population = sum(Population))
 
+#Creation d'une table sur les jeunes de 15 à 29 ans
+Popjeunes <-  filter(emploi, Age > 14 & Age< 30)
+Popjeunes <- group_by(Popjeunes, Annee)
+Popjeunes <- summarise(Popjeunes, Population = sum(Population))
 
-emploiAct <-  filter(emploiAct, Annee < 1975 | Annee > 1975)
+#Nettoyage
 SansEmploi <- filter(SansEmploi, Annee > 1975)
 Popjeunes <-  filter(Popjeunes, Annee < 1975 | Annee > 1975)
 NEET <- NEET %>% rename(EffNEET = NEET)
 
+#Réalisation de graphiques
 plot_activite <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax = 2020, pourcent = Population / sum(Population)*100, Pop = Population) {
   emploi %>%
     filter(Age >= agemin, Age <= agemax, Annee >= anneemin, Annee <= anneemax) %>%
@@ -55,16 +65,7 @@ plot_activite7 <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax =
 
 #Réalisation du graphique des effectifs d'individus selon l'activité avec la table emploiActt
 #(plus fiable que la table emploitotal)
-plot_activite4 <- function(agemin = 15, agemax = 30) {
-  emploiAct %>%
-    filter(Age > agemin, Age < agemax) %>%
-    group_by(Annee,Activite) %>%
-    summarise(Population = sum(Population)) %>%
-    mutate(Activite = factor(Activite,
-                             levels=c("Actif occupe","Etudiant","Chomeur ou inactif"))) %>%
-    ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif des jeunes")
-}
+
 
 #Indication : la table SansEmploi contient le nombre de jeunes chômeurs et inactifs par an, le
 #code pour la construire est disponible à la fin du fichier Traitement_sans_DIPL.R
@@ -137,7 +138,7 @@ plot_NEET2 <-
 
 tablemploitotal <- tbl_summary(emploi, by = Activite) %>% add_p()
 
-tablemploiact <- tbl_summary(emploiAct, by = Activite) %>% add_p()
+tablemploiact <- tbl_summary(emploi, by = Activite) %>% add_p()
 
 #Comparaison des effectifs totaux des jeunes de 15 à 29 ans (eurostat et enquête Emploi)
 

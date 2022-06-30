@@ -16,10 +16,7 @@ library(shinyWidgets)
 shinyServer(function(input, output) {
   
    load("../emploi.RData")
-   load("../emploiact.RData")
-   load("../sansemploi.RData")
    load("../NEET.RData")
-   load("../popjeunes.RData")
    load("../Jeunes_census.RData")
    load("../emploichom.RData")
    load("../Jeunes_Actifs_Etudiants.RData")
