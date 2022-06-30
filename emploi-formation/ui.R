@@ -37,6 +37,7 @@ shinyUI(fluidPage(
   
     mainPanel(
       plotOutput("activitePlot"), 
+      plotOutput("activiteSlicePlot"), 
       plotOutput("diplomePlot")
     )
   )

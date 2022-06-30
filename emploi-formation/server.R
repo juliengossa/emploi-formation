@@ -16,15 +16,18 @@ library(shinyWidgets)
 shinyServer(function(input, output) {
   
     source("ef-functions.R", encoding = "UTF-8")
+    theme_set(theme_minimal())
     
     output$activitePlot <- renderPlot({
         plot_activite(input$ages[1], input$ages[2], input$annees[1], input$annees[2], input$cb_position, input$cb_na)
+    })
 
+    output$activiteSlicePlot <- renderPlot({
+      plot_activite_slice(input$ages[1], input$ages[2], input$annees[1], input$annees[2], input$cb_position, input$cb_na)
     })
     
     output$diplomePlot <- renderPlot({
       plot_diplome(input$ages[1], input$ages[2], input$annees[1], input$annees[2], input$cb_position, input$cb_na)
-      
     })
 
 })
