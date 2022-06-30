@@ -9,6 +9,8 @@
 
 library(shiny)
 library(shinythemes)
+library(shinyWidgets)
+
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -45,6 +47,15 @@ shinyServer(function(input, output) {
       plot_activite8(input$ages[1], input$ages[2], input$annees[1], input$annees[2])
       
     })
+    
+    if(Checkbox == FALSE) {
+      output$activitePlot3 <-  renderPlot({ plot_activite(input$ages[1], input$ages[2], input$annees[1], input$annees[2])
+      })  
+      
+    }else{
+      output$activitePlot3 <-  renderPlot({ plot_activite7(input$ages[1], input$ages[2], input$annees[1], input$annees[2])
+      })     
+    }
 })
 
 

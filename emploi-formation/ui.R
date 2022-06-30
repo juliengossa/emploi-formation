@@ -35,14 +35,16 @@ shinyUI(fluidPage(
     
   ),
   
-  # Show a plot of the generated distribution
+  
+  materialSwitch(inputId = "Checkbox", label = "Pourcentages", status = "danger", value = FALSE),
   
   
   mainPanel(
-    plotOutput("activitePlot"), plotOutput("activitePlot2"), plotOutput("diplomePlot"), plotOutput("diplomePlot2"), plotOutput("apprentisPlot")
+    plotOutput("activitePlot"), plotOutput("activitePlot2"), plotOutput("diplomePlot"), plotOutput("diplomePlot2"), plotOutput("activitePlot3")
+    ))
   )
-)
-)
+
+
 
 
 
