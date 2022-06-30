@@ -3,11 +3,11 @@ title: "Rapport"
 author: "Camille Schumacher"
 date: "23/05/2022"
 output:
-  pdf_document: default
-  word_document: default
-  github_document: default
   html_document:
     df_print: paged
+  word_document: default
+  github_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -283,5 +283,33 @@ Ce dernier graphique représente la répartition des individus de 30 à 60 ans s
   Apprentis_total4.5()
 ```
 
+###  Statut d'activité et niveau de diplôme des jeunes de 15 à 29 ans en fonction des périodes
+```{r activite.60, out.width="100%",fig.align='center', fig.asp=9/16}
+  as_gt(tablemploi)
+```
+
+
+###  Sexe, âge et niveau de diplôme des jeunes (15-29 ans) en fonction de leur statut d'activité en 1976
+```{r activite.61, out.width="100%",fig.align='center', fig.asp=9/16}
+  as_gt(tableacti1976)
+```
+
+
+### Sexe, âge et niveau de diplôme des jeunes (15- 29 ans) en fonction de leur statut d'activité en 2020
+```{r activite.62, out.width="100%",fig.align='center', fig.asp=9/16}
+  as_gt(tableacti2020)
+```
+
+
+### Sexe et statut d'activité des jeunes (15- 29 ans) en fonction de leur niveau de diplôme en 1976
+```{r activite.63, out.width="100%",fig.align='center', fig.asp=9/16}
+  as_gt(tabledipl1976)
+```
+
+
+### Sexe, âge et statut d'activité des jeunes (15- 29 ans) en fonction de leur niveau de diplôme en 2020
+```{r activite.64, out.width="100%",fig.align='center', fig.asp=9/16}
+  as_gt(tabledipl2020)
+```
 
 

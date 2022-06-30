@@ -3,6 +3,7 @@ library(ggcpesrthemes)
 library(dplyr)
 library(ggplot2)
 library(gtsummary)
+library(survey)
 
 theme_cpesr_setup(source="INSEE, enquête emploi en continu 2003-2020, enquête emploi annuelle 1971 - 2002")
 
@@ -134,11 +135,7 @@ plot_NEET2 <-
   labs (x = "Année", y = "Pourcentage de NEET", title = "Les NEET (Not in Employment, Education or Training) de 15 à 29 ans", 
         caption = "Source : Eurostat, 2022 (Labour Force Survey)")
 
-#Réalisation des tableaux gtsummary
 
-tablemploitotal <- tbl_summary(emploi, by = Activite) %>% add_p()
-
-tablemploiact <- tbl_summary(emploi, by = Activite) %>% add_p()
 
 #Comparaison des effectifs totaux des jeunes de 15 à 29 ans (eurostat et enquête Emploi)
 
@@ -398,5 +395,52 @@ plot_Chomeurs <-
 #}
 
 
+#Réalisation des tableaux gtsummary
 
 
+
+emploi <- emploi[-113676,]
+
+## Recodage de emploi$Sexe
+emploi$Sexe <- emploi$Sexe %>%
+  fct_recode(
+    "Homme" = "H",
+    "Femme" = "F"
+  )
+
+emploi$Annee <- as.numeric(emploi$Annee)
+emploij <- filter(emploi, Age < 30 & Age > 14)
+  
+#Définition du plan d'échantillonnage
+dw <- svydesign(ids = ~1, data = emploij, weights = ~ Population)
+sous <- subset(dw, Annee == "1976" | Annee == "1985" | Annee == "1995" | Annee == "2005" | Annee == "2015"| Annee == "2020")
+
+dw1976 <- subset(dw, Annee == "1976")
+dw2020 <- subset(dw, Annee == "2020")
+
+theme_gtsummary_language("fr", decimal.mark = ",", big.mark = " ")
+
+
+#Activité et diplôme en fonction des périodes
+tablemploi <- sous %>% tbl_svysummary(by = "Annee", include = c("Activite", "Diplome"))
+
+#tableinclude <- dw %>% tbl_svysummary(include = c("Age", "Sexe", "Diplome", "Activite"))
+
+
+
+#1976 - Sexe et diplôme en fonction de l'activité
+tableacti1976 <- dw1976 %>% tbl_svysummary(by = "Activite", include = c("Sexe", "Age", "Diplome"))
+
+#2020 - Sexe et diplôme en fonction de l'activité
+tableacti2020 <- dw2020 %>% tbl_svysummary(by = "Activite", include = c("Sexe", "Age", "Diplome"))
+
+  
+#1976 - Sexe et activité en fonction du diplôme
+tabledipl1976 <- dw1976 %>% tbl_svysummary(by = "Diplome", include = c("Sexe", "Activite"))
+
+#2020 - Sexe et activité en fonction du diplôme
+tabledipl2020 <- dw2020 %>% tbl_svysummary(by = "Diplome",
+                                           include = c("Sexe", "Age", "Activite"))
+
+  
+  
