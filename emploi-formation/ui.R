@@ -8,7 +8,7 @@
 #
 
 library(shiny)
-
+library(shinyWidgets)
 
 
 
@@ -24,25 +24,23 @@ shinyUI(fluidPage(
                   "Ages:",
                   min = 1,
                   max = 100,
-                  value = c(15,30))),
-      
-        sidebarPanel(
-    sliderInput("annees",
-                "Années:",
-                min = 1971,
-                max = 2020,
-                value = c(1971,2020)))
-    
-  ),
+                  value = c(15,30)),
+      sliderInput("annees",
+                  "Années:",
+                  min = 1971,
+                  max = 2020,
+                  value = c(1971,2020)),
+      materialSwitch(inputId = "cb_position", label = "Pourcentages", status = "danger", value = FALSE),
+      materialSwitch(inputId = "cb_na", label = "Garder NA", status = "danger", value = FALSE)
+
+    ),
   
-  
-  materialSwitch(inputId = "Checkbox", label = "Pourcentages", status = "danger", value = FALSE),
-  
-  
-  mainPanel(
-    plotOutput("activitePlot"), plotOutput("activitePlot2"), plotOutput("diplomePlot"), plotOutput("diplomePlot2"), plotOutput("activitePlot3")
-    ))
+    mainPanel(
+      plotOutput("activitePlot"), 
+      plotOutput("diplomePlot")
+    )
   )
+))
 
 
 
