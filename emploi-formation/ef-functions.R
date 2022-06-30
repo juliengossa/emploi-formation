@@ -42,7 +42,7 @@ plot_activite_slice <- function(agemin = 15, agemax = 30, anneemin = 1971, annee
     geom_col(alpha=0.7, position = position_geom, color="black",width = 1) + 
     facet_grid(.~Annee) +
     scale_y_continuous(labels = label_scale) +
-    labs (x = "Année", y = "Effectif des jeunes (millions)", caption = "Source :Enquête Emploi (1971 - 2020)")
+    labs (x = "Age", y = "Effectif des jeunes (millions)", caption = "Source :Enquête Emploi (1971 - 2020)")
 }
 
 plot_activite_slice()
