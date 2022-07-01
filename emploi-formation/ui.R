@@ -9,14 +9,14 @@
 
 library(shiny)
 library(shinyWidgets)
-
-
+library(DT)
+library(bslib)
 
 shinyUI(fluidPage(
   
   # Application title
   titlePanel("Répartition des individus selon l'activité et le diplôme"),
-  
+  theme = bs_theme(version = 4, bootswatch = "flatly"),
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
