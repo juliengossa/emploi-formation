@@ -31,7 +31,7 @@ shinyUI(fluidPage(
                   max = 2020,
                   value = c(1971,2020)),
       materialSwitch(inputId = "cb_position", label = "Pourcentages", status = "danger", value = FALSE),
-      materialSwitch(inputId = "cb_na", label = "Garder NA", status = "danger", value = FALSE)
+      materialSwitch(inputId = "cb_na", label = "Supprimer NA", status = "danger", value = FALSE)
 
     ),
   

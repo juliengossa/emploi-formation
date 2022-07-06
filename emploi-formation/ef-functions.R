@@ -70,3 +70,7 @@ plot_diplome <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax = 2
     scale_y_continuous(labels = label_scale) +
     labs (x = "Année", y = "Effectif des jeunes (millions)")
 }
+
+
+
+
