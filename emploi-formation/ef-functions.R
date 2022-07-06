@@ -1,72 +1,79 @@
+library(tidyverse)
 load("../emploi.RData")
 
-plot_activite <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax = 2020, fill=FALSE, keep_na=FALSE) {
+plot_categorie <- function(categorie="Activite", agemin = 15, agemax = 30, anneemin = 1971, anneemax = 2020, fill=FALSE, keep_na=FALSE) {
   if(fill) {
     position_geom <- "fill"
     label_scale <- scales::percent
+    title_y <- "Pourcentage de la population"
   } else {
     position_geom <- "stack"
     label_scale <- function(x) x/1e6
+    title_y <- "Effectif (millions)"
   }
   
   emploi %>%
     filter(Age >= agemin, Age <= agemax, Annee >= anneemin, Annee <= anneemax) %>%
     #filter(!is.na(Activite)) %>%
-    group_by(Annee,Activite) %>%
+    group_by(Annee, Categorie=!!as.name(categorie)) %>%
     summarise(Population = sum(Population, na.rm=TRUE)) %>%
     { if (keep_na) na.omit(.) else . } %>%
-    ggplot(aes(x=Annee,y=Population,fill=Activite,color=Activite, group=Activite)) +
+    ggplot(aes(x=Annee,y=Population,fill=Categorie,color=Categorie, group=Categorie)) +
     geom_area(alpha=0.7, position = position_geom) + 
     scale_y_continuous(labels = label_scale) +
-    labs (x = "Année", y = "Effectif des jeunes (millions)", caption = "Source :Enquête Emploi (1971 - 2020)")
+    labs (x = "Année", y = title_y, caption = "Source :Enquête Emploi (1971 - 2020)")
 }
 
 
 ## Graphique activité par tranche 
-plot_activite_slice <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax = 2020, fill=FALSE, keep_na=FALSE) {
+plot_categorie_slice <- function(categorie="Activite", agemin = 15, agemax = 30, anneemin = 1971, anneemax = 2020, fill=FALSE, keep_na=FALSE) {
   if(fill) {
     position_geom <- "fill"
     label_scale <- scales::percent
+    title_y <- "Pourcentage de la population"
   } else {
     position_geom <- "stack"
     label_scale <- function(x) x/1e6
+    title_y <- "Effectif (millions)"
   }
   
   emploi %>%
     filter(Age >= agemin, Age <= agemax, Annee %in% c(anneemin,anneemax)) %>%
     #filter(!is.na(Activite)) %>%
-    group_by(Annee,Age,Activite) %>%
+    group_by(Annee, Age, Categorie=!!as.name(categorie)) %>%
     summarise(Population = sum(Population, na.rm=TRUE)) %>%
     { if (keep_na) na.omit(.) else . } %>%
-    ggplot(aes(x=Age,y=Population,fill=Activite, group=Activite)) +
+    ggplot(aes(x=Age,y=Population,fill=Categorie, group=Categorie)) +
     geom_col(alpha=0.7, position = position_geom, color="black",width = 1) + 
     facet_grid(.~Annee) +
     scale_y_continuous(labels = label_scale) +
-    labs (x = "Age", y = "Effectif des jeunes (millions)", caption = "Source :Enquête Emploi (1971 - 2020)")
+    labs (x = "Age", y = title_y, caption = "Source :Enquête Emploi (1971 - 2020)")
 }
 
-plot_activite_slice()
 
-
-#Graphique pour connaître le niveau de diplome des jeunes selon l'année civile 
-plot_diplome <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax = 2020, fill=FALSE, keep_na=FALSE) {
+## Graphique activité par tranche 
+plot_categorie_ponctuel <- function(categorie="Activite", agemin = 15, agemax = 30, anneemin = 1971, anneemax = 2020, fill=FALSE, keep_na=FALSE) {
   if(fill) {
     position_geom <- "fill"
     label_scale <- scales::percent
+    title_y <- "Pourcentage de la population"
   } else {
     position_geom <- "stack"
     label_scale <- function(x) x/1e6
+    title_y <- "Effectif (millions)"
   }
   
   emploi %>%
-    filter(Age > agemin, Age < agemax, Annee >= anneemin, Annee <= anneemax) %>%
-    group_by(Annee,Diplome) %>%
-    summarise(Population = sum(Population)) %>%
+    filter(Age >= agemin, Age <= agemax, Annee %in% c(anneemin,anneemax)) %>%
+    #filter(!is.na(Activite)) %>%
+    group_by(Annee, Categorie=!!as.name(categorie)) %>%
+    summarise(Population = sum(Population, na.rm=TRUE)) %>%
     { if (keep_na) na.omit(.) else . } %>%
-    mutate(Diplome = factor(Diplome,
-                            levels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun"))) %>%
-    ggplot(aes(x=Annee,y=Population,fill=Diplome,group=Diplome)) +
-    geom_area(color="white", position = position_geom) + 
+    { if (fill) group_by(.,Annee) %>% mutate(Population = Population / sum(Population)) else . } %>%
+    ggplot(aes(x=Categorie,y=Population,fill=Categorie, group=Categorie)) +
+    geom_col(alpha=0.7, color="black",width = 1) + 
+    facet_grid(.~Annee) +
     scale_y_continuous(labels = label_scale) +
-    labs (x = "Année", y = "Effectif des jeunes (millions)")
+    labs (x = "Age", y = title_y, caption = "Source :Enquête Emploi (1971 - 2020)")
 }
+

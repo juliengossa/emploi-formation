@@ -7,10 +7,11 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
-library(shinyWidgets)
 library(DT)
 library(bslib)
+
+library(shiny)
+library(shinyWidgets)
 
 shinyUI(fluidPage(
   
@@ -20,6 +21,11 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
+      selectInput(
+        inputId = "categorie",
+        label = "Catégories",
+        choices = list(Activité = "Activite", Diplôme = "Diplome"),
+        selected = "Activite"),
       sliderInput("ages",
                   "Ages:",
                   min = 1,
@@ -36,9 +42,9 @@ shinyUI(fluidPage(
     ),
   
     mainPanel(
-      plotOutput("activitePlot"), 
-      plotOutput("activiteSlicePlot"), 
-      plotOutput("diplomePlot")
+      plotOutput("categoriePlot"), 
+      plotOutput("categorieSlicePonctuel"),
+      plotOutput("categorieSlicePlot")
     )
   )
 ))
