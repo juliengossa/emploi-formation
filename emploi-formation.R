@@ -61,7 +61,7 @@ plot_activite7 <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax =
     mutate(percentage = Population / sum(Population)*100, Activite = factor(Activite,
                                                                         levels=c("Actif occupé","Apprentis", "Etudiant","Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=percentage,fill=Activite,group=Activite)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif (en %)")
+    geom_area(color="white") + labs (x = "Année", y = "Part des jeunes (en %)")
 }
 
 #Réalisation du graphique des effectifs d'individus selon l'activité avec la table emploiActt
@@ -92,7 +92,7 @@ plot_activite8 <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax =
     mutate(percentage = Population / sum(Population)*100, Diplome = factor(Diplome,
                                                                        levels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun"))) %>%
     ggplot(aes(x=Annee,y=percentage,fill=Diplome,group=Diplome)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif (en %)")
+    geom_area(color="white") + labs (x = "Année", y = "Part des jeunes (en %)")
 }
 
 plot_DIP <- function(agemin = 15, agemax = 30) {
@@ -395,7 +395,7 @@ plot_Chomeurs <-
 #}
 
 
-#Réalisation des tableaux gtsummary
+### Réalisation des tableaux gtsummary
 
 
 
@@ -408,9 +408,8 @@ emploi$Sexe <- emploi$Sexe %>%
     "Femme" = "F"
   )
 
-emploi$Annee <- as.numeric(emploi$Annee)
 emploij <- filter(emploi, Age < 30 & Age > 14)
-  
+emploij$Diplome <- fct_explicit_na(emploij$Diplome)
 #Définition du plan d'échantillonnage
 dw <- svydesign(ids = ~1, data = emploij, weights = ~ Population)
 sous <- subset(dw, Annee == "1976" | Annee == "1985" | Annee == "1995" | Annee == "2005" | Annee == "2015"| Annee == "2020")
@@ -422,25 +421,36 @@ theme_gtsummary_language("fr", decimal.mark = ",", big.mark = " ")
 
 
 #Activité et diplôme en fonction des périodes
-tablemploi <- sous %>% tbl_svysummary(by = "Annee", include = c("Activite", "Diplome"))
+tablemploi <- sous %>% tbl_svysummary(by = "Annee", include = c("Activite", "Diplome")) %>% 
+  modify_caption("**Tableau 1. Statut d'activité et niveau de diplôme des jeunes de 15 à 29 ans en fonction des périodes**")
 
 #tableinclude <- dw %>% tbl_svysummary(include = c("Age", "Sexe", "Diplome", "Activite"))
 
 
 
 #1976 - Sexe et diplôme en fonction de l'activité
-tableacti1976 <- dw1976 %>% tbl_svysummary(by = "Activite", include = c("Sexe", "Age", "Diplome"))
+tableacti1976 <- dw1976 %>% tbl_svysummary(by = "Activite", include = c("Sexe", "Age", "Diplome")) %>% 
+  modify_caption("**Tableau 2. Sexe, âge et niveau de diplôme des jeunes (15-29 ans) en fonction de leur statut d'activité en 1976**")
 
 #2020 - Sexe et diplôme en fonction de l'activité
-tableacti2020 <- dw2020 %>% tbl_svysummary(by = "Activite", include = c("Sexe", "Age", "Diplome"))
+tableacti2020 <- dw2020 %>% tbl_svysummary(by = "Activite", include = c("Sexe", "Age", "Diplome")) %>% 
+  modify_caption("**Tableau 3. Sexe, âge et niveau de diplôme des jeunes (15-29 ans) en fonction de leur statut d'activité en 2020**")
+
 
   
 #1976 - Sexe et activité en fonction du diplôme
-tabledipl1976 <- dw1976 %>% tbl_svysummary(by = "Diplome", include = c("Sexe", "Activite"))
+tabledipl1976 <- dw1976 %>% tbl_svysummary(by = "Diplome", include = c("Sexe", "Activite")) %>% 
+  modify_caption("**Tableau 4. Sexe et statut d'activité des jeunes (15- 29 ans) en fonction de leur niveau de diplôme en 1976**")
 
 #2020 - Sexe et activité en fonction du diplôme
 tabledipl2020 <- dw2020 %>% tbl_svysummary(by = "Diplome",
-                                           include = c("Sexe", "Age", "Activite"))
+                                           include = c("Sexe", "Age", "Activite")) %>% 
+  modify_caption("**Tableau 5. Sexe et statut d'activité des jeunes (15- 29 ans) en fonction de leur niveau de diplôme en 2020**")
 
-  
-  
+
+
+
+
+
+
+
