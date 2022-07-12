@@ -3,8 +3,8 @@ title: "Rapport"
 author: "Camille Schumacher"
 date: "23/05/2022"
 output:
-  pdf_document: default
   word_document: default
+  pdf_document: default
   github_document: default
   html_document:
     df_print: paged
@@ -23,30 +23,49 @@ options(tinytex.verbose = TRUE)
 source("emploi-formation.R", encoding = "UTF-8")
 ```
 
+# Introduction
 
-## Sujet 
+Le stage de Master 1 visant à découvrir le monde professionnel ou celui de la recherche en démographie représentait pour moi une occasion d’avoir une première approche du secteur, des activités et des structures vers lesquels je souhaiterais me diriger après l’obtention du Master. Portant un intérêt tout particulier à la programmation sur les logiciels R et SAS, j’ai donc souhaité réaliser un stage qui me permettrait d’améliorer mon niveau en programmation tout en utilisant mes compétences en démographie. Ne sachant pas vraiment vers quelles structures ou secteurs me diriger pour réellement m’améliorer sur R et/ou SAS, j’ai d’abord souhaité m’orienter vers un stage orienté data, bien que, sur le long terme, je ne veuille pas travailler dans ce secteur après le master.
+Après une dizaine de candidatures envoyées à plusieurs organismes pour un stage dans la data, j’ai finalement répondu à une proposition de stage émise par Monsieur Julien GOSSA, enseignant-chercheur en informatique et Madame Pauline BOYER, doctorante en sciences politiques et sciences des données. Ce stage consistait globalement à faire de l’exploration de données démographiques sur la transition formation/emploi, probablement à partir de l’enquête Emploi.
+ J’ai choisi d’envoyer ma candidature pour plusieurs raisons. Tout d’abord, la thématique du stage m’a depuis toujours intéressée, j’ai notamment suivi des cours optionnels de sociologie du travail et d’économie durant mes années passées en licence. De plus, cette thématique se distinguait des problématiques abordées habituellement en démographie (mortalité, vieillissement démographique, fécondité, migrations, etc…), ce qui pouvait certes être assez déconcertant, mais c’était avant tout très motivant pour moi de sortir d’une certaine zone de confort et de découvrir de problématiques moins abordées en cours. J’ai également voulu faire ce stage car ses missions permettaient de s’améliorer en technique sur R, mais également sur d’autres logiciels, notamment via la formation proposée en R Markdown et GitHub par Monsieur Julien GOSSA, qui sont des logiciels très utiles pour créer des rapports bien réalisés et partager les fichiers entre les différentes personnes qui travaillent sur le même projet. Lorsque j’ai été acceptée pour ce stage, j’ai fait part, avec l’aide de Monsieur Didier BRETON, de mon envie de m’améliorer en technique, c’est pourquoi, Monsieur GOSSA a proposé de créer une application Shiny durant le stage afin de manipuler facilement les différents paramètres des graphiques réalisés.
+ 
+Le stage a duré en tout 8 semaines, je pouvais choisir d'effectuer mon travail au bureau des doctorants de la Faculté des Sciences Sociales ou bien en télétravail, ce qui était très pratique pour moi et me permettait de m'organiser plus facilement et de gagner du temps. 
+Je communiquais avec Monsieur Julien GOSSA par Discord, généralement sur le serveur de la CPESR (Conférence des praticiennes et praticiens de l’enseignement supérieur et de la recherche) qui est une "Organisation non militante œuvrant à la production et à la diffusion de connaissances sur l’ESR (Enseignement supérieur et de la recherche), [...] la CPESR réagit aux évolutions du monde de l’enseignement supérieur et de la recherche et propose des éléments de compréhension, de décision et de pilotage". Communiquer sur ce serveur a permis aux autres membres du serveur de s'informer sur nos avancées et de nous aider lorsque nous rencontrions des difficultés.
+Enfin, nous organisions des réunions environ toutes les deux semaines afin de faire un point sur ce qui a été fait et ce vers quoi je devais ensuite porter mon attention.
 
-Notre équipe travaille à la conception d'une méthodologie pour éclairer l'action 
-publique par l'exploitation des données ouvertes. Ces données sont de tous ordres 
-et natures, comme en témoignent celles qui se trouvent sur le portail [data.gouv.fr](data.gouv.fr).
-Nous sommes plus particulièrement spécialisés dans les données de l'ESR 
-(Enseignement supérieur et recherche), et qui concernent donc par exemple les 
-universités et les étudiants. Ces données sont généralement disponibles depuis une dizaine d'années.
+La suite de ce document est structurée en trois parties distinctes ayant pour but d'informer sur le contexte, les missions et le bilan de ce stage : la première partie présente ainsi ma principale mission ainsi que la manière dont cette dernière s'inscrit dans une perspective plus globale. La seconde partie est la plus fournie puisqu'elle présente mes principales réalisations ainsi que les raisonnements, résultats et conclusions auxquelles nous sommes parvenus. Enfin, la troisième et dernière partie est plus personnelle puisqu'elle comporte une analyse personnelle de ce stage et de ce qu'il m'a apporté.
 
-Ce travail nécessite une mise en contexte sur un plus long terme, permettant de 
+# I. Présentation de l'organisme et de ma mission
+
+J'ai réalisé mon stage au sein du Laboratoire SAGE (Sociétés, Acteurs, Gouvernement en Europe). Selon le site Internet officiel du laboratoire, ce dernier "réunit des chercheurs et des enseignants-chercheurs qui travaillent sur les processus de transnationalisation (et tout particulièrement la construction européenne comme réponse à une mondialisation croissante) et sur les transformations des structures et des dynamiques sociales et politiques qu’ils induisent. Dans cette perspective, une attention particulière est portée à la sociologie des acteurs, à l’élaboration et la mise en œuvre de normes et de dispositifs publics et à la genèse d’enjeux sociétaux (environnement, santé, vieillissement, vulnérabilités sociales, culture, villes) ainsi qu’à leurs dynamiques de territorialisation à différentes échelles.
+
+Les travaux des membres de l’UMR se caractérisent par le travail empirique permettant de tester des hypothèses théoriquement fondées et par le croisement de méthodes à la fois qualitatives et quantitatives en sciences sociales (archives, enquêtes ethnographiques, analyses de données) permettant une pluridisciplinarité intégrée autour de questionnements communs. 
+
+SAGE est une UMR de sciences sociales du politique et se positionne de manière originale sur des thèmes porteurs tels que la santé, le droit de l'environnement et le développement durable urbain, les politiques culturelles et sociales, l’internationalisation et la circulation des élites, la sociologie politique de l’Europe et les mobilisations collectives. Les recherches se structurent en 6 axes étroitement liés au sein desquels circulent les membres de l’UMR." (citer source)
+
+
+J'ai personnellement travaillé sous la direction de Julien GOSSA, enseignant-chercheur en informatique associé à l'axe 4 Population, inégalités et politiques sociales, afin de réaliser de l'exploration de données provenant de l'enquête Emploi afin d'avoir une meilleure compréhension de la transition formation/emploi.
+
+Son équipe travaille à la conception d'une méthodologie pour éclairer l'action 
+publique par l'exploitation des données ouvertes, particulièrement celles de l'ESR (Enseignement Supérieur et Recherche), et qui concernent donc par exemple les 
+universités et les étudiants.
+
+Ce travail nécessitait une mise en contexte sur un plus long terme, permettant de 
 mieux saisir quelles sont les évolutions historiques de notre appareil de formation.
-C'est dans ce cadre que nous avons effectué une exploitation exploratoire de la 
-base SAPHIRE de l'INSEE, regroupant notamment des données issues de l'enquête emploi.
+C'est dans ce cadre que l'équipe de Julien GOSSA a effectué une exploitation exploratoire de la 
+base SAPHIR de l'INSEE, regroupant notamment des données issues de l'enquête emploi.
 L'objectif est de visualiser la massification (l'augmentation du nombre d'étudiants)
 et son rapport avec l'insertion professionnelle, donc l'emploi des jeunes.
 
-Cette exploitation révèle une remarquable constance des jeunes chômeurs et inactifs (Figure 1).
-Cela permet de soulever l'hypothèse d'un rôle d'« amortisseur » de la formation 
+Cette exploitation a révélé une remarquable constance des jeunes chômeurs et inactifs (voir graphique ci-dessous).
+Cela a  permis de soulever l'hypothèse d'un rôle d'« amortisseur » de la formation 
 entre la jeunesse et l'emploi : lorsque des emplois sont disponibles, les jeunes
-sortiraient plus tôt du système éducation ; lorsque les emplois sont rares, les jeunes
-prolongeraient leurs études.
+sortiraient plus tôt du système d'éducation ; lorsque les emplois sont rares, les jeunes
+prolongeraient leurs études afin d'éviter de se retrouver chômeur ou inactif durant une longue période.
 
-```{r saphire, fig.cap="Activité des jeunes entre 16 en 24 ans, depuis 1968", out.width="100%", fig.align='center'}
+
+### Activité des jeunes français⋅es entre 16 en 24 ans, depuis 1968
+```{r saphire, fig.cap="Source : RP", out.width="100%", fig.align='center'}
 load("saphire-2017.RData")
 saphire <- saphire %>%
   mutate(
@@ -77,9 +96,14 @@ saphire %>%
   scale_color_manual(values=activités.palette) +
   ylab("Population 16-29 ans (millions)") +
   #theme_cpesr_cap() +
-  theme(axis.title.x = element_blank()) +
-  ggtitle("Activité des jeunes français⋅es entre 16 en 24 ans, depuis 1968")
+  theme(axis.title.x = element_blank())
 ```
+
+L’un des objectifs de ce stage a donc été de confirmer ou d'infirmer cette hypothèse, en exploitant des données plus précises que celles de la base SAPHIR, comme celles des enquêtes emplois de l’INSEE. Je devais doc apporter mes compétences de démographe afin d'aider notamment au traitement, à l'exploitation, à l'analyse et à la valorisation des données de l'enquête Emploi.
+Le stage a été pensé pour être également une occasion d’explorer plus largement l’articulation entre jeunesse, formation et emploi, et de tenter de trouver des moyens de caractérisation et de visualisation de cette articulation.
+
+Ainsi, le travail effectué pendant le stage s'inscrit dans un ensemble de travaux portant sur l'exploitation de données de l'ESR et dont les productions et conclusions pourront être mobilisées pour guider les travaux réalisés ultérieurement et qui porteront sur d'autres aspects de l'ESR.
+
 
 ### Questions principales :
 
@@ -105,9 +129,9 @@ saphire %>%
 - Ajout des apprentis.
   
 - Sinon comment l'expliquer ?
+ 
     
-    
-# Les missions réalisées tout au long du stage
+# II. Les missions réalisées tout au long du stage
 
 L'ensemble de mes missions ont été réalisées en utilisant R pour le codage, R Markdown pour présenter de manière propre et organisée les résultats, Shiny pour modifier rapidement les paramètres de divers graphiques et GitHub qui nous a permis de mettre les divers fichiers en commun dans un dépôt afin qu'ils soient consultables et modifiables à tout moment dans l'application R par Monsieur Julien GOSSA et moi-même.
 
@@ -138,7 +162,7 @@ L'effectif des apprentis semble également augmenter durant la période, en part
 Enfin, on remarque sur ce graphique également une certaine constante du nombre de jeunes chômeurs et inactifs sur toute la période 1971 - 2020 mais il reste difficile d'affirmer avec certitude d'où provient cette relative stabilité. 
 
 Note : 
-###         Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activité
+###  Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activité
 ```{r activite.25, out.width="100%",fig.align='center', fig.asp=9/16}
   plot_activite(agemin = 15, agemax = 29)
 ```
@@ -149,7 +173,7 @@ Note :
 Ce graphique confirme ce que nous avons constaté auparavant : chez les jeunes de 15 à 29 ans, la part des étudiants et des apprentis/alternants augmente (celle des étudiants passant de près de 12% en début de période à environ 40% en 2020) tandis que celle des actifs occupés diminue, passant de près de 60% en 1971 à environ 45% en 2020. La part des chômeurs et inactifs reste cependant assez stable et avoisine les 20% tout au long de la période. 
 
 ###         Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activité 
-```{r activite.34, out.width="100%",fig.align='center', fig.asp=9/30}
+```{r activite.34, out.width="100%",fig.align='center', fig.asp=9/16}
   plot_activite7()
 ```
 
@@ -168,26 +192,28 @@ Les réponses de la variable sur le diplôme se basent donc uniquement sur le d�
 Cependant, à partir de 2003, l'enquête Emploi utilise davantage de variables pour définir le niveau de diplôme, pour plus de fiabilité. La seule déclaration du niveau de diplôme ne suffit plus, on mobilise maintenant toutes les réponses aux questions F1 à F8. Au sein de ces questions, l’individu doit déclarer les diplômes qu’il a obtenus mais également la date d’obtention des diplômes, le nom de la spécialité du diplôme, en quelle année (voire au cours de quel mois) il a fini ses études, le niveau d’études atteint à une date T, etc... Il y a donc à partir de 2003 un vrai travail d’enquête effectué pour vérifier la cohérence des déclarations de l’individu sur le diplôme obtenu. Par exemple, si l’individu a définitivement fini ses études à 18 ans au lycée, il ne peut pas avoir obtenu un diplôme du supérieur. La personne en charge de coder les données va donc, pour cet individu, affilier le diplôme du bac à la variable DIPL même s’il déclare posséder un diplôme du supérieur.  Dans les années 90, le diplôme affilié à cet individu aurait été un diplôme du supérieur. Il est probable que plusieurs individus aient été "déclassés" de la même manière à partir de 2003. 
 
 
-###    Effectif des jeunes de 15 à 29 ans en France selon le niveau de diplôme
-```{r activite.30, out.width="100%",fig.align='center', fig.asp=9/30}
+###    Effectif des jeunes de 15 à 29 ans en France selon le niveau de diplôme en France
+```{r activite.30, out.width="100%",fig.align='center', fig.asp=9/16}
   plot_activite3(agemax = 29)
 ```
 
 Le graphique ci-dessous infrome sur la part des individus selon leur niveau de diplôme. On remarque qu'alors que la part des diplômés d'un bac+2 ou plus représentaient environ 10% seulement de la population des jeunes de 15 à 29 ans en 1971 alors que ce chiffre s'élève à plus de 25% en 2020. De la même manière les jeunes ayant un niveau bac représentaient environ 5% de la population en 1971 alors qu'ils représentent en 2020 environ 38% des jeunes de 15 à 29 ans. A l'inverse, les individus sans aucun diplôme sont passés d'au moins 25% des jeunes en 1971 à environ 8% en 2020. 
-###    Répartition des jeunes de 15 à 29 ans selon le niveau de diplôme
-```{r dip2, out.width="100%",fig.align='center', fig.asp=9/30}
+
+###  Répartition des jeunes de 15 à 29 ans selon le niveau de diplôme en France
+```{r dip2, out.width="100%",fig.align='center', fig.asp=9/16}
   plot_activite8(agemax = 29)
 ```
 
 ## Observations sur les évolutions des effectifs totaux de jeunes (15-29 ans) au fil des années.
 
-Après avoir crée tous ces graphiques, il devenait nécessaire de s'intéresser aux évolutions de l'effectifs de jeunes entre 1971 et 2020, et plus particulièrement, à celles des jeunes chômeurs et inactifs (hors étudiants) puisque la relative constance de leur effectif semblait être intéressante à étudier. Nous avons choisi de comparer nos effectifs de jeunes avec ceux d'Eurostat qui a également effectué un traitement de données à partir de l'enquête Emploi. 
+Après avoir crée tous ces graphiques, il devenait nécessaire de s'intéresser aux évolutions de l'effectifs de jeunes entre 1971 et 2020, et plus particulièrement, à celles des jeunes chômeurs et inactifs (hors étudiants) puisque la relative constance de leur effectif semblait être intéressante à étudier. J'ai alors proposé de comparer nos effectifs de jeunes avec ceux d'Eurostat, qui a également effectué un traitement de données à partir de l'enquête Emploi. Cette comparaison nous a également de vérifier la qualité de notre traitement de données. 
 
-En faisant quelques lectures, j'ai remarqué qu'un indicateur officiel utilisé entre autres par Eurostat appelé NEET (Young people neither in employment nor in education and training) et qui désigne les jeunes qui ne sont ni en emploi, ni dans le système scolaire/univeristaire, ni en formation formelle ou informelle. Pour calculer l'effectif des NEET, Eurostat utilise également l'enquête Emploi (au niveau européen : Labour Force Survey) comme source, il semblait alors intéressant de comparer nos effectifs de chômeurs et inactifs (hors étudiants) avec les effectifs de NEET proposés par Eurostat.  
+En faisant quelques lectures, j'ai remarqué qu'un indicateur officiel utilisé entre autres par Eurostat appelé NEET (Young people neither in employment nor in education and training) et qui désigne les jeunes qui ne sont ni en emploi, ni dans le système scolaire/univeristaire, ni en formation formelle ou informelle. Pour calculer l'effectif des NEET, Eurostat utilise également l'enquête Emploi (appelée au niveau européen : Labour Force Survey), il me semblait alors intéressant de comparer nos effectifs de chômeurs et inactifs (hors étudiants) avec les effectifs de NEET proposés par Eurostat.  
 
 Le graphique suivant représente le nombre de jeunes de 15 à 29 ans en France selon l'année. Les données de la courbe grise  sont issues de notre traitement de données de l'enquête Emploi tandis que celles représentées par la courbe bleue proviennent d'Eurostat qui a également effectué un traitement de données à partir de l'enquête Emploi (appelé Labour Force Survey au niveau européen) à partir de l'édition 2003. Enfin, la courbe verte représente ici les données du recensement de la population et de l'état civil traitées elles aussi par Eurostat. Comparer ces courbes va  (entre autres) nous permettre de vérifier la qualité du traitement de données que nous avons effectué.
 On remarque que les courbes grise et bleue ont des niveaux et des évolutions très similaires de 2003 à 2020 et affichent des effectifs compris entre 11 millions et 11,5 millions de jeunes de 15 à 29 ans durant cette période. La chute continue à partir des années 1990 est sans doute liée aux générations de baby boomers (nés entre 1945 et 1965) qui vieillissent et quittent progressivement la classe des 15-29 ans. La courbe verte semble avoir des évolutions et tendances identiques aux deux autres mais l'effectif des jeunes calculé à partir des données du recensement est néanmoins toujours plus élevé que ceux provenant de l'enquête Emploi.  Les faibles écarts existant entre la courbe bleue et la courbe grise s'expliquent par notre traitement de données qui fait une moyenne des effectifs de jeunes sur les 4 trimestres de l'année alors qu'Eurostat ne prend sans doute en compte qu'un seul trimestre (probablement le premier).
 
+### Les jeunes de 15 à 29 ans de 1971 à 2021 en France
 ```{r activite.44, out.width="100%",fig.align='center', fig.asp=9/16}
   plot(plot_jeunes2)
 ```
@@ -202,6 +228,7 @@ Concernant la courbe bleue, Eurostat a utilisé et traité les données du Labou
  
 On remarque que globalement, à partir de 2003, les effectifs de NEET issus de notre base traitée sont toujours supérieurs à ceux affichés par Eurostat. Nous avons vu précédemment que les effectifs de jeunes issus de nos données sont sensiblement les mêmes que ceux issus d'Eurostat, on ne peut donc pas expliquer ces différences d'effectifs de NEET par une population de jeunes qui serait surestimée au sein de notre traitement. Nous avons donc probablement classé une part plus importante de jeunes dans la catégorie "NEET" par rapport à Eurostat. Mon pbjectif suivant a donc été de tenter de savoir comment exactement peut s'expliquer cette différence.
 
+### Les NEET de 15 à 29 ans de 1971 à 2021 en France
 ```{r activite.56, out.width="100%",fig.align='center', fig.asp=9/16}
   plot(plot_NEET4)
 ```
@@ -236,6 +263,7 @@ Le graphique ci-dessous permet de constater l'évolution de l'effectif des appre
 
 Le graphique suivant informe sur le statut d'activité des jeunes de 18 à 21 ans et a pour objectif de mieux comprendre la place de l'apprentissage dans la transition formation-emploi. On remarque ainsi que les étudiants constituent la majeure part de cette classe d'âge et que l'effectif des apprentis prend lui aussi une place plus importante que chez les 15-21 ans et augmente de manière importante tout au long de la période 1975-2020. Il aut également noter que les observations de l'année 2003 ont été supprimées afin de "lisser" le graphique et d'amoindrir la chute artificielle des effectifs en 2003, sans doute liée à la modification du format de l'enquête. 
 
+### Les jeunes de 18 à 21 ans de 1975 à 2020 selon leur statut d'activité
 ```{r activite.50, out.width="100%",fig.align='center', fig.asp=9/16}
   Apprentis_total3(agemin = 17, agemax = 22)
 ```
@@ -254,6 +282,7 @@ Ce graphique présente l'effectif des apprentis de 18 à 21 ans de 1975 à 2020.
 
 Ce dernier graphique représente la répartition des individus de 30 à 60 ans selon leur statut d'activité. On remarque ainsi que les individus de 30 à 60 ans n'ont pas subi de modification notable de leurs effectifs en 2003, contrairement aux 15-29 ans. On peut en conclure qu'à première vue, seul le statut d'étudiant salarié a réellement posé problème et provoqué la chute de l'effectif des étudiants en 2003 en raison du changement de définition du statut d'activité cette année-là. 
 
+### Les individus de 30 ans à 60 ans de 1971 à 2020 selon leur statut d'activité
 ```{r activite.52, out.width="100%",fig.align='center', fig.asp=9/16}
   Apprentis_total4.5()
 ```
@@ -272,13 +301,14 @@ Pour bien comprendre ce graphique, il est nécessaire de rappeler qu'à partir d
 On remarque ainsi sur ce graphique que l’impact du changement de définition du statut d’activité en 2003 se fait ressentir sur nos données : l’effectif des étudiants chute brutalement en 2003 probablement car les étudiants salariés ne sont plus catégorisés comme étudiants mais comme actifs occupés. Eurostat a quant à lui réussi à conserver ces étudiants salariés, la courbe bleue est alors en continuité avec la courbe grise d’avant 2003 et révèle le réel effectif des étudiants après 2002.
 Ce graphique montre que les graphiques précédents portant sur la répartition des jeunes selon le statut d’activité sont biaisés : les étudiants sont à partir de 2003 sous-représentés à cause des étudiants salariés classés comme actifs occupés. Il serait sans doute possible de rectifier cela en mobilisant une variable qui indiquerait si l’individu suit ou non des études. Nous pourrions ainsi créer une nouvelle catégorie pour les "étudiants salariés" afin de ne pas perdre de vue le fait qu’ils exercent un emploi. Dans tous les cas, les étudiants que nous "perdons" à partir de 2003 deviennent des actifs occupés et non des chômeurs ou inactifs. Notre sureffectif des NEET ne peut donc pas être expliqué par des étudiants mal classés. 
 
+### Effectif des jeunes étudiants ou suivant une formation de 15 à 29 ans entre 1971 et 2020 en France
 ```{r activite.53, out.width="100%",fig.align='center', fig.asp=9/16}
   plot(plot_Jeunes_Etudiants)
 ```
 
 Ce deuxième graphique porte sur les jeunes actifs occupés de 15 à 29 ans. Ici, on arrive à un résultat assez intéressant : Eurostat compte un effectif de jeunes actifs très proche de celui de nos données traitées, notre sureffectif de NEET ne provient donc pas d'une sous-estimation du nombre de jeunes actifs occupés. L’écart observé entre les deux courbes avant 2003 est sûrement lié aux étudiants salariés encore non comptabilisés comme actifs occupés au sein de nos données. 
 
-
+### Effectif des jeunes actifs occupés de 15 à 29 ans entre 1971 et 2020 en France
 ```{r activite.54, out.width="100%",fig.align='center', fig.asp=9/16}
   plot(plot_Jeunes_Actifs)
 ```
@@ -287,7 +317,7 @@ Ce deuxième graphique porte sur les jeunes actifs occupés de 15 à 29 ans. Ici
 Ce dernier graphique représente le nombre de jeunes chômeurs de 2000 à 2020. Un nombre de jeunes chômeurs qui serait bien supérieur à celui avancé par Eurostat pourrait expliquer notre sureffectif de NEET.
 Ce n'est cependant pas le cas ici, on remarque que les effectifs sont très semblables bien que nos données aient tendance à légèrement surestimer le nombre de jeunes chômeurs, mais la différence n'est pas assez importante pour expliquer notre sureffectif de NEET.
 
-
+### Effectif des chômeurs de 15 à 29 ans de 1971 à 2020 en France
 ```{r activite.57, out.width="100%",fig.align='center', fig.asp=9/16}
   plot(plot_Chomeurs)
 ```
@@ -296,33 +326,94 @@ Malgré tous ces graphiques, le sureffectif de NEET est toujours inexpliqué et 
 
 Une fois que cela a été fait, je me suis appliquée à mieux mettre en forme les données en améliorant les codes qui permettent de créer les graphiques, sur un modèle que Monsieur GOSSA a proposé, afin de pouvoir ajouter une légende et une source ainsi que modifier les couleurs du graphique pour un rendu plus personnel.
 
-###  Statut d'activité et niveau de diplôme des jeunes de 15 à 29 ans en fonction des périodes
+J'ai ensuite voulu réaliser quelques tableaux croisés avec les variables sur le statut d'activité, le niveau de diplôme, l'âge et le niveau de diplôme en prenant bien sûr en compte la pondération, afin d'avoir une vision plus fine de la transition formation-emploi. Les principales difficultés a été selon moi d'apprendre à utiliser correctement le package gtsummary et de trouver des ressources pour comprendre comment appliquer la pondération aux données lors de l'utilisation du package. Ces difficultés m'ont plutôt retardées dans mon travail d'où la réalisation tardive de ces tableaux. 
+
+Le tableau ci-dessous croise la variable de l'année avec celles du statut d'activité et du niveau de diplôme, l'année la plus ancienne est 1976 et non 1975 car cette dernière comporte des taux de non réponses très importants concernant le statut d'activité. Globalement ce tableau confirme ce que nous avons déjà vu : il y a fort taux de non réponse en 1976 (62 %) et en 1985 (39%) concernant le niveau de diplôme, ce qui produit des biais comme une augmentation de la proportion d'individus sans aucun diplôme de 1976 à 1995. Il y a également le biais des étudiants salariés qui sont classés comme actifs occupés à partir de 2003 d'où l'augmentation artificielle de la part des actifs occupés et la diminution de celle des étudiants de 1995 à 2005.
+Autrement, la part des jeunes chômeurs et inactifs (NEET) demeure relativement stable puisqu'elle oscille entre 14 et 18% de 1976 à 2020. 
+
+
 ```{r activite.60, out.width="100%",fig.align='center', fig.asp=9/16}
   knitr::include_graphics("../Images/gtsummary/tablemploi.PNG")
 ```
 
+Le deuxième graphique ci-dessous se concentre sur l'année 1976 et croise le niveau de diplôme des jeunes, le âge et le sexe avec le statut d'activité chez les jeunes de 15 à 29 ans. 
+On remarque ainsi qu'en 1976, les jeunes actifs occupés représentent la classe la plus nombreuse, sont en moyenne plus âgés que les autres statuts d'activité, probablement car ils ont fini leurs études, et sont également plus souvent des hommes (56%) que des femmes, probablement en raison du modèle familial traditionnel qui reste encore important dans les années 1970. L'apprentissage accueille des individus plus jeunes et semble être un domaine très masculinisé avec 79% d'hommes. A l'inverse, les chômeurs et inactifs sont en moyenne plus âgés (24 ans) sont à 83% des femmes, probablement plus inactives que chômeuses, probablement également en raison du modèle familial traditionnel.   Enfin, on peut remarquer que les chômeurs et inactifs ont une part plus importante d'individus qui n'ont aucun diplôme que les actifs occupés (respectivement 33% contre 22%), ce qui témoigne d'un accès plus facile à l'emploi lorsque l'individu possède un diplôme. 
 
-###  Sexe, âge et niveau de diplôme des jeunes (15-29 ans) en fonction de leur statut d'activité en 1976
+
 ```{r activite.61, out.width="100%",fig.align='center', fig.asp=9/16}
   knitr::include_graphics("../Images/gtsummary/tableacti1976.PNG")
 ```
 
 
-### Sexe, âge et niveau de diplôme des jeunes (15-29 ans) en fonction de leur statut d'activité en 2020
+Le troisième tableau ci-dessous est le même que le précédent, excepté qu'il se concentre sur l'année 2020. On voit que certaines tendances observées en 1976 sont conservées ici : Les catifs occupés et les chômeurs et inactifs constituent les classes les plus âgées, bien que les jeunes actifs aoccupés de 2020 soient en moyenne plus âgés qu'en 1976, passant de 24 à 25 ans. 
+Egalement, la catégorie des actifs occupés s'est féminisée, atteignant presque un équilibre entre l'effectif des femmes et celui des hommes. La catégorie des apprentis s'est également féminisée, même si la majorité des apprentis sont des hommes, on passe de seulement 21% de femmes apprenties en 1976 à 38% en 2020. A l'inverse, la cétégorie des chômeurs et inactifs s'est davantage masculinisée puisqu'elle compte maintenant 47% d'hommes. 
+Enfin, concernant le niveau de diplôme, la tendance reste la même puisque la part des personnes qui n'ont aucun diplôme au sein des actifs occupés est bien plus faible que celle des chômeurs et inactifs, cependant, la part des individus sans diplôme au sein des actifs occupés est bien plus faible en 2020 qu'en 1976 (4,8% contre 20%) à la fois en raison de l'allongement de la durée des études mais peut-être également en raison d'une difficulté plus forte en 2020 d'avoir un emploi lorsqu'on ne possède pas de diplôme. 
+
 ```{r activite.62, out.width="100%",fig.align='center', fig.asp=9/16}
   knitr::include_graphics("../Images/gtsummary/tableacti2020.PNG")
 ```
 
 
-### Sexe et statut d'activité des jeunes (15- 29 ans) en fonction de leur niveau de diplôme en 1976
+Le quatrième tableau ci-dessous croise le niveau de diplôme avec le sexe et le statut d'activité (la variable de l'âge n'étant pas assez pertinente pour ce tableau) pour les jeunes de 15 à 29 ans en 1976. On remarque que la part des hommes est plus importante que celle des femmes au sein des CAP-BEP et des bac+5. Au contraire, la part des femmes etst plus importante chez les sans diplômes, les bacheliers et les bacs+2. Il semble donc que les hommes soient globalement plus diplômés que les femmes. 
+Concernant le statut d'activité, il semble que plus le niveau de diplôme est élevé, plus la part des actifs occupés est importante (68% chez les sans diplômes, 81% chez les bacheliers et 87% chez les bacs +5), ce qui montre que l'accès à l'emploi est largement facilité par le diplôme.
+
 ```{r activite.63, out.width="100%",fig.align='center', fig.asp=9/16}
   knitr::include_graphics("../Images/gtsummary/tabledipl1976.PNG")
 ```
 
 
-### Sexe, âge et statut d'activité des jeunes (15- 29 ans) en fonction de leur niveau de diplôme en 2020
+Le dernier tableau ci-dessous est le même que le précédent mais il se focalise cette fois sur l'année 2020. On peut voir que la tendance s'est inversée concernant les niveaux de diplôme selon le sexe : la part des femmes est plus importante que celle des hommes chez les bacs+3 et bacs+5 (56 et 58%) alors qu'elle est plus faible chez les jeunes sans diplômes et ceux qui possèdent un CAP-BEP (respectivement 41 et 46%). 
+Enfin, on remarque que quel que soit le niveau de diplôme, bien qu'un diplôme plus élevé augmente considérablement les chances d'être actif occupé ( seuls 20% des sans diplômes sont actifs occupés alors qu'ils sont 80% chez les bacs +5), la part des étudiants est bien plus importante en 2020 qu'en 1976, ce qui témoigne ici aussi de la massication scolaire. Dans un tel contexte, ne pas avoir de diplôme est un désavantage important puisque 38% des jeunes sans diplôme sont des chômeurs ou inactifs (alors qu'ils étaient "seulement" 29% en 1976.) De plus, alors qu'en 1976, la cétégorie des chômeurs et inactifs regroupait en grande partie des femmes au foyer, elle regroupe davantage en 2020 des individus au chômage ayant des difficultés à (re)trouver un emploi.
+
 ```{r activite.64, out.width="100%",fig.align='center', fig.asp=9/16}
   knitr::include_graphics("../Images/gtsummary/tabledipl2020.PNG")
 ```
 
+## Elaboration de l'application Shiny
 
+Après avoir réalisé ces tableaux, Monsieur GOSSA m'a proposé de réaliser l'application Shiny afin de manipuler les données des graphiques plus facilement. L'objectif était alors de placer nos principaux graphiques sur l'application afin de les modifier facilement selon plusieurs paramètres. Il était assez difficile pour moi de réaliser correctement cette application et de la faire fonctionner étant donné que cela nécessitait plusieurs compétences techniques, c'est pourquoi, Monsieur GOSSA a beaucoup aidé à la conception. Nous avons ainsi disposé une  barre permettant de modifier la classe d'âge de la population observée (ex : de 15 à 20 ans), une autre barre permettant de modifier l'année de début et de fin du graphique, une liste déroulante permettant de choisir entre afficher des graphiques sur le niveau de diplôme ou bien des graphiques sur le statut d'activité, un bouton permettant de passer les graphiques en pourcentages et un deuxième permettant de supprimer les non-réponses du graphique (voir annexes pour avoir un aperçu de l'application et de ses graphiques).
+
+## Réalisation d'une Analyse en Composantes Principales
+
+Ma dernière activité réalisée au cours du stage a été de mettre en place Analyse en Composantes Principales afin de voir les potentiels liens qui pourraient exister entre nos différentes variables d'intérêt selon l'année de la réalisation de l'enquête chez les jeunes de 15 à 29 ans. J'ai ainsi réalisé quelques ACM à partir des années 1976, 1990 et 2020 : Lorsque deux éléments sont proches sur la représentation, cela signifie que ces deux éléments possèdent un lien. Aussi plus la couleur du texte de l'élément est claire, plus la qualité de la représentation de cet élément sur le graphique est importante car la valeur du cosinus2 est elle-aussi plus importante.
+Il faut savoir que la catégorie des étudiants était auparavant intégrée à l'ACM mais je l'ai enlevé sous les conseils de Monsieur CORDAZZO car cette catégorie produisait un biais concernant les diplômes : les étudiants ont mécaniquement un niveau de diplôme plus faible que ceux qui ne sont pas étudiants car ils n'ont pas encore obtenu le diplôme qu'ils visent.
+
+La représentation de l'ACM ci-dessous utilise les données de l'année 1976. L'axe horizontal oppose (à gauche) les actifs occupés qui sont plus souvent des hommes aux chômeurs et inactifs qui sont plus souvent des femmes. L'axe vertical oppose quant à lui les individus qui n'ont aucun diplôme à ceux qui ont un niveau de diplôme plus élevé (bac et bac+2), ces derniers seraient davantage des actifs occupés tandis que les chômeurs et inactifs sont davantage sans diplôme.
+
+```{r activite.74, out.width="100%",fig.align='center', fig.asp=9/16}
+  knitr::include_graphics("../Images/ACM/ACM_1976_2.PNG")
+```
+
+ La représentation de l'ACM ci-dessous utilise les données de l'année 1990. L'interprétation est plus difficile ; On semble avoir un axe horizontal qui oppose les Actifs occupés (plus souvent des hommes) aux chômeurs/inactifs (plus souvent des femmes) tandis que l'axe vertical oppose des individus sans aucun diplôme (plus souvent des hommes) à ceux qui ont un niveau bac/bac+2 (plus souvent des femmes). Cela voudrait dire que les femmes sont globalement plus diplômées que les hommes mais ont paradoxalement moins tendance à être des actifs occupés que les hommes ? Peut-être est-ce en raison des femmes au foyer qui sont encore nombreuses en 1990.
+ 
+```{r activite.75, out.width="100%",fig.align='center', fig.asp=9/16}
+  knitr::include_graphics("../Images/ACM/ACM_1990_2.PNG")
+``` 
+ 
+La représentation de l'ACM ci-dessous utilise les données de l'année 2020. L'axe horizontal oppose ici les actifs occupés qui ont plus souvent un niveau bac+5 aux chômeurs et inactifs qui ont plus souvent aucun diplôme. Enfin, l'axe vertical oppose les hommes, qui ont plus souvent un CAP-BEP aux femmes, qui ont plus souvent un niveau Bac ou Bac+5. Cette représentation n'opposerait donc plus les hommes et les femmes par rapport au statut d'activité (comme c'était le cas pour 1976) mais plutôt par rapport au niveau de diplôme. De plus, le lien entre le niveau de diplôme et le statut d'activité est ici encore observable : les chômeurs ont généralement un niveau de diplôme plus faible que les actifs occupés.
+
+```{r activite.76, out.width="100%",fig.align='center', fig.asp=9/16}
+  knitr::include_graphics("../Images/ACM/ACM_2020_2.PNG")
+```
+Finalement l'ensemble de ces ACM a montré le changement de la place des femmes dans la société productive, passant globalement d'inactives avec un assez faible niveau de diplôme à actives occupées avec un niveau de diplôme en moyenne plus élevé que celui des hommes. 
+
+
+# III. Evaluation et analyse personnelle
+
+Réaliser ce stage m'a permis de développer plusieurs compétences à la fois personnelles et professionnelles. En effet, il m'a permis, en raison de ses conditions qui offraient beaucoup de libertés, de développer mon autonomie, ma capacité à communiquer avec le reste de l'équipe pour faire état de mes avancées et de mes difficultés, ainsi que ma capacité à réfléchir moi-même à des solutions pour résoudre un problème technique ou de nature démographique. 
+J'ai également eu l'occasion d'apprendre à m'autoformer de manière efficace en programmation sur R concernant des points non vus en cours tels que réaliser des tableaux croisés ou prendre en compte la pondération sur R, ce qui a permis de pallier mes lacunes dans ces savoirs-faire nécessaires pour analyser des données.
+
+Passer plusieurs semaines sur le logiciel R m'a bien sûr permis de m'améliorer en technique, que ce soit en apprenant de nouvelles fonctions ou en parvenant à adopter un style de rédaction de code plus clair qui évite de court-circuiter la grammaire de R (et d'ainsi pouvoir utiliser toutes les fonctionnalités).
+La pratique régulière de R m'a aussi permis de me familiariser davantage avec le logiciel. Cela m'a notamment permis  d'écrire des commandes/fonctions pour lesquelles j'avais auparavant besoin de vérifier la syntaxe et de trouver rapidement quelles fonctions utiliser pour atteindre un but particulier (ex : rendre une base propre et utilisable, fusionner des tables, réaliser un graphique à partir de données provenant de plusieurs tables, etc...).
+
+Enfin, Monsieur Julien GOSSA m'a également formé à des outils que je n'avais auparavant jamais utilisés tels que GitHub pour mettre en commun tous les fichiers et tables utilisés, à Shiny pour manipuler rapidement et facilement les données des graphiques et m'améliorer en programmation, et enfin à R Markdown afin que je puisse entre autres réaliser des comptes-rendus de qualité à partir des graphiques précédemment réalisés sur R.
+
+
+J'ai pu apporter à l'équipe au sein de laquelle j'ai travaillé un point de vue différent et nouveau sur la manière d'exploiter les données. j'ai notamment pu informer sur les réflexes à avoir et sur les biais qui pouvaient exister lorsque l'on analyse des données d'enquête, tels que vérifier le taux de non-réponses, s'informer sur la méthode de collecte, faire attention à un quelconque effet de sélection, prendre en compte le changement du format de l'enquête à une année T et ses conséquences sur les résultats, etc...
+Je pense que sur le long terme, mes interventions permettront à l'équipe d'aborder avec plus de facilité les prochaines exploitations de données qu'ils réaliseront.
+
+Ainsi, la formation du master de démographie m'a permis de correctement produire, interpréter et valoriser les différents résultats tout en évitant les différents biais bien que je n'ai pas réussi à répondre à toutes les interrogations que nous avions. Cette formation m'a également permis d'avoir une posture très critique quant aux données, à la manière dont elles ont été produites et traitées, et aux résultats qu'elles permettent d'obtenir. J'aurais cependant aimé savoir comment prendre en compte la pondération et réaliser correctement des tableaux croisés sur R, afin de pouvoir davantage me concentrer sur les tâches principales.
+
+# Conclusion
+
+Pour conclure, cette exploration de données de l'enquête Emploi a été l'occasion de se questionner sur la place des étudiants, des NEET, des apprentis et des actifs occupés dans la transition formation/emploi entre 1971 et 2020. Nous avons vu que le niveau de diplôme d'un individu influence grandement son statut d'activité, et que, malgré un allongement global de la durée des études lié à la massification scolaire, l'effectif des chômeurs et inactifs (hors étudiants) évolue très peu de 1971 à 2020. Malgré cela, nous ne pouvons ni réfuter ni confirmer de manière certaine l'hypothèse d'un rôle d’« amortisseur » de la formation entre la jeunesse et l’emploi. Pour cela, il faudrait probablement faire davantage de lectures sur le sujet et/ou exploiter d'autres données. (conclusion pas finie)
