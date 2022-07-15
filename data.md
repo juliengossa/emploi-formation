@@ -98,7 +98,7 @@ read_and_sum_2003_ <- function(file, annee=NA) {
              Age = as.numeric(AGE), 
              Sexe = fct_recode(as.character(SEXE), !!!var_recode_sexe),
              Activite = fct_recode(as.character(ACTEU6), !!!var_recode_ACTUE6),
-             Apprentissage = ifelse(FC5A==1, "Apprentis", "Non apprentis"), #fct_recode(as.character(STATUTR), !!!var_recode_STATUTR),
+             Apprentissage = ifelse(FC5A==1 | STATUTR == 3, "Apprentis", "Non apprentis"), #fct_recode(as.character(STATUTR), !!!var_recode_STATUTR),
              Diplome = fct_recode(as.character(DIP), !!!var_recode_DIP_2003)
              #Diplome = factor(floor(as.numeric(DIP)/10),
              #                  levels=c(1,2,3,4,5,6,7),
@@ -119,7 +119,6 @@ read_and_sum_2003_ <- function(file, annee=NA) {
 
 ``` r
 test <- FALSE
-
 
 dir <- "data/Csv/"
 emploi.raw <- tibble()

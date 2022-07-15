@@ -286,7 +286,7 @@ Groupement
 </td>
 <td style="text-align:right;">
 
-113 841
+114 407
 
 </td>
 </tr>
