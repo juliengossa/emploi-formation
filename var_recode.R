@@ -98,7 +98,7 @@ var_recode_ACTUE6 = c(
 
 # Diplome
 
-var_recode_DIP = c(
+var_recode_DIP_1975 = c(
   NULL = "",
   NULL = "**",
   "Aucun" = "00",
@@ -145,6 +145,29 @@ var_recode_DIPL = c(
   "Aucun" = "70",
   "Aucun" = "71"
 )
+
+
+
+var_recode_DIP_2003 = c(
+  NULL = "",
+  "Aucun" = "70",
+  "Aucun" = "71",
+  "DNB" = "60",
+  "CAP-BEP" = "50",
+  "CAP-BEP" = "44",
+  "Bac" = "43",
+  "Bac" = "42",
+  "Bac" = "41",
+  "Bac+2" = "33",
+  "Bac+2" = "32",
+  "Bac+2" = "31",
+  "Bac+2" = "30",
+  "Bac+5" = "22",
+  "Bac+3" = "21",
+  "Bac+5" = "12",
+  "Bac+5" = "10"
+)
+
 
 
 # Salaire

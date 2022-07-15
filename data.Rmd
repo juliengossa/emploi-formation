@@ -20,6 +20,7 @@ spoilerTable <- function(df) {
 }
 
 source("var_recode.R")
+volumetrie <- tibble()
 ```
 
 ## Fonctions de lecture
@@ -29,12 +30,13 @@ source("var_recode.R")
 ```{r ras_71_74}
 read_and_sum_71_74 <- function(file, annee) {
   Empl <- haven::read_dta(file)
+  volumetrie <<- bind_rows(volumetrie,tibble(Annee=annee,Variables=ncol(Empl),Observations=nrow(Empl)))
   Empl %>%
     group_by(Annee = annee,
              Sexe = fct_recode(s,!!!var_recode_sexe),
              Age = as.numeric(ad), 
              Activite = fct_recode(cse,!!!var_recode_CSE),
-             Diplome = fct_recode(dip,!!!var_recode_DIP)
+             Diplome = fct_recode(dip,!!!var_recode_DIP_1975)
     ) %>%
     summarise(Population = sum(extri,na.rm=TRUE))
 }
@@ -48,13 +50,14 @@ read_and_sum_71_74 <- function(file, annee) {
 ```{r ras_75_81}
 read_and_sum_75_81 <- function(file, annee) {
   Empl <- haven::read_dta(file)
+  volumetrie <<- bind_rows(volumetrie,tibble(Annee=annee,Variables=ncol(Empl),Observations=nrow(Empl)))
   Empl %>%
     group_by(Annee = annee,
              Sexe = fct_recode(s,!!!var_recode_sexe),
              Age = as.numeric(ad), 
              Activite = fct_recode(fi,!!!var_recode_FI),
              Apprentissage = fct_recode(st,!!!var_recode_ST),
-             Diplome = fct_recode(dip,!!!var_recode_DIP)
+             Diplome = fct_recode(dip,!!!var_recode_DIP_1975)
     ) %>%
     summarise(Population = sum(extrin,na.rm=TRUE))
 }
@@ -68,6 +71,7 @@ read_and_sum_75_81 <- function(file, annee) {
 ```{r ras_82_89}
 read_and_sum_82_89 <- function(file, annee) {
   Empl <- haven::read_dta(file)
+  volumetrie <<- bind_rows(volumetrie,tibble(Annee=annee,Variables=ncol(Empl),Observations=nrow(Empl)))
   Empl %>%
     group_by(Annee = annee,
              Sexe = fct_recode(s,!!!var_recode_sexe),
@@ -88,6 +92,7 @@ read_and_sum_82_89 <- function(file, annee) {
 ```{r ras_90_02}
 read_and_sum_90_02 <- function(file, annee) {
   Empl <- haven::read_dta(file, encoding = "latin1")
+  volumetrie <<- bind_rows(volumetrie,tibble(Annee=annee,Variables=ncol(Empl),Observations=nrow(Empl)))
   Empl %>%
     group_by(Annee = annee,
              Sexe = fct_recode(s,!!!var_recode_sexe),
@@ -109,6 +114,7 @@ read_and_sum_90_02 <- function(file, annee) {
 read_and_sum_2003_ <- function(file, annee=NA) {
   indiv <- read.csv2(file, dec=".") %>%
     rename_with(toupper)
+  volumetrie <<- bind_rows(volumetrie,tibble(Annee=annee,Variables=ncol(indiv),Observations=nrow(indiv)))
   if("EXTRI16" %in% colnames(indiv)) indiv <- indiv %>% rename(EXTRIDF = EXTRI16)
   if(!"FC5A" %in% colnames(indiv)) indiv$FC5A <- ifelse(indiv$STATUTR == 3,1,-1)
   indiv %>%
@@ -118,11 +124,11 @@ read_and_sum_2003_ <- function(file, annee=NA) {
              Sexe = fct_recode(as.character(SEXE), !!!var_recode_sexe),
              Activite = fct_recode(as.character(ACTEU6), !!!var_recode_ACTUE6),
              Apprentissage = ifelse(FC5A==1, "Apprentis", "Non apprentis"), #fct_recode(as.character(STATUTR), !!!var_recode_STATUTR),
-             #Diplome = fct_recode(as.character(DIP), !!!var_recode_DIP)
-             Diplome = factor(floor(as.numeric(DIP)/10),
-                              levels=c(1,2,3,4,5,6,7),
-                              labels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun")
-                              )
+             Diplome = fct_recode(as.character(DIP), !!!var_recode_DIP_2003)
+             #Diplome = factor(floor(as.numeric(DIP)/10),
+             #                  levels=c(1,2,3,4,5,6,7),
+             #                  labels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun")
+             #                  )
              #Salaire = fct_recode(SALREDTR, !!!var_recode_SALREDTR)
              ) %>%
     summarise(
@@ -139,8 +145,10 @@ read_and_sum_2003_ <- function(file, annee=NA) {
 ```{r read, cache=TRUE}
 test <- FALSE
 
+
 dir <- "data/Csv/"
 emploi.raw <- tibble()
+volumetrie <- tibble()
 
 for(a in seq(71,74)) {
   print(a)
@@ -216,7 +224,7 @@ emploi <- emploi.raw %>%
   mutate(
     Activite = factor(ifelse(!is.na(Apprentissage) & Apprentissage == "Apprentis", "Apprentis", as.character(Activite)),
                       levels = c("Actif occupé", "Apprentis", "Etudiant", "Chômeur ou inactif") ),
-    Diplome = factor(Diplome, levels = c("Aucun", "DNB", "CAP-BEP", "Bac", "Bac+2", "Bac+3", "Bac+5") )
+    Diplome = factor(Diplome, levels = rev(c("Aucun", "DNB", "CAP-BEP", "Bac", "Bac+2", "Bac+3", "Bac+5")) )
   ) %>%
   
   mutate( AgeQ = as.numeric(as.character(cut(Age,seq(0,120,5),labels=seq(0,115,5),right=FALSE)) )) %>%
@@ -238,6 +246,6 @@ emploi %>%
 
 
 ```{r save}
-save(emploi.raw,emploi,file="emploi.RData")
+save(emploi.raw,emploi,volumetrie,file="emploi.RData")
 ```
 

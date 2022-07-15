@@ -3,9 +3,12 @@ title: "Rapport"
 author: "Camille Schumacher"
 date: "23/05/2022"
 output:
-  pdf_document: default
-  word_document: default
-  github_document: default
+  pdf_document:
+    number_sections: true
+  word_document: 
+    number_sections: true
+  github_document: 
+    number_sections: true
   html_document:
     df_print: paged
 ---
