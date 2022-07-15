@@ -309,7 +309,7 @@ Autrement, la part des jeunes chômeurs et inactifs (NEET) demeure relativement 
 
 
 ```{r activite.60, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("../Images/gtsummary/tablemploi.PNG")
+  knitr::include_graphics("Images/gtsummary/tablemploi.PNG")
 ```
 
 Le deuxième graphique ci-dessous se concentre sur l'année 1976 et croise le niveau de diplôme des jeunes, l'âge et le sexe avec le statut d'activité chez les jeunes de 15 à 29 ans. 
@@ -317,7 +317,7 @@ On remarque ainsi qu'en 1976, les jeunes actifs occupés représentent la classe
 
 
 ```{r activite.61, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("../Images/gtsummary/tableacti1976.PNG")
+  knitr::include_graphics("Images/gtsummary/tableacti1976.PNG")
 ```
 
 
@@ -326,7 +326,7 @@ Egalement, la catégorie des actifs occupés s'est féminisée, atteignant presq
 Enfin, concernant le niveau de diplôme, la tendance reste la même puisque la part des personnes qui n'ont aucun diplôme au sein des actifs occupés est bien plus faible que celle des chômeurs et inactifs, cependant, la part des individus sans diplôme au sein des actifs occupés est bien plus faible en 2020 qu'en 1976 (4,8% contre 20%) à la fois en raison de l'allongement de la durée des études mais peut-être également en raison d'une difficulté plus forte en 2020 d'avoir un emploi lorsqu'on ne possède pas de diplôme. 
 
 ```{r activite.62, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("../Images/gtsummary/tableacti2020.PNG")
+  knitr::include_graphics("Images/gtsummary/tableacti2020.PNG")
 ```
 
 
@@ -334,7 +334,7 @@ Le quatrième tableau ci-dessous croise le niveau de diplôme avec le sexe et le
 Concernant le statut d'activité, il semble que plus le niveau de diplôme est élevé, plus la part des actifs occupés est importante (68% chez les sans diplômes, 81% chez les bacheliers et 87% chez les bacs +5), ce qui montre que l'accès à l'emploi est largement facilité par le diplôme.
 
 ```{r activite.63, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("../Images/gtsummary/tabledipl1976.PNG")
+  knitr::include_graphics("Images/gtsummary/tabledipl1976.PNG")
 ```
 
 
@@ -342,7 +342,7 @@ Le dernier tableau ci-dessous est le même que le précédent mais il se focalis
 Enfin, on remarque que quel que soit le niveau de diplôme, bien qu'un diplôme plus élevé augmente considérablement les chances d'être actif occupé ( seuls 20% des sans diplômes sont actifs occupés alors qu'ils sont 80% chez les bacs +5), la part des étudiants est bien plus importante en 2020 qu'en 1976, ce qui témoigne ici aussi de la massification scolaire. Dans un tel contexte, ne pas avoir de diplôme est un désavantage important puisque 38% des jeunes sans diplôme sont des chômeurs ou inactifs (alors qu'ils étaient "seulement" 29% en 1976.) De plus, alors qu'en 1976, la catégorie des chômeurs et inactifs regroupait en grande partie des femmes au foyer, elle regroupe davantage en 2020 des individus au chômage ayant des difficultés à (re)trouver un emploi.
 
 ```{r activite.64, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("../Images/gtsummary/tabledipl2020.PNG")
+  knitr::include_graphics("Images/gtsummary/tabledipl2020.PNG")
 ```
 
 ## 10. Elaboration de l'application Shiny
@@ -357,19 +357,19 @@ Il faut savoir que la catégorie des étudiants était auparavant intégrée à 
 La représentation de l'ACM ci-dessous utilise les données de l'année 1976. L'axe horizontal oppose (à gauche) les actifs occupés qui sont plus souvent des hommes, aux chômeurs et inactifs qui sont plus souvent des femmes. L'axe vertical oppose quant à lui les individus qui n'ont aucun diplôme à ceux qui ont un niveau de diplôme plus élevé (bac et bac+2), ces derniers seraient davantage des actifs occupés tandis que les chômeurs et inactifs sont davantage sans diplôme.
 
 ```{r activite.74, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("../Images/ACM/ACM_1976_2.PNG")
+  knitr::include_graphics("Images/ACM/ACM_1976_2.PNG")
 ```
 
  La représentation de l'ACM ci-dessous utilise les données de l'année 1990. L'interprétation est plus difficile ; On semble avoir un axe horizontal qui oppose les actifs occupés (plus souvent des hommes) aux chômeurs/inactifs (plus souvent des femmes) tandis que l'axe vertical oppose des individus sans aucun diplôme (plus souvent des hommes) à ceux qui ont un niveau bac/bac+2 (plus souvent des femmes). Cela voudrait dire que les femmes ont globalement augmenté leur niveau de diplôme, leur permettant d'exercer un emploi plus facilement, mais beaucoup d'entre elles semblent encore être des inactives, peut-être est-ce en raison du modèle familial traditionnel encore assez présent en 1990 ?
  
 ```{r activite.75, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("../Images/ACM/ACM_1990_2.PNG")
+  knitr::include_graphics("Images/ACM/ACM_1990_2.PNG")
 ``` 
  
 La représentation de l'ACM ci-dessous utilise les données de l'année 2020. L'axe horizontal oppose ici les actifs occupés qui ont plus souvent un niveau bac+5 aux chômeurs et inactifs qui ont plus souvent aucun diplôme. Enfin, l'axe vertical oppose les hommes, qui ont plus souvent un CAP-BEP aux femmes, qui ont plus souvent un niveau Bac ou Bac+5. Cette représentation n'opposerait donc plus les hommes et les femmes par rapport au statut d'activité (comme c'était le cas pour 1976) mais plutôt par rapport au niveau de diplôme. De plus, le lien entre le niveau de diplôme et le statut d'activité est ici encore observable : les chômeurs ont généralement un niveau de diplôme plus faible que les actifs occupés.
 
 ```{r activite.76, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("../Images/ACM/ACM_2020_2.PNG")
+  knitr::include_graphics("Images/ACM/ACM_2020_2.PNG")
 ```
 Finalement l'ensemble de ces ACM a avant tout montré le changement de la place des femmes dans la société productive, passant globalement d'inactives avec un assez faible niveau de diplôme en raison du modèle familial traditionnel à actives occupées avec un niveau de diplôme en moyenne plus élevé que celui des hommes. 
 
