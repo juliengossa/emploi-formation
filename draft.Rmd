@@ -56,14 +56,31 @@ emploi %>%
   summarise(Population = sum(Population)) %>%
   mutate(Diplome=fct_rev(Diplome)) %>%
   na.omit() %>%
-  ggplot(aes(y=Diplome,x=Population,fill=Diplome)) +
-  geom_col(color="black") +
-  facet_wrap(Annee~.) +
-  scale_fill_brewer(palette = "Purples", guide="none")
+  ggplot(aes(y=Population,x=Annee,fill=Diplome, group=Diplome)) +
+  geom_area(color="white") +
+  scale_fill_brewer(palette = "Purples", direction=-1)
 ```
 
+```{r diplome.25.sel, fig.asp=9/16}
+emploi %>%
+  filter(AgeQ==25) %>%
+  filter(Annee %in% c(1972,2000,2010,2020)) %>%
+  mutate(Diplome = fct_rev(fct_recode(Diplome, "Bac+2/3" = "Bac+2", "Bac+2/3" = "Bac+3"))) %>%
+  group_by(Annee,Diplome) %>%
+  summarise(Population = sum(Population)) %>%
+  group_by(Annee) %>%
+  mutate(pop = Population / sum(Population)) %>%
+  mutate(Diplome=fct_rev(Diplome)) %>%
+  na.omit() %>%
+  ggplot(aes(y=Diplome,x=pop,fill=Diplome)) +
+  geom_col(color="black") +
+  facet_wrap(Annee~.) +
+  scale_fill_brewer(palette = "Purples", guide="none") +
+  scale_x_continuous(labels = scales::percent, name = "Pourcentage de la population des 25-29 ans") +
+  theme_minimal()
+```
 
-```{r diplome.25.gif, fig.asp=9/19}
+```{r diplome.25.gif, fig.asp=9/19, cache=TRUE}
 p <- emploi %>%
   filter(AgeQ==25) %>%
   group_by(Annee,Diplome) %>%
@@ -88,7 +105,7 @@ animate(p, start_pause = 20, end_pause = 20, nframes = 240)
 ```
 
 
-```{r diplome.25.gif.race, fig.asp=9/19}
+```{r diplome.25.gif.race, fig.asp=9/19, cache=TRUE}
 p <- emploi %>%
   filter(AgeQ==25, !is.na(Diplome)) %>%
   mutate(Diplome = fct_recode(Diplome,
