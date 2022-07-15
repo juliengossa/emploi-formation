@@ -3,11 +3,11 @@ title: "Rapport"
 author: "Camille Schumacher"
 date: "23/05/2022"
 output:
-  github_document: 
-    number_sections: true
   pdf_document:
     number_sections: true
     toc: true
+  github_document: 
+    number_sections: true
   word_document: 
     number_sections: true
     toc: true
@@ -17,7 +17,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 
 load("emploi.RData")
 load("NEET.RData")

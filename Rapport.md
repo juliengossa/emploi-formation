@@ -220,9 +220,6 @@ puis j’ai empilé les différentes bases après les avoir triées pour créer
 une table de données unique qui ne souffre pas d’une mauvaise fusion des
 tables.
 
-    ## Warning in !is.null(rmarkdown::metadata$output) && rmarkdown::metadata$output
-    ## %in% : ‘length(x) = 4 > 1’ dans la conversion automatique vers ‘logical(1)’
-
 <table>
 <thead>
 <tr>
@@ -551,8 +548,6 @@ donc été de tenter de savoir comment exactement peut s’expliquer cette
 différence.
 
 ### 3.6.1 Les NEET de 15 à 29 ans de 1971 à 2021 en France
-
-    ## Warning: Removed 3 row(s) containing missing values (geom_path).
 
 <img src="Rapport_files/figure-gfm/activite.56-1.png" width="100%" style="display: block; margin: auto;" />
 
