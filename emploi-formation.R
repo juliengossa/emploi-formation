@@ -89,6 +89,7 @@ plot_activite8 <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax =
     filter(Age > agemin, Age < agemax, Annee >= anneemin, Annee <= anneemax) %>%
     group_by(Annee,Diplome) %>%
     summarise(Population = sum(Population)) %>%
+    filter(!is.na(Diplome)) %>%
     mutate(percentage = Population / sum(Population)*100, Diplome = factor(Diplome,
                                                                        levels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun"))) %>%
     ggplot(aes(x=Annee,y=percentage,fill=Diplome,group=Diplome)) +

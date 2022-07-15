@@ -3,12 +3,15 @@ title: "Rapport"
 author: "Camille Schumacher"
 date: "23/05/2022"
 output:
-  pdf_document:
-    number_sections: true
-  word_document: 
-    number_sections: true
   github_document: 
     number_sections: true
+  pdf_document:
+    number_sections: true
+    toc: true
+  word_document: 
+    number_sections: true
+    toc: true
+    fig_caption: true
   html_document:
     df_print: paged
 ---
@@ -64,7 +67,7 @@ prolongeraient leurs études afin d'éviter de se retrouver chômeur ou inactif 
 
 
 ### Activité des jeunes français.es entre 16 et 24 ans, depuis 1968
-```{r saphire, fig.cap="Source : RP", out.width="100%", fig.align='center'}
+```{r saphire, fig.cap="Activité des jeunes français.es entre 16 et 24 ans, depuis 1968, Source : base SAPHIR", out.width="100%", fig.align='center'}
 load("saphire-2017.RData")
 saphire <- saphire %>%
   mutate(
@@ -105,7 +108,7 @@ Ainsi, le travail effectué pendant le stage s'inscrit dans un ensemble de trava
 
 # II. Les missions réalisées tout au long du stage
 
-# 1. Réalisation d'un traitement de données de 1971 à 2020
+## 1. Réalisation d'un traitement de données de 1971 à 2020
 
 L'ensemble de mes missions ont été réalisées en utilisant R pour le codage, R Markdown pour présenter de manière propre et organisée les résultats, Shiny pour modifier rapidement les paramètres de divers graphiques et GitHub qui nous a permis de mettre les divers fichiers en commun dans un dépôt, afin qu'ils soient consultables et modifiables à tout moment dans l'application R par Monsieur Julien GOSSA et moi-même.
 
@@ -116,7 +119,18 @@ Cette tâche, de par notamment les multiples transformations qu'a subies l'enqu�
 J'ai tout d'abord dû utiliser SAS pour exporter les fichiers SAS en CSV afin que tous nos fichiers de données soient au même format, puis j'ai ajouté la variable Année à tous les fichiers de données qui ne la comportaient pas, ou dont la variable indiquait seulement les deux derniers chiffres de l'année d'enquête. 
 
 J'ai ensuite dû retrouver le nom et le codage de chaque variable d'intérêt pour les enquêtes effectuées de 1971 à 2002. Evidemment, le nom de la variable ainsi que la manière dont elle est codée pouvait changer de manière importante d'une année à l'autre (ex : la variable renseignant le statut d'activité a pour nom CSE jusqu'en 1974, puis FI jusqu'en 1989, puis se nomme ACT7 jusqu'en 2002). Il fallait alors consulter les dictionnaires des codes des diverses enquêtes Emploi et noter leurs différences pour ne pas faire des erreurs dans le recodage des variables. En réalisant ce travail, j'ai constaté que  nous pouvions néanmoins regrouper les différentes enquêtes Emploi en cinq séries au sein desquelles les enquêtes comprennent des variables et des codage identiques, les différentes séries sont les suivantes : 1971-1974, 1975-1981, 1982-1989, 1990-2002, et enfin, 2003 - 2020. Il fallut donc harmoniser le recodage en tenant compte des modifications concernant les modalités des variables d'intérêt qui se sont opérées au fil des périodes. 
+
 Enfin, pour éviter que la base de données unique ne soit trop volumineuse, j'ai réalisé, en m'inspirant de la table créée par Monsieur GOSSA pour l'exploitation des données de 2003 à 2020, un groupement des données par année, sexe, âge révolu, âge quinquennal, niveau de diplôme et statut d'activité, puis j'ai sommé les pondérations pour chaque regroupement afin de créer une nouvelle variable de pondération en adéquation avec la nouvelle base. Avec cette méthode, les individus qui possédaient les mêmes caractéristiques relatives aux variables d'intérêt sont regroupés en une seule ligne et leur pondération est sauvegardée. J'ai réalisé une base de ce type pour chaque série, notamment à l'aide d'une fonction mise en place par Monsieur GOSSA qui permettait de rapidement lire et garder les variables les plus importantes des fichiers de données annuels afin d'optimiser le traitement de données, puis j'ai empilé les différentes bases après les avoir triées pour créer une table de données unique qui ne souffre pas d'une mauvaise fusion des tables.
+
+```{r volumetrie}
+tibble(
+  Données = c("Sources", "Groupement"),
+  `Nombre de bases` = c(nrow(volumetrie),1),
+  `Nombre de variables` = c(max(volumetrie$Variables), ncol(emploi)),
+  `Nombre d'observations` = format(c(sum(volumetrie$Observations), nrow(emploi)), big.mark=" ")
+  ) %>%
+  kableExtra::kable(align = c("l","r","r","r"))
+```
 
 Une fois la base unique créée, j'ai souhaité réaliser des graphiques représentant les statuts d'activité et les niveaux de diplôme des jeunes de 15 à 29 ans sur la période 1971 - 2020. 
 Certains de ces graphiques (et la plupart de ceux réalisés ensuite) représentent des effectifs de jeunes et non des pourcentages/parts de jeunes, et ce, pour plusieurs raisons. Comme annoncé précédemment, l'étude que nous réalisons s'inscrit dans un ensemble de projets en lien avec l'ESR et son fonctionnement, il est donc important que nos résultats puissent être repris de manière pertinente pour éclairer les prochains travaux en lien avec l'ESR.
@@ -169,16 +183,16 @@ Les réponses de la variable sur le diplôme se basent donc uniquement sur le d�
 Cependant, à partir de 2003, l'enquête Emploi utilise davantage de variables pour définir le niveau de diplôme, pour plus de fiabilité. La seule déclaration du niveau de diplôme ne suffit plus, on mobilise maintenant toutes les réponses aux questions F1 à F8. Au sein de ces questions, l’individu doit déclarer les diplômes qu’il a obtenus mais également la date d’obtention des diplômes, le nom de la spécialité du diplôme, en quelle année (voire au cours de quel mois) il a fini ses études, le niveau d’études atteint à une date T, etc... Il y a donc à partir de 2003 un vrai travail d’enquête effectué pour vérifier la cohérence des déclarations de l’individu sur le diplôme obtenu. Par exemple, si l’individu a définitivement fini ses études à 18 ans au lycée, il ne peut pas avoir obtenu un diplôme du supérieur. La personne en charge de coder les données va donc, pour cet individu, probablement affilier le diplôme du bac à la variable DIPL même s’il déclare posséder un diplôme du supérieur alors que dans les années 90, le diplôme affilié à cet individu aurait été un diplôme du supérieur. Il est probable que plusieurs individus aient été "déclassés" de la même manière à partir de 2003. 
 
 
-###    Effectif des jeunes de 15 à 29 ans en France selon le niveau de diplôme en France
+###    Effectif des jeunes de 25 à 29 ans en France selon le niveau de diplôme en France
 ```{r activite.30, out.width="100%",fig.align='center', fig.asp=9/16}
-  plot_activite3(agemax = 29)
+  plot_activite3(agemin=25, agemax = 29)
 ```
 
 Le graphique ci-dessous informe sur la part des individus selon leur niveau de diplôme. On remarque qu'alors que la part des diplômés d'un bac+2 ou plus représentaient environ 10% seulement de la population des jeunes de 15 à 29 ans en 1971, ce chiffre s'élève à plus de 25% en 2020. De la même manière, les jeunes ayant un niveau bac représentaient environ 5% de la population en 1971 alors qu'ils représentent en 2020 environ 38% des jeunes de 15 à 29 ans. A l'inverse, les individus sans aucun diplôme sont passés d'au moins 25% des jeunes en 1971 à environ 8% en 2020. 
 
-###  Répartition des jeunes de 15 à 29 ans selon le niveau de diplôme en France
+###  Répartition des jeunes de 25 à 29 ans selon le niveau de diplôme en France
 ```{r dip2, out.width="100%",fig.align='center', fig.asp=9/16}
-  plot_activite8(agemax = 29)
+  plot_activite8(agemin=25, agemax = 29)
 ```
 
 ## 4. Observations sur les évolutions des effectifs totaux de jeunes (15-29 ans) au fil des années.
