@@ -357,14 +357,15 @@ professionnel. Ainsi les étudiants salariés qui se définissaient comme
 étudiants avant 2003 sont tombés dans la catégorie “actif occupé” à
 partir de 2003 car ils ont travaillé au moins une heure durant la
 semaine de référence, ce qui a entraîné une baisse artificielle de
-l’effectif des étudiants.(citer source) L’effectif des apprentis semble
-également augmenter durant la période, en particulier depuis le début
-des années 2000, ce qui témoigne d’un certain développement de
-l’apprentissage et de l’alternance à partir de cette période. Enfin, on
-remarque sur ce graphique également une certaine constance du nombre de
-jeunes chômeurs et inactifs sur toute la période 1971 - 2020 mais il
-reste difficile d’affirmer avec certitude d’où provient cette relative
-stabilité.
+l’effectif des étudiants.(citer source)
+
+L’effectif des apprentis semble également augmenter durant la période,
+en particulier depuis le début des années 2000, ce qui témoigne d’un
+certain développement de l’apprentissage et de l’alternance à partir de
+cette période. Enfin, on remarque sur ce graphique également une
+certaine constance du nombre de jeunes chômeurs et inactifs sur toute la
+période 1971 - 2020 mais il reste difficile d’affirmer avec certitude
+d’où provient cette relative stabilité.
 
 ### 3.2.2 Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d’activité
 
@@ -421,23 +422,24 @@ l’enseignement général primaire ou secondaire ?), DIES (Quel(s)
 diplôme(s) a-t-il obtenu dans l’enseignement supérieur ou supérieur
 technique ?) et DIET (Quel(s) diplôme(s) a-t-il obtenu dans
 l’enseignement technique ou professionnel ?) Les réponses de la variable
-sur le diplôme se basent donc uniquement sur le déclaratif. Cependant, à
-partir de 2003, l’enquête Emploi utilise davantage de variables pour
-définir le niveau de diplôme, pour plus de fiabilité. La seule
-déclaration du niveau de diplôme ne suffit plus, on mobilise maintenant
-toutes les réponses aux questions F1 à F8. Au sein de ces questions,
-l’individu doit déclarer les diplômes qu’il a obtenus mais également la
-date d’obtention des diplômes, le nom de la spécialité du diplôme, en
-quelle année (voire au cours de quel mois) il a fini ses études, le
-niveau d’études atteint à une date T, etc… Il y a donc à partir de 2003
-un vrai travail d’enquête effectué pour vérifier la cohérence des
-déclarations de l’individu sur le diplôme obtenu. Par exemple, si
-l’individu a définitivement fini ses études à 18 ans au lycée, il ne
-peut pas avoir obtenu un diplôme du supérieur. La personne en charge de
-coder les données va donc, pour cet individu, probablement affilier le
-diplôme du bac à la variable DIPL même s’il déclare posséder un diplôme
-du supérieur alors que dans les années 90, le diplôme affilié à cet
-individu aurait été un diplôme du supérieur. Il est probable que
+sur le diplôme se basent donc uniquement sur le déclaratif.
+
+Cependant, à partir de 2003, l’enquête Emploi utilise davantage de
+variables pour définir le niveau de diplôme, pour plus de fiabilité. La
+seule déclaration du niveau de diplôme ne suffit plus, on mobilise
+maintenant toutes les réponses aux questions F1 à F8. Au sein de ces
+questions, l’individu doit déclarer les diplômes qu’il a obtenus mais
+également la date d’obtention des diplômes, le nom de la spécialité du
+diplôme, en quelle année (voire au cours de quel mois) il a fini ses
+études, le niveau d’études atteint à une date T, etc… Il y a donc à
+partir de 2003 un vrai travail d’enquête effectué pour vérifier la
+cohérence des déclarations de l’individu sur le diplôme obtenu. Par
+exemple, si l’individu a définitivement fini ses études à 18 ans au
+lycée, il ne peut pas avoir obtenu un diplôme du supérieur. La personne
+en charge de coder les données va donc, pour cet individu, probablement
+affilier le diplôme du bac à la variable DIPL même s’il déclare posséder
+un diplôme du supérieur alors que dans les années 90, le diplôme affilié
+à cet individu aurait été un diplôme du supérieur. Il est probable que
 plusieurs individus aient été “déclassés” de la même manière à partir de
 2003.
 
@@ -489,25 +491,26 @@ Labour Force Survey au niveau européen) à partir de l’édition 2003.
 Enfin, la courbe verte représente ici les données du recensement de la
 population et de l’état civil traitées elles aussi par Eurostat.
 Comparer ces courbes va (entre autres) nous permettre de vérifier la
-qualité du traitement de données que nous avons effectué. On remarque
-que les courbes grise et bleue ont des niveaux et des évolutions très
-similaires de 2003 à 2020 et affichent des effectifs compris entre 11
-millions et 11,5 millions de jeunes de 15 à 29 ans durant cette période.
-La chute continue à partir des années 1990 est sans doute liée aux
-générations de baby boomers (nés entre 1945 et 1965) qui vieillissent et
-quittent progressivement la classe des 15-29 ans. La courbe verte semble
-avoir des évolutions et tendances identiques aux deux autres mais
-l’effectif des jeunes calculé à partir des données du recensement est
-néanmoins toujours plus élevé que ceux provenant de l’enquête Emploi.
-Les faibles écarts existant entre la courbe bleue et la courbe grise
-s’expliquent par notre traitement de données qui fait une moyenne des
-effectifs de jeunes sur les 4 trimestres de l’année alors qu’Eurostat ne
-prend sans doute en compte qu’un seul trimestre (probablement le premier
-puisque l’annexe 3, dont la courbe bleue marine a été réalisée avec un
-traitement de données prenant en compte uniquement le premier trimestre,
-montre des effectifs très similaires entre la courbe bleue et la courbe
-orange qui représente ici les données de l’enquête Emploi traitées par
-Eurostat).
+qualité du traitement de données que nous avons effectué.
+
+On remarque que les courbes grise et bleue ont des niveaux et des
+évolutions très similaires de 2003 à 2020 et affichent des effectifs
+compris entre 11 millions et 11,5 millions de jeunes de 15 à 29 ans
+durant cette période. La chute continue à partir des années 1990 est
+sans doute liée aux générations de baby boomers (nés entre 1945 et 1965)
+qui vieillissent et quittent progressivement la classe des 15-29 ans. La
+courbe verte semble avoir des évolutions et tendances identiques aux
+deux autres mais l’effectif des jeunes calculé à partir des données du
+recensement est néanmoins toujours plus élevé que ceux provenant de
+l’enquête Emploi. Les faibles écarts existant entre la courbe bleue et
+la courbe grise s’expliquent par notre traitement de données qui fait
+une moyenne des effectifs de jeunes sur les 4 trimestres de l’année
+alors qu’Eurostat ne prend sans doute en compte qu’un seul trimestre
+(probablement le premier puisque l’annexe 3, dont la courbe bleue marine
+a été réalisée avec un traitement de données prenant en compte
+uniquement le premier trimestre, montre des effectifs très similaires
+entre la courbe bleue et la courbe orange qui représente ici les données
+de l’enquête Emploi traitées par Eurostat).
 
 ### 3.5.1 Les jeunes de 15 à 29 ans de 1971 à 2021 en France
 

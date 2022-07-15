@@ -32,11 +32,11 @@ plot_activite <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax = 
     filter(Age >= agemin, Age <= agemax, Annee >= anneemin, Annee <= anneemax) %>%
     filter(!is.na(Activite)) %>%
     group_by(Annee,Activite) %>%
-    summarise(Population = sum(Population, na.rm=TRUE)) %>%
+    summarise(Population = sum(Population, na.rm=TRUE)/1e6) %>%
     # mutate(Activite = factor(Activite,
     #                          levels=c("Actif occupé","Etudiant","Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,color=Activite, group=Activite)) +
-    geom_area(alpha=0.7) + labs (x = "Année", y = "Effectif des jeunes", caption = "Source :Enquête Emploi (1971 - 2020)")
+    geom_area(alpha=0.7) + labs (x = "Année", y = "Effectif des jeunes (millions)", caption = "Source :Enquête Emploi (1971 - 2020)")
 }
 
 
@@ -45,11 +45,11 @@ plot_activite3 <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax =
   emploi %>%
     filter(Age > agemin, Age < agemax, Annee >= anneemin, Annee <= anneemax) %>%
     group_by(Annee,Diplome) %>%
-    summarise(Population = sum(Population)) %>%
+    summarise(Population = sum(Population)/1e6) %>%
     mutate(Diplome = factor(Diplome,
                             levels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Diplome,group=Diplome)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif des jeunes")
+    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Effectif des jeunes (millions)")
 }
 # Graphique avec pourcentages de la répartition de l'activité selon l'année civile
 
@@ -61,7 +61,7 @@ plot_activite7 <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax =
     mutate(percentage = Population / sum(Population)*100, Activite = factor(Activite,
                                                                         levels=c("Actif occupé","Apprentis", "Etudiant","Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=percentage,fill=Activite,group=Activite)) +
-    geom_area(color="white") + labs (x = "Année", y = "Part des jeunes (en %)")
+    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Part des jeunes (en %)")
 }
 
 #Réalisation du graphique des effectifs d'individus selon l'activité avec la table emploiActt
@@ -93,7 +93,7 @@ plot_activite8 <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax =
     mutate(percentage = Population / sum(Population)*100, Diplome = factor(Diplome,
                                                                        levels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun"))) %>%
     ggplot(aes(x=Annee,y=percentage,fill=Diplome,group=Diplome)) +
-    geom_area(color="white") + labs (x = "Année", y = "Part des jeunes (en %)")
+    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Part des jeunes (en %)")
 }
 
 plot_DIP <- function(agemin = 15, agemax = 30) {
@@ -104,7 +104,7 @@ plot_DIP <- function(agemin = 15, agemax = 30) {
     mutate(percentage = Population / sum(Population), Diplome = factor(Diplome,
                                                                        levels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun"))) %>%
     ggplot(aes(x=Annee,y=percentage,fill=Diplome,group=Diplome)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif (pour 1)")
+    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Effectif (pour 1)")
 }
 #Réalisation des graphiques sur les NEET (source = Eurostat)
 
@@ -180,10 +180,11 @@ plot_jeunes2 <-
         Population = Census_15_29,
         Source = "Recensement"),
   ) %>%
+  mutate(Population = Population / 1e6) %>%
   ggplot(aes(x=Annee, y=Population, group = Source, color = Source)) + 
   geom_line() +
   scale_color_manual(values = c("grey45","steelblue3", "aquamarine3")) +
-  labs (x = "Année", y = "Effectif des jeunes", 
+  labs (x = "Année", y = "Effectif des jeunes (millions)", 
         caption = "Source : Eurostat(Labour Force Survey, RP), Enquête Emploi")
 
 
@@ -193,11 +194,11 @@ Apprentis_total <- function(agemin = 15, agemax = 30) {
   emploi %>%
     filter(Age > agemin, Age < agemax) %>%
     group_by(Annee,Activite) %>%
-    summarise(Population = sum(Population)) %>%
+    summarise(Population = sum(Population) / 1e6) %>%
     mutate(Activite = factor(Activite,
                              levels=c("Actif occupé","Etudiant","Apprentis", "Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif selon le statut", title = "Les jeunes de 1975 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
+    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Effectif selon le statut (millions)", title = "Les jeunes de 1975 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
 }
 
 Apprentis_total2 <- function(agemin = 15, agemax = 30) {
@@ -208,7 +209,7 @@ Apprentis_total2 <- function(agemin = 15, agemax = 30) {
     mutate(Activite = factor(Activite,
                              levels=c("Actif occupé","Apprentis", "Etudiant","Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif selon le statut", title = "Les jeunes de 18 à 21 ans de 1975 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
+    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Effectif selon le statut", title = "Les jeunes de 18 à 21 ans de 1975 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
 }
 
 emploiAppr2 <- filter(emploi, Activite == "Apprentis")
@@ -217,11 +218,13 @@ plot_Apprentis <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax =
   emploiAppr2 %>%
     filter(Age > agemin, Age < agemax, Annee >= anneemin, Annee <= anneemax) %>%
     group_by(Annee,Activite) %>%
-    summarise(Population = sum(Population)) %>%
+    summarise(Population = sum(Population)/1000) %>%
     mutate(Activite = factor(Activite,
                              levels=c("Actif occupé","Etudiant","Apprentis", "Chômeur ou inactif"))) %>%
-    ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif des apprentis", title = "Les apprentis de 1975 à 2020 en France", caption = "Source :Enquête Emploi")
+    ggplot(aes(x=Annee,y=Population,group=Activite)) +
+    geom_line(color = scales::hue_pal()(4)[2]) + 
+    expand_limits(y=0) +
+    labs (x = "Année", y = "Effectif des apprentis (milliers)", title = "Les apprentis de 1975 à 2020 en France", caption = "Source :Enquête Emploi")
 }
 
 emploiAppr3 <- emploi %>% filter(Annee != 2003)
@@ -230,11 +233,11 @@ Apprentis_total3 <- function(agemin = 15, agemax = 30) {
   emploiAppr3 %>%
     filter(Age > agemin, Age < agemax) %>%
     group_by(Annee,Activite) %>%
-    summarise(Population = sum(Population)) %>%
+    summarise(Population = sum(Population) / 1e6) %>%
     mutate(Activite = factor(Activite,
                              levels=c("Actif occupé","Apprentis", "Etudiant","Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif selon le statut", caption = "Source :Enquête Emploi")
+    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Effectif selon le statut (millions)", caption = "Source :Enquête Emploi")
 }
 
 #30 ans et +
@@ -242,11 +245,11 @@ Apprentis_total4 <- function(agemin = 30, agemax = 60) {
   emploi %>%
     filter(Age > agemin, Age < agemax) %>%
     group_by(Annee,Activite) %>%
-    summarise(Population = sum(Population)) %>%
+    summarise(Population = sum(Population) / 1e6) %>%
     mutate(Activite = factor(Activite,
                              levels=c("Actif occupé","Apprentis", "Etudiant","Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif selon le statut", title = "Les individus de 30 ans à 60 ans de 1975 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
+    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Effectif selon le statut (millions)", title = "Les individus de 30 ans à 60 ans de 1975 à 2020 selon leur statut", caption = "Source :Enquête Emploi")
 }
 
 #données Emploi.R
@@ -260,7 +263,7 @@ Apprentis_total4.5 <- function(agemin = 30, agemax = 60) {
     mutate(Activite = factor(Activite,
                              levels=c("Actif occupé","Apprentis", "Etudiant","Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
-    geom_area(color="white") + labs (x = "Année", y = "Effectif selon le statut", caption = "Source :Enquête Emploi")
+    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Effectif selon le statut", caption = "Source :Enquête Emploi")
 }
 
 #Comparaison effectifs des jeunes en formation et actifs occupés
@@ -353,10 +356,11 @@ plot_NEET4 <-
         Population = EffNEET,
         Source = "Eurostat")
   ) %>%
+  mutate(Population = Population / 1e6) %>%
   ggplot(aes(x=Annee, y=Population, group = Source, color = Source)) + 
   geom_line() +
   scale_color_manual(values = c("grey45","steelblue3")) +
-  labs (x = "Année", y = "Effectif des NEET", 
+  labs (x = "Année", y = "Effectif des NEET (millions)", 
         caption = "Source : Eurostat (Labour Force Survey), Enquête Emploi")
 
 
