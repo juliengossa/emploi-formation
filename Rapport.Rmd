@@ -3,15 +3,15 @@ title: "Rapport"
 author: "Camille Schumacher"
 date: "23/05/2022"
 output:
+  pdf_document:
+    number_sections: true
+    toc: true
+  github_document: 
+    number_sections: true
   word_document: 
     number_sections: true
     toc: true
     fig_caption: true
-  github_document: 
-    number_sections: true
-  pdf_document:
-    number_sections: true
-    toc: true
   html_document:
     df_print: paged
 ---
@@ -31,11 +31,21 @@ source("emploi-formation.R", encoding = "UTF-8")
 theme_set(theme_minimal())
 ```
 
+<!-- Il faudrait un abstract/résumé, de 5-10 lignes, du type : -->
+<!-- Ce rapport présente une étude de la transition formation/emploi des jeunes en  -->
+<!-- France depuis les années 1970. L'hypthèse que nous cherchons à vérifier est celle  -->
+<!-- d'un rôle d'amortisseur de la formation entre la jeunesse et le chômage. Notamment, -->
+<!-- nous cherchons à vérifier si le nombre de jeunes chômeurs et inactifs est relativement -->
+<!-- constant. Pour ce faire, nous avons compilé les données de l'enquête emploi, que  -->
+<!-- nous avons ensuite comparée aux données Eurostat et de recencensement. Notre  -->
+<!-- conclusion est que ...  -->
 
 # Introduction
 
 Le stage de Master 1 visant à découvrir le monde professionnel ou celui de la recherche en démographie représentait pour moi une occasion d’avoir une première approche du secteur, des activités et des structures vers lesquels je souhaiterais me diriger après l’obtention du Master. Portant un intérêt tout particulier à la programmation sur les logiciels R et SAS, j’ai donc souhaité réaliser un stage qui me permettrait d’améliorer mon niveau en programmation tout en utilisant mes compétences en démographie. Ne sachant pas vraiment vers quelles structures ou secteurs me diriger pour réellement m’améliorer sur R et/ou SAS, j’ai d’abord souhaité m’orienter vers un stage orienté data, bien que, sur le long terme, je ne veuille pas travailler dans ce secteur après le master.
+
 Après une dizaine de candidatures envoyées à plusieurs organismes pour un stage dans la data, j’ai finalement répondu à une proposition de stage émise par Monsieur Julien GOSSA, enseignant-chercheur en informatique et Madame Pauline BOYER, doctorante en sciences politiques et sciences des données. Ce stage consistait globalement à faire de l’exploration de données démographiques sur la transition formation/emploi, probablement à partir de l’enquête Emploi.
+
  J’ai choisi d’envoyer ma candidature pour plusieurs raisons. Tout d’abord, la thématique du stage m’a depuis toujours intéressée, j’ai notamment suivi des cours optionnels de sociologie du travail et d’économie durant mes années passées en licence. De plus, cette thématique se distinguait des problématiques abordées habituellement en démographie (mortalité, vieillissement démographique, fécondité, migrations, etc…), ce qui pouvait certes être assez déroutant, mais c’était avant tout très motivant pour moi de sortir d’une certaine zone de confort et de d'approfondir des problématiques moins abordées en cours. J’ai également voulu faire ce stage car ses missions permettaient de s’améliorer en technique sur R, mais également sur d’autres logiciels, via la formation proposée en R Markdown et GitHub par Monsieur Julien GOSSA, qui sont des logiciels très utiles pour créer des rapports bien réalisés et partager les fichiers entre les différentes personnes qui travaillent sur un même projet. Lorsque j’ai été acceptée pour ce stage, j’ai fait part, avec l’aide de Monsieur Didier BRETON, de mon envie de m’améliorer en technique, c’est pourquoi Monsieur GOSSA a proposé de créer une application Shiny durant le stage qui permettra de manipuler facilement les différents paramètres des graphiques réalisés.
  
 Le stage a duré en tout 8 semaines, je pouvais choisir d'effectuer mon travail au bureau des doctorants de la Faculté des Sciences Sociales ou bien en télétravail, ce qui était très pratique pour moi et me permettait de m'organiser plus facilement et de gagner du temps. 
@@ -135,9 +145,16 @@ tibble(
 ```
 
 Une fois la base unique créée, j'ai souhaité réaliser des graphiques représentant les statuts d'activité et les niveaux de diplôme des jeunes de 15 à 29 ans sur la période 1971 - 2020. 
+
+### Pourcentages de population vs. effectifs absolus
+
 Certains de ces graphiques (et la plupart de ceux réalisés ensuite) représentent des effectifs de jeunes et non des pourcentages/parts de jeunes, et ce, pour plusieurs raisons. Comme annoncé précédemment, l'étude que nous réalisons s'inscrit dans un ensemble de projets en lien avec l'ESR et son fonctionnement, il est donc important que nos résultats puissent être repris de manière pertinente pour éclairer les prochains travaux en lien avec l'ESR.
-Il faut ainsi savoir que les budgets des universités et de l'enseignement supérieur ont décroché des effectifs au début des années 2000, d'abord avec l'abandon des modèles d'allocation des moyens tels que SAN REMO (système analytique de répartition des moyens) de 1995 à 2005 qui alloue des moyens aux universités en fonction des coûts moyens constatés puis SYMPA (système de répartition des moyens à la performance et à l’activité) de 2009 à 2019 qui allouait environ 80% des crédits selon les effectifs des personnels et étudiants et les 20% restants en fonction de la performance de l'établissement (nombre de publications, taux de réussite, etc...), puis le passage aux RCE qui allouent les crédits sur la base d'une négociation durant laquelle les universités doivent mettre en avant leurs performances pour disposer des moyens financiers dont elles ont besoin (citer source). On a donc un décrochage entre la taille de l'ESR (et les moyens financiers qui lui sont alloués) et les effectifs de jeunes qui poursuivent leurs études dans l'enseignement supérieur.
-Pour résumer, auparavant l'équation des moyens accordées aux universités était auparavant la suivante : Budget ESR = effectif des étudiants * dotation financière par étudiant alors qu'elle est maintenant : Dotation financière par étudiant = Budget ESR / effectif des étudiants.
+
+Il faut ainsi savoir que les budgets des universités et de l'enseignement supérieur ont décroché des effectifs au début des années 2000, d'abord avec l'abandon des modèles d'allocation des moyens tels que SAN REMO (système analytique de répartition des moyens) de 1995 à 2005 qui alloue des moyens aux universités en fonction des coûts moyens constatés puis SYMPA (système de répartition des moyens à la performance et à l’activité) de 2009 à 2019 qui devait allouer environ 80% des crédits selon les effectifs des personnels et étudiants et les 20% restants en fonction de la performance de l'établissement (nombre de publications, taux de réussite, etc...), mais n'a jamais été utilisé.
+
+Avec le passage aux RCE (Responsabilités et compétences élargies), les crédits sont maintenant allousés sur la base d'une négociation durant laquelle les universités doivent mettre en avant leurs performances pour disposer des moyens financiers dont elles ont besoin (citer source - https://blog.educpros.fr/julien-gossa/2019/09/22/quel-dialogue-de-gestion-pour-quelle-autonomie/). On a donc un décrochage entre les moyens financiers alloués à l'ESR et les effectifs de jeunes qui poursuivent leurs études dans l'enseignement supérieur.
+
+Pour résumer, auparavant l'équation des moyens accordées aux universités était auparavant la suivante : $Budget = effectif \times dotation.par.étudiant$ alors qu'elle est maintenant : $Dotation.par.étudiant = \frac{Budget}{effectif}$.
 
 La dotation financière par étudiant est donc fonction du budget accordé via l’effectif des étudiants ainsi que les négociations. 
 Les effectifs sont donc plus efficaces que les parts pour connaître la charge de l’ESR et son fonctionnement d'où leur utilisation ici.
@@ -153,7 +170,8 @@ Note : La catégorie des apprentis a été rajoutée ultérieurement, la méthod
 On remarque tout d'abord que l'effectif des actifs occupés a considérablement diminué de 1971 à 2020 en raison à la fois de la diminution de l'effectif total des jeunes de 15 à 29 ans (lié au vieillissement des baby boomers) mais également en raison de l'augmentation de l'effectif des jeunes étudiants tout au long de la période. On remarque cependant une baisse soudaine de l'effectif des étudiants en 2003 qui serait due à l'adoption de la définition du statut d'activité au sens du BIT cette même année par l'enquête Emploi (sans doute pour harmoniser les données au niveau européen). Cette définition du BIT remplace l'auto déclaration par les enquêtés de leur statut professionnel. Ainsi les étudiants salariés qui se définissaient comme étudiants avant 2003 sont tombés dans la catégorie "actif occupé" à partir de 2003 car ils ont travaillé au moins une heure durant la semaine de référence, ce qui a entraîné une baisse artificielle de l'effectif des étudiants.(citer source)
 
 L'effectif des apprentis semble également augmenter durant la période, en particulier depuis le début des années 2000, ce qui témoigne d'un certain développement de l'apprentissage et de l'alternance à partir de cette période.
-Enfin, on remarque sur ce graphique également une certaine constance du nombre de jeunes chômeurs et inactifs sur toute la période 1971 - 2020 mais il reste difficile d'affirmer avec certitude d'où provient cette relative stabilité. 
+
+__Enfin, on remarque sur ce graphique également une certaine constance du nombre de jeunes chômeurs et inactifs sur toute la période 1971 - 2020 mais il reste difficile d'affirmer avec certitude d'où provient cette relative stabilité.__
 
 
 ###  Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activité
@@ -199,7 +217,26 @@ Le graphique ci-dessous informe sur la part des individus selon leur niveau de d
   plot_activite8(agemin=25, agemax = 29)
 ```
 
+<!-- And so what? Il manque ici une articulation avec le reste : pourquoi regarder  -->
+<!-- le niveau de diplôme ? -->
+<!-- Ca nécessite une petite phrase d'intro, et une bonne phrase de conclusion. -->
+<!-- Quelque chose comme : Pour mettre en contexte la tansition emploi/formation chez  -->
+<!-- les jeunes, il convient de regarder aussi le niveau de qualification finalement -->
+<!-- obtenu par cette population. -->
+<!-- -  -->
+<!-- Contrairement au niveau d'inactivité relativement stable, on constate de grand  -->
+<!-- changements en ce qui concerne le niveau de diplômation. En particulier,avec  -->
+<!-- une réduction de la population sans diplôme et un accroissement de la population  -->
+<!-- diplômée du supérieur. Nous avons donc une mutation éducative, mais sans réelle  -->
+<!-- mutation de l'inactivité économique.  -->
+
 ## 4. Observations sur les évolutions des effectifs totaux de jeunes (15-29 ans) au fil des années.
+
+<!-- C'est une observation ou c'est une vérification ?  -->
+<!-- Si c'est une vérification, c'est plus simple de le dire : maintenant qu'on a  -->
+<!-- identifié ce phénomène, il convient de vérifier si d'autres données le confirme. -->
+<!-- C'est pourquoi nous allons utiliser telle et telle base de données pour vérifier telle  -->
+<!-- et telle chose. -->
 
 Après avoir créé tous ces graphiques, il devenait nécessaire de s'intéresser aux évolutions de l'effectifs de jeunes entre 1971 et 2020, et plus particulièrement, à celles des jeunes chômeurs et inactifs (hors étudiants) puisque la relative constance de leur effectif semblait être intéressante à étudier. J'ai alors proposé de comparer nos effectifs de jeunes avec ceux d'Eurostat, qui a également effectué un traitement de données à partir de l'enquête Emploi. Cette comparaison nous a également permis de vérifier la qualité de notre traitement de données. 
 
@@ -213,6 +250,8 @@ On remarque que les courbes grise et bleue ont des niveaux et des évolutions tr
 ```{r activite.44, out.width="100%",fig.align='center', fig.asp=9/16}
   plot(plot_jeunes2)
 ```
+
+<!-- Conclusion ? -->
 
 
 ## 5. Observations sur les effectifs de jeunes chômeurs ou inactifs (hors étudiants)
@@ -238,6 +277,8 @@ Rien ne semble cependant confirmer cela. En effet, nous avons pris contact avec 
 
 Ne trouvant pas d'explication concernant la méthodologie ou les définitions qui pourraient expliquer le sureffectif de NEET que nous avons au sein de nos données, j'ai donc choisi de réaliser d'autres graphiques sur notamment les effectifs d'apprentis, de jeunes chômeurs, d'actifs occupés et des étudiants, afin de tenter de mieux comprendre d'où proviennent les écarts entre les effectifs de NEET de notre base et de ceux présentés par Eurostat. 
 
+<!-- Ici, il faut moduler ce sureffectif en indiquant au moins en pourcentage ce  -->
+<!-- qu'il représente (la représentation est trompeuse, ne partant pas de 0). -->
 
 ## 6. Observations sur les apprentis de 1976 à aujourd'hui
 
@@ -371,6 +412,8 @@ Enfin, on remarque que quel que soit le niveau de diplôme, bien qu'un diplôme 
 
 Après avoir réalisé ces tableaux, Monsieur GOSSA m'a proposé de réaliser l'application Shiny afin de manipuler les données des graphiques plus facilement. L'objectif était alors de placer nos principaux graphiques sur l'application afin de les modifier facilement selon plusieurs paramètres. Il était assez difficile pour moi de réaliser correctement cette application et de la faire fonctionner étant donné que cela nécessitait plusieurs compétences techniques, c'est pourquoi Monsieur GOSSA a beaucoup aidé à la conception. de l'application. Nous avons ainsi disposé une barre permettant de modifier la classe d'âge de la population observée (ex : de 15 à 20 ans), une autre barre permettant de modifier l'année de début et de fin du graphique, une liste déroulante permettant de choisir entre afficher des graphiques sur le niveau de diplôme ou bien des graphiques sur le statut d'activité, un premier bouton permettant de passer les graphiques en pourcentages et un deuxième permettant de supprimer les non-réponses du graphique (voir annexes n à n pour avoir un aperçu de l'application et de ses graphiques).
 
+<!-- Ajouter ici une pacture d'écran -->
+
 ## 11. Réalisation d'une Analyse en Composantes Principales
 
 Ma dernière activité réalisée au cours du stage a été de mettre en place une Analyse en Composantes Principales afin de voir les potentiels liens qui pourraient exister entre nos différentes variables d'intérêt selon l'année de la réalisation de l'enquête chez les jeunes de 15 à 29 ans. J'ai ainsi réalisé quelques ACM à partir des années 1976, 1990 et 2020 : Lorsque deux éléments sont proches sur la représentation, cela signifie que ces deux éléments possèdent un lien. Aussi plus la couleur du texte de l'élément est claire, plus la qualité de la représentation de cet élément sur le graphique est importante car la valeur du cosinus2 est elle-aussi plus importante.
@@ -393,7 +436,10 @@ La représentation de l'ACM ci-dessous utilise les données de l'année 2020. L'
 ```{r activite.76, out.width="100%",fig.align='center', fig.asp=9/16}
   knitr::include_graphics("Images/ACM/ACM_2020_2.PNG")
 ```
-Finalement l'ensemble de ces ACM a avant tout montré le changement de la place des femmes dans la société productive, passant globalement d'inactives avec un assez faible niveau de diplôme en raison du modèle familial traditionnel à actives occupées avec un niveau de diplôme en moyenne plus élevé que celui des hommes. 
+__Finalement l'ensemble de ces ACM a avant tout montré le changement de la place des femmes dans la société productive, passant globalement d'inactives avec un assez faible niveau de diplôme en raison du modèle familial traditionnel à actives occupées avec un niveau de diplôme en moyenne plus élevé que celui des hommes.__
+
+<!-- Il manque ici une conclusion globale sur les informations obtenues par les travaux.-->
+<!-- Par exemple ce qu'on trouve en conclusion après. -->
 
 
 # III. Evaluation et analyse personnelle
@@ -411,6 +457,14 @@ J'ai pu apporter à l'équipe au sein de laquelle j'ai travaillé un point de vu
 Je pense que sur le long terme, mes interventions permettront à l'équipe d'aborder avec plus de facilité les prochaines exploitations de données qu'ils réaliseront.
 
 Ainsi, la formation du master de démographie m'a permis de correctement produire, interpréter et valoriser les différents résultats tout en évitant les différents biais, bien que je n'aie pas réussi à répondre à toutes les interrogations que nous avions. Cette formation m'a également permis d'avoir une posture très critique quant aux données, à la manière dont elles ont été produites et traitées, et aux résultats qu'elles permettent de produire. J'aurais cependant aimé savoir comment prendre en compte la pondération et réaliser correctement des tableaux croisés sur R avant le début du stage, afin de pouvoir davantage me concentrer sur les tâches principales.
+
+<!-- Ici c'est peut-être l'endroit d'écrire explicitement "reflexe démographique"  -->
+<!-- (je ne sais plus l'expression exacte) -->
+<!-- Et on apprécie généralement un petit paragraphe que la confirmation/infimation -->
+<!-- du projet professionnel, y compris pour dire que bien que l'expérience académique  -->
+<!-- ait été agréable, le stage a confirmé le désir de poursuivre dans tel métier du -->
+<!-- secteur privé.  -->
+
 
 # Conclusion
 

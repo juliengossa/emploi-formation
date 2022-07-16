@@ -48,6 +48,8 @@ plot_activite3 <- function(agemin = 15, agemax = 30, anneemin = 1971, anneemax =
     summarise(Population = sum(Population)/1e6) %>%
     mutate(Diplome = factor(Diplome,
                             levels=c("Bac+5","Bac+3","Bac+2","Bac","CAP-BEP","DNB","Aucun"))) %>%
+    ungroup() %>%
+    complete(Annee,Diplome,fill=list(Population = 0)) %>%
     ggplot(aes(x=Annee,y=Population,fill=Diplome,group=Diplome)) +
     geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Effectif des jeunes (millions)")
 }
