@@ -49,7 +49,7 @@ Enfin, nous organisions une réunion environ toutes les deux semaines afin de fa
 
 La suite de ce document est structurée en trois parties distinctes ayant pour but d'informer sur le contexte, les missions et le bilan de ce stage : la première partie présente ainsi ma principale mission ainsi que la manière dont cette dernière s'inscrit dans une perspective plus globale. La deuxième partie est la plus fournie puisqu'elle présente mes principales réalisations ainsi que les raisonnements, résultats et conclusions auxquelles nous sommes parvenus. Enfin, la troisième et dernière partie est plus personnelle puisqu'elle comporte une analyse assez subjective de ma contribution, de ce stage, et de ce qu'il m'a apporté personnellement et professionnellement. 
 
-# I. Présentation de l'organisme et de ma mission
+# Présentation de l'organisme et de ma mission
 
 J'ai réalisé mon stage au sein du Laboratoire SAGE (Sociétés, Acteurs, Gouvernement en Europe). Selon le site Internet officiel du laboratoire, ce dernier "réunit des chercheurs et des enseignants-chercheurs qui travaillent sur les processus de transnationalisation (et tout particulièrement la construction européenne comme réponse à une mondialisation croissante) et sur les transformations des structures et des dynamiques sociales et politiques qu’ils induisent. Dans cette perspective, une attention particulière est portée à la sociologie des acteurs, à l’élaboration et la mise en œuvre de normes et de dispositifs publics et à la genèse d’enjeux sociétaux (environnement, santé, vieillissement, vulnérabilités sociales, culture, villes) ainsi qu’à leurs dynamiques de territorialisation à différentes échelles. [...] SAGE est une UMR de sciences sociales du politique et se positionne de manière originale sur des thèmes porteurs tels que la santé, le droit de l'environnement et le développement durable urbain, les politiques culturelles et sociales, l’internationalisation et la circulation des élites, la sociologie politique de l’Europe et les mobilisations collectives. Les recherches se structurent en 6 axes étroitement liés au sein desquels circulent les membres de l’UMR." (citer source)
 
@@ -113,9 +113,9 @@ Le stage a été pensé pour être également une occasion d’explorer plus lar
 
 Ainsi, le travail effectué pendant le stage s'inscrit dans un ensemble de travaux portant sur l'exploitation de données de l'ESR et dont les productions et conclusions pourront être mobilisées pour guider des travaux réalisés ultérieurement et qui porteront sur d'autres aspects/dimensions de l'ESR.
 
-# II. Les missions réalisées tout au long du stage
+# Les missions réalisées tout au long du stage
 
-## 1. Réalisation d'un traitement de données des Enquêtes Emploi datant de 1971 à 2020
+## Réalisation d'un traitement de données des Enquêtes Emploi datant de 1971 à 2020
 
 L'ensemble de mes missions ont été réalisées en utilisant R pour le codage, R Markdown pour présenter de manière propre et organisée les résultats, Shiny pour modifier rapidement les paramètres de divers graphiques et GitHub qui nous a permis de mettre les divers fichiers en commun dans un dépôt, afin qu'ils soient consultables et modifiables à tout moment dans l'application R par Monsieur Julien GOSSA et moi-même.
 
@@ -155,9 +155,9 @@ La dotation financière par étudiant est donc fonction du budget accordé via l
 Les effectifs sont donc plus efficaces que les parts pour connaître la charge de l’ESR et son fonctionnement d'où leur utilisation ici.
 
 
-## 2. Aperçu de la répartition des jeunes de 15 à 29 ans selon le statut d'activité
+## Aperçu de la répartition des jeunes de 15 à 29 ans selon le statut d'activité
 
-### a. Représentation de l'activité des jeunes en effectifs
+### Représentation de l'activité des jeunes en effectifs
 
 Le graphique ci-dessous représente les effectifs des jeunes de 15 à 29 ans selon leur statut d'activité en France. La catégorie des actifs occupés regroupe les individus qui exercent un emploi, celle des apprentis regroupe les apprentis ainsi que les alternants, celle des étudiants représente les élèves, étudiants et individus suivant une formation (formelle ou non), enfin les chômeurs ou inactifs sont les individus ne suivant pas de formation et n'ayant pas d'emploi, même s'il est possible qu'ils en recherchent un.
 Note : La catégorie des apprentis a été rajoutée ultérieurement, la méthode et les raisons de cet ajout seront expliqués plus loin.
@@ -175,7 +175,7 @@ __Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activit
 ```
 
 
-### b. Représentation de l'activité des jeunes en proportions
+### Représentation de l'activité des jeunes en proportions
 
 Le graphique ci-dessous confirme ce que nous avons constaté auparavant : chez les jeunes de 15 à 29 ans, la part des étudiants et des apprentis/alternants augmente (celle des étudiants passant de près de 12% en début de période à environ 40% en 2020) tandis que celle des actifs occupés diminue, passant de près de 60% en 1971 à environ 45% en 2020. La part des chômeurs et inactifs reste cependant assez stable et avoisine les 20% tout au long de la période. 
 
@@ -185,7 +185,7 @@ __Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activit
 ```
 
 
-## 3. Mise en lien des évolutions concernant le niveau de diplôme des jeunes avec celles des statuts d'activité selon l'année civile 
+## Mise en lien des évolutions concernant le niveau de diplôme des jeunes avec celles des statuts d'activité selon l'année civile 
 
 Afin de mieux comprendre la transition formation/emploi chez les jeunes, il semble important d'observer 
 Les deux graphiques suivants informent le lecteur sur la répartition des jeunes de 25 à 29 ans en France en fonction du niveau de diplôme et de l'année. Nous avons choisi de ne prendre en compte que les jeunes de 25 ans ou plus puisqu'une part importante des jeunes de  15 à 24 ans sont toujours élèves ou étudiants et n'ont donc pas encore atteint le niveau de diplôme qu'ils visent, l'analyse des niveaux de diplômes en serait alors nécessairement biaisée et sous-estimerait le niveau de diplôme "final" des jeunes en France.
@@ -228,7 +228,7 @@ Il semble que le niveau de diplôme des jeunes a considérablement augmenté de 
 <!-- diplômée du supérieur. Nous avons donc une mutation éducative, mais sans réelle  -->
 <!-- mutation de l'inactivité économique.  -->
 
-## 4. Vérification de l'effectif de jeunes au sein de nos données
+## Vérification de l'effectif de jeunes au sein de nos données
 
 <!-- C'est une observation ou c'est une vérification ?  -->
 <!-- Si c'est une vérification, c'est plus simple de le dire : maintenant qu'on a  -->
@@ -252,7 +252,7 @@ __Les jeunes de 15 à 29 ans de 1971 à 2021 en France__
 Globalement les effectifs de jeunes et leurs évolutions entre 1971 et 2020 annoncés par nos données issues de l'enquête Emploi sont presque identiques à ceux issus du traitement effectué par Eurostat, on peut en conclure que notre traitement de données de l'enquête Emploi semble être assez fiable et retrace correctement la diminution des effectifs de jeunes à partir des années 1990.
 
 
-## 5. Vérification sur les effectifs de jeunes chômeurs ou inactifs (hors étudiants) au sein de nos données
+## Vérification sur les effectifs de jeunes chômeurs ou inactifs (hors étudiants) au sein de nos données
 
 Le graphique ci-dessous compare les effectifs de NEET d'Eurostat (courbe bleue, données uniquement disponibles à partir de l'année 2000) avec les effectifs de NEET obtenus via notre traitement de données (courbe grise). 
 Concernant la courbe bleue, Eurostat a utilisé et traité les données du Labour Force Survey (Enquête Emploi) pour estimer le nombre de NEET. On remarque une importante augmentation du nombre de NEET en 2008, probablement en raison de la crise économique des subprimes.  Globalement, l'effectif des NEET en France est compris, selon Eurostat, entre 1,4 et 1,7 millions d'individus de 2000 à 2020, soit une variation bien moins importante que celle constatée sur le graphique précédent.
@@ -280,7 +280,7 @@ Ainsi, selon nos données, en 2005, le taux de NEET au sein des jeunes de 15 à 
 <!-- Ici, il faut moduler ce sureffectif en indiquant au moins en pourcentage ce  -->
 <!-- qu'il représente (la représentation est trompeuse, ne partant pas de 0). -->
 
-## 6. Analyse de la place des jeunes apprentis et de leur potentiel impact sur les NEET de 1976 à aujourd'hui
+## Analyse de la place des jeunes apprentis et de leur potentiel impact sur les NEET de 1976 à aujourd'hui
 
 Dans cette partie, nous nous intéressons aux apprentis et alternants afin d'avoir une compréhension plus fine de la transition de la formation vers l'emploi chez les jeunes et également afin de vérifier que notre sureffectif de NEET ne soit lié au apprentis et alternants. 
 
@@ -315,7 +315,7 @@ Ce graphique présente l'effectif des apprentis de 18 à 21 ans de 1975 à 2020.
 
 Nous pouvons conclure de ces graphiques que les apprentis et alternants ne sont pas responsables de notre sureffectif de NEET. Nous allons donc décomposer notre population de jeunes selon leur statut d'activité et comparer les effectifs obtenus avec ceux qu'Eurostat présente via l'exploitation de l'enquête Emploi (Labour Force Survey). 
 
-## 7. Impact du changement de définition de l'activité de 2003 sur le statut d'activité des individus entre 30 et 60 ans 
+## Impact du changement de définition de l'activité de 2003 sur le statut d'activité des individus entre 30 et 60 ans 
 
 Ce dernier graphique représente la répartition des individus de 30 à 60 ans selon leur statut d'activité. On remarque ainsi que les individus de 30 à 60 ans n'ont pas subi de modification notable de leurs effectifs en 2003, contrairement aux 15-29 ans. On peut en conclure qu'à première vue, seul le statut d'étudiant salarié a réellement posé problème et provoqué la chute de l'effectif des étudiants en 2003 en raison du changement de définition du statut d'activité cette année-là. Notre sureffectif de NEET n'est donc probablement pas lié à une anomalie dans le traitement de données apparue dès 2003.
 
@@ -327,7 +327,7 @@ __Effectif des individus de 30 ans à 60 ans de 1971 à 2020 selon leur statut d
 
 
 
-## 8. Comparaison données de l'Eurostat sur les jeunes avec nos données (emploi.RData)
+## Comparaison données de l'Eurostat sur les jeunes avec nos données (emploi.RData)
 
 Cette section regroupe plusieurs graphiques comparant les données d'Eurostat avec les nôtres afin de décomposer nos données. Comme pour les graphiques précédents, la courbe grise représente les données que nous avons traitées sur l’enquête Emploi tandis que la bleue représente les données d’Eurostat qui a également traité les données de l'enquête Emploi (Labour Force Survey).
 
@@ -365,7 +365,7 @@ Après avoir produit ces graphiques, je me suis appliquée à mieux mettre en fo
 
 J'ai ensuite voulu réaliser quelques tableaux croisés avec les variables sur le statut d'activité, le niveau de diplôme, l'âge et le sexe en prenant bien sûr en compte la pondération, afin d'avoir une vision plus fine de la transition formation-emploi. Les principales difficultés ont été selon moi d'apprendre à utiliser correctement le package gtsummary et de trouver des ressources pour comprendre comment appliquer la pondération aux données lors de l'utilisation du package. Ces difficultés m'ont plutôt retardées dans mon travail, d'où la réalisation tardive de ces tableaux. 
 
-## 9. Visualisation plus fine de la transition formation-emploi à l'aide de tableaux croisés
+## Visualisation plus fine de la transition formation-emploi à l'aide de tableaux croisés
 
 Le tableau ci-dessous croise la variable de l'année avec celles du statut d'activité et du niveau de diplôme, l'année la plus ancienne est 1976 et non 1975 car cette dernière comporte des taux de non réponses très importants concernant le statut d'activité. Globalement ce tableau confirme ce que nous avons déjà vu : il y a de fort taux de non réponse en 1976 (62 %) et en 1985 (39%) concernant le niveau de diplôme, ce qui produit des biais tels qu'une augmentation artificielle de la proportion d'individus sans aucun diplôme de 1976 à 1995. Il y a également le biais des étudiants salariés qui sont classés comme actifs occupés à partir de 2003 d'où l'augmentation artificielle de la part des actifs occupés et la diminution de celle des étudiants de 1995 à 2005.
 Autrement, la part des jeunes chômeurs et inactifs (NEET) demeure relativement stable puisqu'elle oscille entre 14 et 18% de 1976 à 2020. 
@@ -408,7 +408,7 @@ Enfin, on remarque que quel que soit le niveau de diplôme, bien qu'un diplôme 
   knitr::include_graphics("Images/gtsummary/tabledipl2020.PNG")
 ```
 
-## 10. Elaboration de l'application Shiny 
+## Elaboration de l'application Shiny 
 
 Après avoir réalisé ces tableaux, Monsieur GOSSA m'a proposé de réaliser l'application Shiny afin de manipuler les données des graphiques plus facilement. L'objectif était alors de placer nos principaux graphiques sur l'application afin de les modifier facilement selon plusieurs paramètres. Il était assez difficile pour moi de réaliser correctement cette application et de la faire fonctionner étant donné que cela nécessitait plusieurs compétences techniques, c'est pourquoi Monsieur GOSSA a beaucoup aidé à la conception. de l'application. Nous avons ainsi disposé une barre permettant de modifier la classe d'âge de la population observée (ex : de 15 à 20 ans), une autre barre permettant de modifier l'année de début et de fin du graphique, une liste déroulante permettant de choisir entre afficher des graphiques sur le niveau de diplôme ou bien des graphiques sur le statut d'activité, un premier bouton permettant de passer les graphiques en pourcentages et un deuxième permettant de supprimer les non-réponses du graphique (voir annexes 5 à 8 pour avoir un aperçu supplémentaire de l'application et des graphiques qu'elle propose).
 
@@ -423,7 +423,7 @@ __Aperçus de l'application Shiny dans sa globalité__
 ```
 
 
-## 11. Exploration des liens entre les différentes variables via la réalisation d'une Analyse en Composantes Principales
+## Exploration des liens entre les différentes variables via la réalisation d'une Analyse en Composantes Principales
 
 Ma dernière activité réalisée au cours du stage a été de mettre en place une Analyse en Composantes Principales afin de voir les potentiels liens qui pourraient exister entre nos différentes variables d'intérêt selon l'année de la réalisation de l'enquête chez les jeunes de 15 à 29 ans. J'ai ainsi réalisé quelques ACM à partir des années 1976, 1990 et 2020 : Lorsque deux éléments sont proches sur la représentation, cela signifie que ces deux éléments possèdent un lien. Aussi plus la couleur du texte de l'élément est claire, plus la qualité de la représentation de cet élément sur le graphique est importante car la valeur du cosinus2 est elle-aussi plus importante.
 Il faut savoir que la catégorie des étudiants était auparavant intégrée à l'ACM mais je l'ai enlevé sous les conseils de Monsieur CORDAZZO car cette catégorie produisait un biais concernant les diplômes : les étudiants ont mécaniquement un niveau de diplôme plus faible que ceux qui ne sont pas étudiants car ils n'ont pas encore obtenu le diplôme qu'ils visent.
@@ -452,7 +452,7 @@ __Finalement l'ensemble de ces ACM a avant tout montré le changement de la plac
 <!-- Par exemple ce qu'on trouve en conclusion après. -->
 
 
-# III. Evaluation et analyse personnelle
+# Evaluation et analyse personnelle
 
 Réaliser ce stage m'a permis de développer plusieurs compétences à la fois personnelles et professionnelles. En effet, il m'a permis, en raison de ses conditions qui offraient beaucoup de libertés, de développer mon autonomie, ma capacité à communiquer avec un groupe pour faire état de mes avancées et de mes difficultés, ainsi que ma capacité à réfléchir moi-même à des solutions pour résoudre un problème technique ou de nature démographique. 
 J'ai également eu l'occasion d'apprendre à m'autoformer de manière efficace en programmation sur R concernant des éléments non abordés en cours tels que réaliser des tableaux croisés ou prendre en compte la pondération sur R, ce qui m'a permis de pallier mes lacunes dans ces savoirs-faire nécessaires pour analyser des données.
