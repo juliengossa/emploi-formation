@@ -9,7 +9,8 @@ theme_cpesr_setup(source="INSEE, enquête emploi en continu 2003-2020, enquête 
 
 options(dplyr.summarise.inform = FALSE, Encoding="UTF-8")
 
-
+#Suppression des années problématiques
+emploi <- filter(emploi, Annee != 1975 & Annee != 1973)
 #Creation d'une table des jeunes sans emploi
 SansEmploi <-  filter(emploi, Age > 14 & Age < 30)
 SansEmploi <-  group_by(SansEmploi, Annee, Activite)
@@ -344,6 +345,7 @@ plot_jeunescomp <-
 EmploiNEET <- filter(emploi, Age < 30 & Age > 14 & Activite == "Chômeur ou inactif", Annee > 1974)
 EmploiNEET <- group_by(EmploiNEET, Annee)
 EmploiNEET <- summarise(EmploiNEET, Population = sum(Population))
+
 
 plot_NEET4 <- 
   bind_rows(
