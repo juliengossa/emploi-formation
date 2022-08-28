@@ -164,7 +164,7 @@ emploi.ndv <- emploi %>%
                              "Supérieur" = "Bac+5",
                              "Supérieur" = "Bac+3",
                              "Supérieur" = "Bac+2")) %>%
-  summarise(Population = mean(Population)) %>%
+  summarise(Population = sum(Population)) %>%
   na.omit() %>%
   mutate(Annee = recode(as.character(Annee),"1971"="1970")) %>%
   bind_rows(
@@ -248,7 +248,7 @@ p <- emploi %>%
   group_by(Annee,Sexe,Diplome) %>%
   summarise(
     SalaireMoyen = weighted.mean(SalaireMoyen,Population,na.rm=TRUE),
-    Population = mean(Population)
+    Population = sum(Population)
     ) %>% 
   mutate(Diplome=fct_rev(Diplome)) %>%
   na.omit() %>%
@@ -267,4 +267,20 @@ p <- emploi %>%
 
 animate(p, start_pause = 20, nframes = 200, end_pause = 20)
   
+```
+
+
+### Diplome et activité
+
+```{r dipl.vs.act}
+emploi %>%
+  filter(AgeQ==30) %>%
+  group_by(Annee,Diplome,Activite) %>%
+  summarize(Population = sum(Population)) %>%
+  na.omit() %>%
+  group_by(Annee,Diplome) %>%
+  mutate(Part = Population / sum(Population)) %>%
+  filter(Activite == "Actif occupé") %>%
+  ggplot(aes(x=Annee,y=Part,color=Diplome)) +
+  geom_line()
 ```

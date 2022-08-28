@@ -18,6 +18,8 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+knitr::opts_chunk$set(fig.asp=9/16) # changer pour changer globalement le format des fig
+
 
 load("emploi.RData")
 load("NEET.RData")
@@ -29,6 +31,32 @@ options(tinytex.verbose = TRUE)
 source("emploi-formation.R", encoding = "UTF-8")
 
 theme_set(theme_minimal())
+
+# Mettre un titre complet. Possibilité d'utiliser "subtitle: " dans l'entête yaml
+# Possibilité de mettre les sources en note de bas de page avec "^[texte]", marche aussi pour les "Notes".
+# Plutôt que "graphique ci dessous" utiliser "Figure X" (avec X étant le numéro de la figure)
+# Mettre les sources sur les graphiques partout ou nulle part.
+# possibilité d'utiliser les backquotes `VAR` pour les noms de variable
+# Des NA inutiles sur certains graphiques
+
+# "R pour le codage" : codage veut dire autre chose, préférer "traitement des données"
+# 3.1 Citer la volumétrie des données dans le texte pourra aider le lecteur à mesurer l'ampleur des travaux
+
+# 3.2 "La dotation financière par étudiant est donc fonction du budget accordé via l’effectif des étudiants ainsi que les négociations. Les effectifs sont donc plus efficaces que les parts pour connaître la charge de l’ESR et son fonctionnement d'où leur utilisation ici."
+# Je propose : "La dotation financière par étudiant est donc devenu un rétro-calcul, dans lequel intervient l'effectif étudiant en valeur absolu. Ce dernier est donc plus pertinent que la part des étudiants pour saisir la charge de l'ESR."
+
+# 3.5 "il me semblait alors intéressant de comparer nos effectifs de chômeurs et inactifs (horsétudiants) avec les effectifs de NEET proposés par Eurostat." : intéressant pour quoi ?
+
+# 3.7 Vérifier les chiffres du nombre d'apprentis donnés dans le texte
+
+# 3.8 Corriger l'échelle y pour mettre en millions
+
+# 3.10 "Graphique" au lieu de "tableau"
+
+# 3.12 Vérifier ACP/ACM (composante principale / correspondances multiples)
+
+# 4 "Cette formation m’a également permis d’adopter assez facilement" assez facilement indique que ça n'a demandé aucun effort... Mieux enlever, ou mettre "naturellement" pour dire que c'estr le fruit naturel des efforts. Aussi, il faut prendre le temps de donner des reflexe démographique concrets (sinon c'est creux). Plus globalement sur cette partie, je trouve qu'on insiste pas assez sur la transmission des savoirs/compétences démographiques à des scientifiques d'autres disciplines, ce qui a obligé à struturer ces connaissances, et mieux les maitriser pour pouvoir les communiquer.
+
 ```
 
 __Résumé__
@@ -105,7 +133,7 @@ saphire %>%
   scale_color_manual(values=activités.palette) +
   ylab("Population 16-29 ans (millions)") +
   #theme_cpesr_cap() +
-  theme(axis.title.x = element_blank())
+  theme(axis.title.x = element_blank(), legend.position = "bottom" )
 ```
 
 L’un des objectifs de ce stage a donc été de confirmer ou d'infirmer cette hypothèse, en exploitant des données plus précises que celles de la base SAPHIR, comme celles des enquêtes emplois de l’INSEE. Je devais donc apporter mes compétences de démographe afin d'aider notamment au traitement, à l'exploitation, à l'analyse et à la valorisation des données de l'enquête Emploi.
@@ -149,7 +177,7 @@ Il faut ainsi savoir que les budgets des universités et de l'enseignement supé
 
 Avec le passage aux RCE (Responsabilités et compétences élargies), les crédits sont maintenant allousés sur la base d'une négociation durant laquelle les universités doivent mettre en avant leurs performances pour disposer des moyens financiers dont elles ont besoin (citer source - https://blog.educpros.fr/julien-gossa/2019/09/22/quel-dialogue-de-gestion-pour-quelle-autonomie/). On a donc un décrochage entre les moyens financiers alloués à l'ESR et les effectifs de jeunes qui poursuivent leurs études dans l'enseignement supérieur.
 
-Pour résumer, auparavant l'équation des moyens accordées aux universités était auparavant la suivante : $Budget = effectif \times dotation.par.étudiant$ alors qu'elle est maintenant : $Dotation.par.étudiant = \frac{Budget}{effectif}$.
+Pour résumer, auparavant l'équation des moyens accordées aux universités était auparavant la suivante : $Budget = étudiants \times dotation.par.étudiant$ alors qu'elle est maintenant : $Dotation.par.étudiant = \frac{Budget}{étudiants}$.
 
 La dotation financière par étudiant est donc fonction du budget accordé via l’effectif des étudiants ainsi que les négociations. 
 Les effectifs sont donc plus efficaces que les parts pour connaître la charge de l’ESR et son fonctionnement d'où leur utilisation ici.
@@ -171,7 +199,8 @@ __Enfin, on remarque sur ce graphique également une certaine constance du nombr
 
 __Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activité__
 ```{r activite.25, out.width="100%",fig.align='center', fig.asp=9/16}
-  plot_activite(agemin = 15, agemax = 29)
+  plot_activite(agemin = 15, agemax = 29) +
+  theme(legend.position = "bottom")
 ```
 
 
@@ -181,7 +210,8 @@ Le graphique ci-dessous confirme ce que nous avons constaté auparavant : chez l
 
 __Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d'activité__
 ```{r activite.34, out.width="100%",fig.align='center', fig.asp=9/16}
-  plot_activite7()
+  plot_activite7() +
+  theme(legend.position = "bottom")
 ```
 
 
@@ -515,12 +545,12 @@ __Annexe 1 : Organigramme du laboratoire SAGE__
 
 
 ```{r annexe.2, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("Images/Annexes/Calendrier.PNG")
+  knitr::include_graphics("Images/Annexes/Calendrier.png")
 ```
 
 __Annexe 3 : Représentation des effectifs des jeunes de 15 à 29 ans entre 1971 et 2020 en France__
 ```{r annexe.3, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("Images/Annexes/Graphique_jeunes_Annexe.PNG")
+  knitr::include_graphics("Images/Annexes/Graphique_jeunes_Annexe.png")
 ```
 
 __Annexe 4 : Représentation de l'effectif des NEET de 15 à 29 ans entre 1976 et 2020 avec une base de données classique__
