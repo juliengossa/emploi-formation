@@ -1,5 +1,5 @@
 ---
-title: "Chargement des données"
+title: "Chargement des données pour le salaire"
 output: github_document
 ---
 
@@ -74,7 +74,6 @@ read_and_sum_82_89 <- function(file, annee) {
   volumetrie <<- bind_rows(volumetrie,tibble(Annee=annee,Variables=ncol(Empl),Observations=nrow(Empl)))
   Empl %>%
     group_by(Annee = annee,
-             Sexe = fct_recode(s,!!!var_recode_sexe),
              Age = as.numeric(ag), 
              Activite = fct_recode(fi,!!!var_recode_FI),
              Apprentissage = fct_recode(statut,!!!var_recode_STATUT),
@@ -143,6 +142,7 @@ read_and_sum_2003_ <- function(file, annee=NA) {
 
 # Lecture de tous les fichiers indiv
 ```{r read, cache=TRUE}
+
 test <- FALSE
 
 dir <- "data/Csv/"

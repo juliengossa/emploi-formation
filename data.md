@@ -92,6 +92,7 @@ read_and_sum_2003_ <- function(file, annee=NA) {
   volumetrie <<- bind_rows(volumetrie,tibble(Annee=annee,Variables=ncol(indiv),Observations=nrow(indiv)))
   if("EXTRI16" %in% colnames(indiv)) indiv <- indiv %>% rename(EXTRIDF = EXTRI16)
   if(!"FC5A" %in% colnames(indiv)) indiv$FC5A <- ifelse(indiv$STATUTR == 3,1,-1)
+  if(annee==2013) indiv$EXTRI <- EXTRID # test
   indiv %>%
     group_by(Annee = as.numeric(ANNEE),
              Trimestre = as.numeric(TRIM),
