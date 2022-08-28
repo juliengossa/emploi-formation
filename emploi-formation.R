@@ -261,12 +261,12 @@ Apprentis_total4.5 <- function(agemin = 30, agemax = 60) {
     filter(Age > agemin, Age < agemax) %>%
     filter(Annee != 2003) %>%
     group_by(Annee,Activite) %>%
-    summarise(Population = sum(Population)) %>%
+    summarise(Population = sum(Population)/ 1e6) %>%
     na.omit() %>%
     mutate(Activite = factor(Activite,
                              levels=c("Actif occupé","Apprentis", "Etudiant","Chômeur ou inactif"))) %>%
     ggplot(aes(x=Annee,y=Population,fill=Activite,group=Activite)) +
-    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Effectif selon le statut", caption = "Source :Enquête Emploi")
+    geom_area(color="white", alpha=0.6) + labs (x = "Année", y = "Effectif selon le statut (en millions)", caption = "Source :Enquête Emploi")
 }
 
 #Comparaison effectifs des jeunes en formation et actifs occupés
