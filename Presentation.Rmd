@@ -104,6 +104,9 @@ des emplois sont disponibles, les jeunes sortiraient plus tôt du système d'éd
 - Prise en compte de la pondération pour la variable "Population".
 
 
+
+### Base de données harmonisée
+
 ```{r annexe.8, out.width="100%",fig.align='center', fig.asp=9/16}
   #knitr::include_graphics("Images/Annexes/base_emploi.PNG")
 emploi %>%
