@@ -1,16 +1,18 @@
 ---
-title: "Soutenance de stage"
+title: "Stage sur la transition formation/emploi"
 author: "Schumacher Camille"
 date: "13/09/2022"
 output: 
   beamer_presentation:
     theme: "Madrid"
 tables: true
+classoption: "aspectratio=169"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(dev = "cairo_pdf")
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 options(tinytex.verbose = TRUE)
 library(kableExtra)
 
@@ -22,6 +24,9 @@ load("Jeunes_Actifs_Etudiants.RData")
 
 options(tinytex.verbose = TRUE)
 source("emploi-formation.R", encoding = "UTF-8")
+
+theme_set(theme_minimal())
+knitr::opts_chunk$set(out.height = "60%", fig.asp=7/16, fig.align='center', fig.width=6)
 ```
 
 
@@ -43,7 +48,7 @@ source("emploi-formation.R", encoding = "UTF-8")
 
 - Forte constance de l'effectif des jeunes chômeurs et inactifs révélée par l'exploitation exploratoire.
 
-```{r saphire, fig.cap="Activité des jeunes français.es entre 16 et 24 ans, depuis 1968, Source : base SAPHIR", out.width="60%", fig.align='center'}
+```{r saphire, fig.cap="Activité des jeunes français.es entre 16 et 24 ans, depuis 1968, Source : base SAPHIR"}
 load("saphire-2017.RData")
 saphire <- saphire %>%
   mutate(
@@ -94,20 +99,30 @@ des emplois sont disponibles, les jeunes sortiraient plus tôt du système d'éd
 
 - Création d'une table de données harmonisée et optimisée comportant nos variables d'intérêt.
 
-```{r annexe.7, out.width="100%",fig.align='center', fig.asp=9/16}
-  knitr::include_graphics("Images/Annexes/volumetrie.png")
+```{r annexe.7, out.width="100%",fig.align='center'}
+  #knitr::include_graphics("Images/Annexes/volumetrie.png")
+
+tibble(
+  Données = c("Sources", "Groupement"),
+  `Nombre de bases` = c(nrow(volumetrie),1),
+  `Nombre de variables` = c(max(volumetrie$Variables), ncol(emploi)),
+  `Nombre d'observations` = format(c(sum(volumetrie$Observations), nrow(emploi)), big.mark=" ")
+  ) %>%
+  kableExtra::kable(align = c("l","r","r","r"), booktabs = T) %>%
+  kable_styling(latex_options = c("scale_down"))
 ```
+
 
 ## Traitement de données
 
 - Importante réduction du nombre de lignes de notre base finale en synthétisant l'information.
-- Prise en compte de la pondération pour la variable "Population".
+
 
 
 
 ### Base de données harmonisée
 
-```{r annexe.8, out.width="100%",fig.align='center', fig.asp=9/16}
+```{r annexe.8}
   #knitr::include_graphics("Images/Annexes/base_emploi.PNG")
 emploi %>%
   filter(AgeQ == 20) %>%
@@ -125,7 +140,7 @@ emploi %>%
 - La création de cette base harmonisée nous permet de réaliser des graphiques sur une longue période.  
 
 Graphique 1 : Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le statut d’activité
-```{r activite.34, out.width="75%",fig.align='center', fig.asp=9/16}
+```{r activite.34}
   plot_activite7() +
   theme(legend.position = "bottom")
 ```
@@ -135,7 +150,7 @@ Graphique 1 : Les jeunes de 15 à 29 ans en France de 1971 à 2020 selon le stat
 - Les jeunes sont de plus en plus diplômés mais la part des jeunes chômeurs ou inactifs ne diminue pas pour autant. 
 
 Graphique 2 : Répartition des jeunes de 25 à 29 ans selon le niveau de diplôme en France
-```{r dip2, out.width="75%",fig.align='center', fig.asp=9/16}
+```{r dip2}
   plot_activite8(agemin=25, agemax = 29)
 ```
 
@@ -145,16 +160,16 @@ Graphique 2 : Répartition des jeunes de 25 à 29 ans selon le niveau de diplôm
 
 - Résultats très similaires entre notre base et Eurostat
 
-Les jeunes de 15 à 29 ans de 1971 à 2021 en France
-```{r activite.44, out.width="75%",fig.align='center', fig.asp=9/16}
-  plot(plot_jeunes2)
+Les NEET de 15 à 29 ans de 1971 à 2021 en France
+```{r activite.56}
+  plot(plot_NEET4)
 ```
 
 
 ## Réalisation de tableaux croisés
 
 
-```{r activite.64, out.width="100%",fig.align='center', fig.asp=9/16}
+```{r activite.64, out.width="70%", out.height=NULL, fig.align='center', fig.asp=NULL}
   knitr::include_graphics("Images/gtsummary/tabledipl2020.PNG")
 ```
 
@@ -164,7 +179,7 @@ Les jeunes de 15 à 29 ans de 1971 à 2021 en France
 - Femmes associées aux chômeurs/inactifs et aux faibles niveaux de diplôme.
 
 - Hommes associés aux actifs occupés et aux niveaux de diplôme plus élevés.
-```{r activite.74, out.width="100%",fig.align='center', fig.asp=9/16}
+```{r activite.74, out.width="70%", out.height=NULL, fig.align='center', fig.asp=NULL}
   knitr::include_graphics("Images/ACM/ACM_1976_2.PNG")
 ```
 
@@ -175,7 +190,7 @@ Les jeunes de 15 à 29 ans de 1971 à 2021 en France
 
 - Hommes davantage associés à des niveaux de diplôme plus faibles. 
 
-```{r activite.76, out.width="100%",fig.align='center', fig.asp=9/16}
+```{r activite.76,  out.width="70%", out.height=NULL, fig.asp=NULL}
   knitr::include_graphics("Images/ACM/ACM_2020_2.PNG")
 ```
 
@@ -204,4 +219,9 @@ Les jeunes de 15 à 29 ans de 1971 à 2021 en France
 
 # Démonstration de l'application Shiny
 
+## Aperçu de l'application Shiny
+
+```{r shiny.1, out.width="100%",fig.align='center', fig.asp=NULL}
+  knitr::include_graphics("Images/Annexes/Shiny_global2.PNG")
+```
 
